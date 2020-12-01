@@ -10,6 +10,7 @@
     {
         name: string,
         description: string,
+        location: string,
         playingFor: string,
         playerCount: number,
         players: [{}]
