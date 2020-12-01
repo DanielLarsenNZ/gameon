@@ -1,0 +1,19 @@
+POST https://localhost:44318/tournaments
+Content-Type: application/json
+
+{
+    "id": "",
+    "name": "Name1",
+    "description": "Description1",
+    "location": "Location1",
+    "playingFor": "PlayingFor1",
+    "playerCount": 5
+} 
+
+
+###
+
+GET https://localhost:44318/tournaments/abc123
+
+###
+GET https://localhost:44318/tournaments

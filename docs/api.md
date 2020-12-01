@@ -9,12 +9,13 @@
 
     // Tournament model
     {
+        id: id,
         name: string,
         description: string,
         location: string,
         playingFor: string,
         playerCount: number,
-        players: [{}]
+        players: [{player}]
     }
 
 ## Results
@@ -87,6 +88,7 @@
 
     [
         {
+            id: id,
             name: string,
             email: string,
             imageUrl: string,
