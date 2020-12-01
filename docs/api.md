@@ -4,9 +4,10 @@
     POST /tournaments
     GET /tournaments
     GET /tournaments?playerId={player_id}
-    GET /tournaments/{tournament_id}
-    PUT /tournaments/{tournament_id}
+    GET /tournaments/{id}
+    PUT /tournaments/{id}
 
+    // Tournament model
     {
         name: string,
         description: string,
@@ -17,13 +18,13 @@
 
 ## Results
 
-    POST /tournaments/{tournament_id}/results
-    GET /tournaments/{tournament_id}/results
-    GET /tournaments/{tournament_id}/results/{result_id}
-    DELETE /tournaments/{tournament_id}/results
+    POST /tournaments/{id}/results
+    GET /tournaments/{id}/results
+    GET /tournaments/{id}/results/{result_id}
+    DELETE /tournaments/{id}/results
 
 
-    REQUEST
+    // REQUEST model
     {
         player1: id,
         player2: id,
@@ -31,7 +32,7 @@
         comment: string
     }
 
-    RESPONSE
+    // RESPONSE model
     {
         player1: {
             name: string,
@@ -51,13 +52,43 @@
 
     GET /tournaments/{id}/rankings
 
+    // Response Model
+    [
+        {
+            rank: 1,
+            player: {
+                name: string,
+                email: string,
+                imageUrl: string,
+                nickname: string    //TODO
+            },
+            score: 1000
+        },
+        {
+            rank: 2,
+            player: {
+                name: string,
+                email: string,
+                imageUrl: string,
+                nickname: string    //TODO
+            },
+            score: 900
+        },
+        {
+            // etc...
+        }
+    ]
+
 ## Players
 
-[
-    {
-        name: string,
-        email: string,
-        imageUrl: string,
-        nickname: string    //TODO
-    }
-]
+    //TODO: 
+    GET /players/{id}
+
+    [
+        {
+            name: string,
+            email: string,
+            imageUrl: string,
+            nickname: string    //TODO
+        }
+    ]
