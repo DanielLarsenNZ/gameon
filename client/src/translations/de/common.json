@@ -1,6 +1,9 @@
 {
   "landing": {
     "title": "Willkommen",
-    "new_tournament": "Turnier erstellen"
+    "new_tournament": "Turnier erstellen",
+    "filter_all": "Alle",
+    "filter_ongoing": "Laufend",
+    "filter_finished": "Geended"
   }
 }

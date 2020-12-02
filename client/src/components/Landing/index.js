@@ -23,15 +23,15 @@ const Landing = ({ loading }) => {
               </button>
               <div className="btn-group mb-3 mb-sm-0">
                 <button type="button" className="btn btn-primary">
-                  All
+                  {t('landing.filter_all')}
                 </button>
               </div>
               <div className="btn-group ml-1">
                 <button type="button" className="btn btn-white">
-                  Ongoing
+                  {t('landing.filter_ongoing')}
                 </button>
                 <button type="button" className="btn btn-white">
-                  Finished
+                  {t('landing.filter_finished')}
                 </button>
               </div>
               <div className="btn-group ml-2 d-none d-sm-inline-block">

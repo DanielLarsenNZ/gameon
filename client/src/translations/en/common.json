@@ -1,6 +1,9 @@
 {
   "landing": {
     "title": "Welcome",
-    "new_tournament": "New Tournament"
+    "new_tournament": "New Tournament",
+    "filter_all": "All",
+    "filter_ongoing": "Ongoing",
+    "filter_finished": "Finished"
   }
 }
