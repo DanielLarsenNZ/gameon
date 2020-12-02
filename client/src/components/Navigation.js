@@ -1,8 +1,9 @@
 import React from 'react';
-import { Menu, Search, Settings, X } from 'react-feather';
+import { Menu, X } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import logo from '../assets/images/logo.png';
+import LanguageDropdown from './LanguageDropdown';
 
 const Navigation = () => {
   return (
@@ -29,6 +30,10 @@ const Navigation = () => {
               <X className="close-icon" />
             </button>
           </li>
+        </ul>
+
+        <ul className="navbar-nav flex-row ml-auto d-flex list-unstyled topnav-menu float-right mb-0">
+          <LanguageDropdown tag="li" />
         </ul>
       </Container>
     </div>

@@ -1,9 +1,12 @@
 import React from 'react';
 import { ChevronDown, File, Mail, Printer } from 'react-feather';
+import { useTranslation } from 'react-i18next';
 import { Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from 'reactstrap';
 import Loader from '../Loader';
 
 const Landing = ({ loading }) => {
+  const { t } = useTranslation('common');
+
   return (
     <>
       <div className="">
@@ -12,7 +15,7 @@ const Landing = ({ loading }) => {
 
         <Row className="page-title align-items-center">
           <Col sm={4} xl={6}>
-            <h4 className="mb-1 mt-0">Dashboard</h4>
+            <h4 className="mb-1 mt-0">{t('landing.title')}</h4>
           </Col>
           <Col sm={8} xl={6}>
             <form className="form-inline float-sm-right mt-3 mt-sm-0">
@@ -28,7 +31,7 @@ const Landing = ({ loading }) => {
               </div> */}
               <UncontrolledButtonDropdown>
                 <DropdownToggle color="primary" className="dropdown-toggle">
-                  <i className="uil uil-plus mr-1"></i>New Tournament
+                  <i className="uil uil-plus mr-1"></i>{t('landing.new_tournament')}
                   <i className="icon ml-1">
                     <ChevronDown />
                   </i>
