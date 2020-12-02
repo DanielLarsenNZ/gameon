@@ -1,7 +1,6 @@
 import React from 'react';
-import { ChevronDown, File, Mail, Printer } from 'react-feather';
 import { useTranslation } from 'react-i18next';
-import { Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 import Loader from '../Loader';
 
 const Landing = ({ loading }) => {
@@ -10,95 +9,44 @@ const Landing = ({ loading }) => {
   return (
     <>
       <div className="">
-        {/* preloader */}
+        {/* Loader */}
         {loading && <Loader />}
 
-        <Row className="page-title align-items-center">
-          <Col sm={4} xl={6}>
+        <Row className="page-title">
+          <Col md={3} xl={6}>
             <h4 className="mb-1 mt-0">{t('landing.title')}</h4>
           </Col>
-          <Col sm={8} xl={6}>
-            <form className="form-inline float-sm-right mt-3 mt-sm-0">
-              {/* <div className="form-group mb-sm-0 mr-2">
-                <Flatpickr
-                  value={this.state.filterDate}
-                  onChange={(date) => {
-                    this.setState({ filterDate: date });
-                  }}
-                  options={{ mode: 'range' }}
-                  className="form-control"
-                />
-              </div> */}
-              <UncontrolledButtonDropdown>
-                <DropdownToggle color="primary" className="dropdown-toggle">
-                  <i className="uil uil-plus mr-1"></i>{t('landing.new_tournament')}
-                  <i className="icon ml-1">
-                    <ChevronDown />
-                  </i>
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    <Mail className="icon-dual icon-xs mr-2"></Mail>
-                    <span>Create</span>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <Printer className="icon-dual icon-xs mr-2"></Printer>
-                    <span>Print</span>
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    <File className="icon-dual icon-xs mr-2"></File>
-                    <span>Re-Generate</span>
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledButtonDropdown>
-            </form>
+          <Col md={9} xl={6} className="text-md-right">
+            <div className="mt-4 mt-md-0">
+              <button type="button" className="btn btn-danger mr-4 mb-3  mb-sm-0">
+                <i className="uil-plus mr-1"></i> {t('landing.new_tournament')}
+              </button>
+              <div className="btn-group mb-3 mb-sm-0">
+                <button type="button" className="btn btn-primary">
+                  All
+                </button>
+              </div>
+              <div className="btn-group ml-1">
+                <button type="button" className="btn btn-white">
+                  Ongoing
+                </button>
+                <button type="button" className="btn btn-white">
+                  Finished
+                </button>
+              </div>
+              <div className="btn-group ml-2 d-none d-sm-inline-block">
+                <button type="button" className="btn btn-primary btn-sm">
+                  <i className="uil uil-apps"></i>
+                </button>
+              </div>
+              <div className="btn-group d-none d-sm-inline-block ml-1">
+                <button type="button" className="btn btn-white btn-sm">
+                  <i className="uil uil-align-left-justify"></i>
+                </button>
+              </div>
+            </div>
           </Col>
         </Row>
-
-        {/* stats */}
-        {/* <Statistics></Statistics> */}
-
-        {/* charts */}
-        {/* <Row>
-          <Col xl={3}>
-            <OverviewWidget
-              items={[
-                { title: '121,000', description: 'Total Visitors', icon: Users },
-                { title: '21,000', description: 'Product Views', icon: Image },
-                { title: '$21.5', description: 'Revenue Per Visitor', icon: ShoppingBag },
-              ]}></OverviewWidget>
-          </Col>
-
-          <Col xl={6}>
-            <RevenueChart />
-          </Col>
-          <Col xl={3}>
-            <TargetChart />
-          </Col>
-        </Row> */}
-
-        {/* charts */}
-        {/* <Row>
-          <Col xl={5}>
-            <SalesChart />
-          </Col>
-          <Col xl={7}>
-            <Orders />
-          </Col>
-        </Row> */}
-
-        {/* <Row>
-          <Col xl={4}>
-            <Performers />
-          </Col>
-          <Col xl={4}>
-            <Tasks />
-          </Col>
-          <Col xl={4}>
-            <Chat />
-          </Col>
-        </Row> */}
       </div>
     </>
   );
