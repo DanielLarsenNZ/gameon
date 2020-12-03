@@ -1,8 +1,10 @@
-POST https://localhost:44318/tournaments
+### POST Tournament
+
+POST http://localhost:5000/tournaments/abcd1234
 Content-Type: application/json
 
 {
-    "id": "",
+    "id": "t5",
     "name": "Name1",
     "description": "Description1",
     "location": "Location1",
@@ -10,10 +12,18 @@ Content-Type: application/json
     "playerCount": 5
 } 
 
-
 ###
+GET http://localhost:5000/tournaments/abcd1234
 
-GET https://localhost:44318/tournaments/abc123
+### 
 
-###
-GET https://localhost:44318/tournaments
+ GET http://localhost:5000/tournaments/abcd1234/t2
+
+### Save Store
+POST http://localhost:57766/v1.0/state/statestore
+Content-Type: application/json
+
+[{ "key": "key1", "value": "value1"}, { "key": "key2", "value": "value2"}]
+
+### Get Store
+GET http://localhost:57766/v1.0/state/statestore/abcd1234

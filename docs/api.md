@@ -1,14 +1,14 @@
 
 ## Tournaments
 
-    POST /tournaments
-    GET /tournaments
-    GET /tournaments?playerId={player_id}
-    GET /tournaments/{id}
-    PUT /tournaments/{id}
+    POST /tournaments/{tenant_id}
+    GET /tournaments/{tenant_id}
+    GET /tournaments/{tenant_id}?playerId={player_id}
+    GET /tournaments/{tenant_id}/{id}
+    PUT /tournaments/{tenant_id}/{id}
 
-    // Tournament model
-    {
+    // Tournaments model
+    [{
         id: id,
         name: string,
         description: string,
@@ -16,17 +16,17 @@
         playingFor: string,
         playerCount: number,
         players: [{player}]
-    }
+    }]
 
 ## Results
 
-    POST /tournaments/{id}/results
-    GET /tournaments/{id}/results
-    GET /tournaments/{id}/results/{result_id}
-    DELETE /tournaments/{id}/results
+    POST /results/{tournament_id}
+    GET /results/{tournament_id}
+    GET /results/{tournament_id}/results/{result_id}
+    DELETE /results/{tournament_id}/results/{result_id}
 
 
-    // REQUEST model
+    // POST model
     {
         player1: id,
         player2: id,
@@ -34,8 +34,8 @@
         comment: string
     }
 
-    // RESPONSE model
-    {
+    // GET results model
+    [{
         player1: {
             name: string,
             oldRankScore: 400 
@@ -48,11 +48,11 @@
             newRankScore: 380,
             rank: 2
         }
-    }
+    }]
 
 ## Rankings
 
-    GET /tournaments/{id}/rankings
+    GET /rankings/{tournament_id}
 
     // Response Model
     [
@@ -84,7 +84,7 @@
 ## Players
 
     //TODO: 
-    GET /players/{id}
+    GET /players/{tournament_id}
 
     [
         {

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dapr;
+using Dapr.Client;
+using GameOn.Models;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapr;
-using Dapr.Client;
-using GameOn.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace GameOn.Tournaments.Controllers
 {
@@ -13,43 +13,54 @@ namespace GameOn.Tournaments.Controllers
     [ApiController]
     public class TournamentsController : ControllerBase
     {
-        const string StoreName = "GameOn";  //TODO: Config?
+        const string StoreName = "statestore";  //TODO: Config?
 
-        // GET: api/<TournamentsController>
+        // GET all tournaments
         [HttpGet]
-        public ActionResult<IEnumerable<Tournament>> Get([FromState(StoreName)] Tournament[] tournaments)
+        [HttpGet("{tenantId}")]
+        public ActionResult<IEnumerable<Tournament>> Get(
+            [FromState(StoreName, "tenantId")] StateEntry<Tournament[]> entry,
+            string tenantId)
         {
-            if (tournaments is null) return NotFound();
-            return tournaments;
+            if (entry.Value is null) return NotFound($"Tenant Id {tenantId} is not found");
+            return entry.Value;
         }
 
-        // GET api/<TournamentsController>/5
-        [HttpGet("{id}")]
-        public ActionResult<Tournament> Get([FromState(StoreName)] Tournament tournament)
+        // Get tournament
+        [HttpGet("{tenantId}/{tournamentId}")]
+        public ActionResult<Tournament> Get(
+            [FromState(StoreName, "tenantId")] StateEntry<Tournament[]> entry,
+            string tenantId,
+            string tournamentId)
         {
-            if (tournament is null) return NotFound();
+            if (entry.Value is null) return NotFound($"Tenant Id {tenantId} is not found");
+            var tournament = entry.Value.FirstOrDefault(t => t.Id == tournamentId);
+            if (tournament is null) return NotFound($"Tournament Id {tournamentId} is not found");
             return tournament;
         }
 
-        // POST api/<TournamentsController>
-        [HttpPost]
-        public async Task<ActionResult<Tournament>> Post(Tournament tournament, [FromServices] DaprClient dapr)
+        // POST 
+        [HttpPost("{tenantId}")]
+        public async Task<ActionResult<Tournament>> Post(
+            [FromServices] DaprClient dapr,
+            Tournament tournament,
+            string tenantId)
         {
-            var entry = new StateEntry<Tournament>(dapr, StoreName, tournament.Id, tournament, tournament.ETag);
+            var entry = await dapr.GetStateEntryAsync<Tournament[]>(StoreName, tenantId);
+
+            if (entry.Value is null)
+            {
+                entry.Value = new[] { tournament };
+            }
+
+            var tournaments = entry.Value.ToList();
+            if (tournaments.Any(t => t.Id == tournament.Id)) return new ConflictResult();
+
+            tournaments.Add(tournament);
+            entry.Value = tournaments.ToArray();
+
             await entry.SaveAsync();
-            return Ok();
-        }
-
-        // PUT api/<TournamentsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<TournamentsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return new CreatedResult($"{Request.GetEncodedUrl()}/{tournament.Id}", tournament);
         }
     }
 }
