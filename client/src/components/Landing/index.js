@@ -23,7 +23,7 @@ const Landing = ({ loading }) => {
           <Col md={9} xl={6} className="text-md-right">
             <div className="mt-4 mt-md-0">
               <button type="button" className="btn btn-danger mr-4 mb-3 mb-sm-0" onClick={() => toggleNewModal()}>
-                <i className="uil-plus mr-1"></i> {t('landing.new_tournament')}
+                <i className="uil-plus mr-1"></i> {t('tournament.new_tournament')}
               </button>
               <div className="btn-group mb-3 mb-sm-0">
                 <button type="button" className="btn btn-primary">

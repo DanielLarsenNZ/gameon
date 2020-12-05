@@ -1,9 +1,16 @@
 {
   "landing": {
     "title": "Willkommen",
-    "new_tournament": "Turnier erstellen",
     "filter_all": "Alle",
     "filter_ongoing": "Laufend",
     "filter_finished": "Geended"
+  },
+  "tournament": {
+    "new_tournament": "Tunier erstellen",
+    "name": "Tournament Name",
+    "description": "Beschreibung",
+    "reward": "What are you playing for? (leave blank if no reward)",
+    "location": "Where does this tournament primarily take place?",
+    "timing": "When do players typically meet up? (leave blank for any time)"
   }
 }

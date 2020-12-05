@@ -1,23 +1,15 @@
-import { AvField, AvForm, AvInput } from 'availity-reactstrap-validation';
+import { AvField, AvForm } from 'availity-reactstrap-validation';
 import React from 'react';
 import { Step, Steps, Wizard } from 'react-albus';
-import {
-  Button,
-  Col,
-  CustomInput,
-  FormGroup,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Progress,
-  Row,
-} from 'reactstrap';
+import { useTranslation } from 'react-i18next';
+import { Button, Col, CustomInput, Modal, ModalBody, ModalHeader, Progress, Row } from 'reactstrap';
 
 const NewTournamentModal = ({ isOpen, toggle }) => {
+  const { t } = useTranslation('common');
+
   return (
     <Modal isOpen={isOpen} toggle={toggle} size="lg" centered>
-      <ModalHeader toggle={toggle}>New Tournament</ModalHeader>
+      <ModalHeader toggle={toggle}>{t('tournament.new_tournament')}</ModalHeader>
       <ModalBody>
         <Wizard
           render={({ step, steps }) => (
@@ -40,14 +32,14 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                       }}>
                       <AvField
                         name="title"
-                        label="Tournament Name"
+                        label={t('tournament.name')}
                         type="text"
                         placeholder="eg. Table Tennis Championship"
                         required
                       />
                       <AvField
                         name="description"
-                        label="Description"
+                        label={t('tournament.description')}
                         type="textarea"
                         placeholder="Tell everyone what this tournament is about..."
                         rows={5}
@@ -56,7 +48,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                       />
                       <AvField
                         name="playingFor"
-                        label="What are you playing for? (leave blank if no reward)"
+                        label={t('tournament.reward')}
                         type="text"
                         placeholder="eg. Chocolates"
                       />
@@ -80,14 +72,14 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                       }}>
                       <AvField
                         name="location"
-                        label="Where does this tournament primarily take place?"
+                        label={t('tournament.location')}
                         placeholder="eg. The Lunch Room"
                         type="text"
                         required
                       />
                       <AvField
                         name="timing"
-                        label="When do players typically meet up? (leave blank for any time)"
+                        label={t('tournament.timing')}
                         type="text"
                         placeholder="eg. Mondays 9-10am"
                       />

@@ -1,9 +1,16 @@
 {
   "landing": {
     "title": "Welcome",
-    "new_tournament": "New Tournament",
     "filter_all": "All",
     "filter_ongoing": "Ongoing",
     "filter_finished": "Finished"
+  },
+  "tournament": {
+    "new_tournament": "New Tournament",
+    "name": "Tournament Name",
+    "description": "Description",
+    "reward": "What are you playing for? (leave blank if no reward)",
+    "location": "Where does this tournament primarily take place?",
+    "timing": "When do players typically meet up? (leave blank for any time)"
   }
 }
