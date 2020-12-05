@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Row } from 'reactstrap';
 import Loader from '../Loader';
+import NewTournamentModal from './NewTournamentModal';
+import TournamentCard from './TournamentCard';
 
 const Landing = ({ loading }) => {
   const { t } = useTranslation('common');
+  const [isNewModalOpen, setIsNewModalOpen] = useState(false);
+  const toggleNewModal = () => setIsNewModalOpen(!isNewModalOpen);
 
   return (
     <>
@@ -18,7 +22,7 @@ const Landing = ({ loading }) => {
           </Col>
           <Col md={9} xl={6} className="text-md-right">
             <div className="mt-4 mt-md-0">
-              <button type="button" className="btn btn-danger mr-4 mb-3  mb-sm-0">
+              <button type="button" className="btn btn-danger mr-4 mb-3 mb-sm-0" onClick={() => toggleNewModal()}>
                 <i className="uil-plus mr-1"></i> {t('landing.new_tournament')}
               </button>
               <div className="btn-group mb-3 mb-sm-0">
@@ -47,6 +51,14 @@ const Landing = ({ loading }) => {
             </div>
           </Col>
         </Row>
+
+        <Row>
+          <Col lg={6} xl={4} key={'proj-1'}>
+            <TournamentCard project={{}} />
+          </Col>
+        </Row>
+
+        <NewTournamentModal isOpen={isNewModalOpen} toggle={toggleNewModal} />
       </div>
     </>
   );
