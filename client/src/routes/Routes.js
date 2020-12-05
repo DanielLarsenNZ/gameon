@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Landing from '../components/Landing';
+import Error404 from './Error404';
 
 const loading = () => <div></div>;
 
@@ -35,17 +36,19 @@ class Routes extends Component {
       <BrowserRouter>
         <Layout {...this.props}>
           <Switch>
-            <Route path="/" component={Landing} />
+            <Route exact path="/" component={Landing} />
+
             {/* {routes.map((route, index) => {
               return !route.children ? (
                 <route.route
-                  key={index}
-                  path={route.path}
-                  roles={route.roles}
-                  exact={route.exact}
-                  component={route.component}></route.route>
-              ) : null;
-            })} */}
+                key={index}
+                path={route.path}
+                roles={route.roles}
+                exact={route.exact}
+                component={route.component}></route.route>
+                ) : null;
+              })} */}
+            <Route component={Error404} />
           </Switch>
         </Layout>
       </BrowserRouter>
