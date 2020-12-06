@@ -13,12 +13,12 @@ const Languages = [
     flag: enFlag,
   },
   {
-    name: 'German',
+    name: 'Deutsch',
     code: 'de',
     flag: deFlag,
   },
   {
-    name: 'Maori',
+    name: 'Māori',
     code: 'mi',
     flag: enFlag,
   },

@@ -78,9 +78,12 @@ const TournamentCard = () => {
             </ul>
           </Col>
           <Col className="ml-auto">
-            <ul className="list-inline mb-0">
+            <ul className="list-inline mb-0 text-right">
               <li className="list-inline-item pr-2">
-                <Button className="text-muted d-inline-block btn btn-secondary" id={`join-${tournament.id}`}>
+                <Button
+                  color="primary"
+                  className="d-inline-block"
+                  id={`join-${tournament.id}`}>
                   Join Tournament
                 </Button>
                 <UncontrolledTooltip placement="top" target={`join-${tournament.id}`}>
