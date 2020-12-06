@@ -1,11 +1,19 @@
 import { AvField, AvForm } from 'availity-reactstrap-validation';
-import React from 'react';
+import React, { useState } from 'react';
 import { Step, Steps, Wizard } from 'react-albus';
 import { useTranslation } from 'react-i18next';
 import { Button, Col, CustomInput, Modal, ModalBody, ModalHeader, Progress, Row } from 'reactstrap';
 
 const NewTournamentModal = ({ isOpen, toggle }) => {
   const { t } = useTranslation('common');
+
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [reward, setReward] = useState('');
+  const [location, setLocation] = useState('');
+  const [timing, setTiming] = useState('');
+
+  const createTournament = () => alert(JSON.stringify({ name, description, reward, location, timing }));
 
   return (
     <Modal isOpen={isOpen} toggle={toggle} size="lg" centered>
@@ -35,6 +43,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                         label={t('tournament.name')}
                         type="text"
                         placeholder="eg. Table Tennis Championship"
+                        onChange={(e) => setName(e.target.value)}
                         required
                       />
                       <AvField
@@ -42,6 +51,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                         label={t('tournament.description')}
                         type="textarea"
                         placeholder="Tell everyone what this tournament is about..."
+                        onChange={(e) => setDescription(e.target.value)}
                         rows={5}
                         maxLength={250}
                         required
@@ -51,6 +61,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                         label={t('tournament.reward')}
                         type="text"
                         placeholder="eg. Chocolates"
+                        onChange={(e) => setReward(e.target.value)}
                       />
 
                       <ul className="list-inline wizard mb-0">
@@ -74,6 +85,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                         name="location"
                         label={t('tournament.location')}
                         placeholder="eg. The Lunch Room"
+                        onChange={(e) => setLocation(e.target.value)}
                         type="text"
                         required
                       />
@@ -82,6 +94,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                         label={t('tournament.timing')}
                         type="text"
                         placeholder="eg. Mondays 9-10am"
+                        onChange={(e) => setTiming(e.target.value)}
                       />
 
                       <ul className="list-inline wizard mb-0">
@@ -137,7 +150,9 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                           </li>
 
                           <li className="next list-inline-item float-right">
-                            <Button color="success">Create</Button>
+                            <Button color="success" onClick={() => createTournament()}>
+                              Create
+                            </Button>
                           </li>
                         </ul>
                       </Col>
