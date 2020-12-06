@@ -3,6 +3,7 @@
 
     POST /tournaments/{tenant_id}
     GET /tournaments/{tenant_id}
+    GET /tournaments/{tenant_id}?skip=0&limit=20
     GET /tournaments/{tenant_id}?playerId={player_id}
     GET /tournaments/{tenant_id}/{id}
     PUT /tournaments/{tenant_id}/{id}
@@ -12,6 +13,7 @@
         id: id,
         name: string,
         description: string,
+        ownerId: string,
         location: string,
         playingFor: string,
         playerCount: number,
@@ -95,3 +97,16 @@
             nickname: string    //TODO
         }
     ]
+
+## Me
+    
+    GET /me
+
+    {
+        id: id,
+        name: string,
+        email: string,
+        imageUrl: string,
+        nickname: string
+    }
+
