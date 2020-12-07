@@ -4,7 +4,7 @@ POST http://localhost:5000/tournaments/abcd1234
 Content-Type: application/json
 
 {
-    "id": "t5",
+    "id": "t55",
     "name": "Name1",
     "description": "Description1",
     "location": "Location1",

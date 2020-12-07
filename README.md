@@ -20,3 +20,7 @@ A simple Ladder app for intra-office tournaments like Table Tennis, Chess, Pool 
 [Dapr ASP.NET Core Controller Sample](https://github.com/dapr/dotnet-sdk/tree/master/samples/AspNetCore/ControllerSample)
 
 [Dapr Hellow K8s sample](https://github.com/dapr/quickstarts/tree/master/hello-kubernetes)
+
+[Detailed information on the Azure CosmosDB state store component](https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-cosmosdb/)
+
+[How to configure Azure Key Vault and Kubernetes to use Azure Managed Identities to access secrets](https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault-managed-identity/)

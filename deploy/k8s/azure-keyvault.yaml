@@ -1,0 +1,12 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: azurekeyvault
+  namespace: default
+spec:
+  type: secretstores.azure.keyvault
+  metadata:
+  - name: vaultName
+    value: gameon-aue-kv
+  - name: spnClientId
+    value: <your_managed_identity_client_id>
