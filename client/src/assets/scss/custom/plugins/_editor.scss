@@ -1,0 +1,49 @@
+//
+// editor.scss
+//
+
+/* rich text editor */
+.rich-editor-wrapper {
+  border: 1px solid $border-color;
+  border-radius: 0.25rem;
+  min-height: 220px;
+
+  .rich-editor {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $body-color;
+  }
+
+  .rdw-dropdown-wrapper {
+    box-shadow: none;
+    border: 1px solid $border-color;
+    border-radius: 0.25rem;
+  }
+}
+
+.hide-toolbar {
+  display: none !important;
+}
+
+@include media-breakpoint-down(sm) {
+  .rich-editor-wrapper {
+    min-height: 300px;
+  }
+}
+
+.rdw-editor-toolbar {
+  background: transparent !important;
+  color: $body-color;
+  border: 1px solid $border-color !important;
+
+  .rdw-option-wrapper {
+    background: transparent !important;
+    border: 1px solid $border-color !important;
+
+    &:hover {
+      box-shadow: none !important;
+    }
+  }
+}

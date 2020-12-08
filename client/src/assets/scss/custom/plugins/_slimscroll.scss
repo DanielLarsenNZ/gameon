@@ -1,0 +1,27 @@
+//
+// slimscroll.scss
+//
+
+.slimScrollDiv {
+    height: auto !important;
+}
+
+.ps .ps__rail-y {
+    background: transparent !important;
+
+    &:hover {
+        background: transparent !important;
+    }
+}
+
+.ps__thumb-y {
+    width: 4px !important;
+    background: #eff1f5;
+}
+
+.ps__rail-y:hover>.ps__thumb-y,
+.ps__rail-y:focus>.ps__thumb-y,
+.ps__rail-y.ps--clicking .ps__thumb-y {
+    width: 4px !important;
+    background: #eff1f5;
+}
