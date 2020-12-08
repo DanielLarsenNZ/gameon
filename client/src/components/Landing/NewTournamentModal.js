@@ -12,6 +12,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
   const [reward, setReward] = useState('');
   const [location, setLocation] = useState('');
   const [timing, setTiming] = useState('');
+  const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(false);
 
   const createTournament = () => alert(JSON.stringify({ name, description, reward, location, timing }));
 
@@ -123,12 +124,12 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                           </h2>
                           <h3 className="mt-0">Almost done!</h3>
 
-                          <p className="w-75 mb-2 mx-auto">
-                            You will become the owner of this tournament and are solely responsible for the correctness
-                            of its details.
+                          <p className="w-50 mb-2 mx-auto">
+                            By creating this tournament, you will become its owner and solely responsible for keeping
+                            its details up-to-date.
                           </p>
-                          <p className="w-75 mb-2 mx-auto">
-                            You may edit any details or archive this competition at a later time.
+                          <p className="w-50 mb-2 mx-auto">
+                            As owner, you can edit, archive, or transfer this tournament.
                           </p>
 
                           <div className="mb-3">
@@ -136,6 +137,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                               type="checkbox"
                               id="understandCheckbox"
                               label="I understand my responsibilities"
+                              onChange={(e) => setIsDisclaimerChecked(e.target.checked)}
                             />
                           </div>
                         </div>
@@ -150,7 +152,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                           </li>
 
                           <li className="next list-inline-item float-right">
-                            <Button color="success" onClick={() => createTournament()}>
+                            <Button color="success" disabled={!isDisclaimerChecked} onClick={() => createTournament()}>
                               Create
                             </Button>
                           </li>
