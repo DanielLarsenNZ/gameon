@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { Globe } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Dropdown, DropdownMenu, DropdownToggle, UncontrolledTooltip } from 'reactstrap';
-import deFlag from './flags/germany.jpg';
-import enFlag from './flags/us.jpg';
+import deFlag from './flags/deFlag.png';
+import enFlag from './flags/gbFlag.png';
+import miFlag from './flags/miFlag.png';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * Currently supported languages.
+ * @see Icons: https://www.iconarchive.com/show/flags-icons-by-wikipedia.1.html
+ */
 const Languages = [
   {
     name: 'English',
@@ -20,7 +25,7 @@ const Languages = [
   {
     name: 'Māori',
     code: 'mi',
-    flag: enFlag,
+    flag: miFlag,
   },
 ];
 
@@ -52,7 +57,7 @@ const LanguageDropdown = ({ tag = 'div' }) => {
                   className="dropdown-item notify-item"
                   key={i + '-lang'}
                   onClick={() => i18n.changeLanguage(lang.code)}>
-                  <img src={lang.flag} alt={lang.name} className="mr-1" height="12" />{' '}
+                  <img src={lang.flag} alt={lang.name} className="mr-1" height="20" />{' '}
                   <span className="align-middle">{lang.name}</span>
                 </Link>
               );
