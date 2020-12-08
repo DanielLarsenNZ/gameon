@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Row } from 'reactstrap';
+import tournaments from '../../helpers/sampleData';
 import Loader from '../Loader';
 import NewTournamentModal from './NewTournamentModal';
 import TournamentCard from './TournamentCard';
@@ -53,9 +54,21 @@ const Landing = ({ loading }) => {
         </Row>
 
         <Row>
-          <Col lg={6} xl={4} key={'proj-1'}>
-            <TournamentCard project={{}} />
-          </Col>
+          {tournaments.map((t) => (
+            <Col lg={6} xl={4} key={t.id}>
+              <TournamentCard
+                id={t.id}
+                title={t.title}
+                description={t.description}
+                location={t.location}
+                timing={t.timing}
+                endDate={t.endDate}
+                isOpenToJoin={t.isOpenToJoin}
+                members={t.members}
+                owner={t.owner}
+              />
+            </Col>
+          ))}
         </Row>
 
         <NewTournamentModal isOpen={isNewModalOpen} toggle={toggleNewModal} />
