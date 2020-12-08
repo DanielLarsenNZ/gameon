@@ -55,7 +55,7 @@ const Landing = ({ loading }) => {
 
         <Row>
           {tournaments.map((t) => (
-            <Col lg={6} xl={4} key={t.id}>
+            <Col key={t.id} lg={6} xl={4}>
               <TournamentCard
                 id={t.id}
                 title={t.title}

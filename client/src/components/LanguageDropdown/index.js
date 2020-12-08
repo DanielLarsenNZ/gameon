@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Globe } from 'react-feather';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Dropdown, DropdownMenu, DropdownToggle, UncontrolledTooltip } from 'reactstrap';
 import deFlag from './flags/deFlag.png';
 import enFlag from './flags/gbFlag.png';
 import miFlag from './flags/miFlag.png';
-import { useTranslation } from 'react-i18next';
 
 /**
  * Currently supported languages.
@@ -23,7 +22,7 @@ const Languages = [
     flag: deFlag,
   },
   {
-    name: 'Māori',
+    name: 'Te Reo Māori',
     code: 'mi',
     flag: miFlag,
   },
@@ -31,7 +30,7 @@ const Languages = [
 
 const LanguageDropdown = ({ tag = 'div' }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   return (
     <React.Fragment>
@@ -53,13 +52,13 @@ const LanguageDropdown = ({ tag = 'div' }) => {
           <div onClick={() => setIsOpen(!isOpen)}>
             {Languages.map((lang, i) => {
               return (
-                <Link
+                <button
                   className="dropdown-item notify-item"
                   key={i + '-lang'}
                   onClick={() => i18n.changeLanguage(lang.code)}>
                   <img src={lang.flag} alt={lang.name} className="mr-1" height="20" />{' '}
                   <span className="align-middle">{lang.name}</span>
-                </Link>
+                </button>
               );
             })}
           </div>
