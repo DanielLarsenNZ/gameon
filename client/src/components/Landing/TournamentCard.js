@@ -1,8 +1,11 @@
 import classNames from 'classnames';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
 
 const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, location, timing, members = [], owner }) => {
+  const { t } = useTranslation('common');
+
   return (
     <Card>
       <CardBody>
@@ -11,7 +14,7 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
             'badge-success': endDate === true,
             'badge-warning': endDate === false,
           })}>
-          {endDate ? 'Ongoing' : 'Finished'}
+          {endDate ? t('tournament.ongoing') : t('tournament.finished')}
         </div>
         <p
           className={classNames('text-uppercase', 'font-size-12', 'mb-2', {
@@ -32,7 +35,7 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
         <div>
           {/* NOTE: Tournament owner is the only member */}
           {members.length === 1 ? (
-            <p>Be the first to join!</p>
+            <p>{t('tournament.be_first_to_join')}</p>
           ) : (
             <>
               {/* Show 7 members max */}
@@ -63,7 +66,7 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
                     <i className="uil uil-calender mr-1"></i> {timing}
                   </a>
                   <UncontrolledTooltip placement="top" target={`timing-${id}`}>
-                    You can play at any time. No recurring meetups are scheduled.
+                    {t('tournament.play_anytime')}
                   </UncontrolledTooltip>
                 </li>
               </ul>
@@ -75,19 +78,19 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
                 {isOpenToJoin ? (
                   <>
                     <Button color="primary" className="d-inline-block" id={`join-${id}`} disabled={!id}>
-                      Join Tournament
+                      {t('tournament.join_tournament')}
                     </Button>
                     <UncontrolledTooltip placement="top" target={`join-${id}`}>
-                      Immediately join this tournament.
+                      {t('tournament.join_tooltip')}
                     </UncontrolledTooltip>
                   </>
                 ) : (
                   <>
                     <Button color="light" className="d-inline-block" id={`contact-${id}`} disabled={!id}>
-                      Registrations Closed
+                      {t('tournament.registrations_closed')}
                     </Button>
                     <UncontrolledTooltip placement="top" target={`contact-${id}`}>
-                      Contact the tournament owner.
+                      {t('tournament.registrations_closed_tooltip')}
                     </UncontrolledTooltip>
                   </>
                 )}
