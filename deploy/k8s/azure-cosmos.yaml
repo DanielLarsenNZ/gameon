@@ -1,0 +1,19 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: statestore
+spec:
+  type: state.azure.cosmosdb
+  metadata:
+  - name: url
+    value: https://gameon-cosmos.documents.azure.com:443
+  - name: masterKey
+    secretKeyRef:
+    	name: cosmos-secret
+        key:  cosmos-key
+  - name: database
+    value: gameon
+  - name: collection
+    value: tournaments
+auth:
+  secretStore: kubernetes

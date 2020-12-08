@@ -1,29 +1,34 @@
 
 ## Tournaments
 
-    POST /tournaments
-    GET /tournaments
-    GET /tournaments?playerId={player_id}
-    GET /tournaments/{tournament_id}
-    PUT /tournaments/{tournament_id}
+    POST /tournaments/{tenant_id}
+    GET /tournaments/{tenant_id}
+    GET /tournaments/{tenant_id}?skip=0&limit=20
+    GET /tournaments/{tenant_id}?playerId={player_id}
+    GET /tournaments/{tenant_id}/{id}
+    PUT /tournaments/{tenant_id}/{id}
 
-    {
+    // Tournaments model
+    [{
+        id: id,
         name: string,
         description: string,
+        ownerId: string,
+        location: string,
         playingFor: string,
         playerCount: number,
-        players: [{}]
-    }
+        players: [{player}]
+    }]
 
 ## Results
 
-    POST /tournaments/{tournament_id}/results
-    GET /tournaments/{tournament_id}/results
-    GET /tournaments/{tournament_id}/results/{result_id}
-    DELETE /tournaments/{tournament_id}/results
+    POST /results/{tournament_id}
+    GET /results/{tournament_id}
+    GET /results/{tournament_id}/results/{result_id}
+    DELETE /results/{tournament_id}/results/{result_id}
 
 
-    REQUEST
+    // POST model
     {
         player1: id,
         player2: id,
@@ -31,8 +36,8 @@
         comment: string
     }
 
-    RESPONSE
-    {
+    // GET results model
+    [{
         player1: {
             name: string,
             oldRankScore: 400 
@@ -45,19 +50,63 @@
             newRankScore: 380,
             rank: 2
         }
-    }
+    }]
 
 ## Rankings
 
-    GET /tournaments/{id}/rankings
+    GET /rankings/{tournament_id}
+
+    // Response Model
+    [
+        {
+            rank: 1,
+            player: {
+                name: string,
+                email: string,
+                imageUrl: string,
+                nickname: string    //TODO
+            },
+            score: 1000
+        },
+        {
+            rank: 2,
+            player: {
+                name: string,
+                email: string,
+                imageUrl: string,
+                nickname: string    //TODO
+            },
+            score: 900
+        },
+        {
+            // etc...
+        }
+    ]
 
 ## Players
 
-[
+    //TODO: 
+    GET /players/{tournament_id}
+
+    [
+        {
+            id: id,
+            name: string,
+            email: string,
+            imageUrl: string,
+            nickname: string    //TODO
+        }
+    ]
+
+## Me
+    
+    GET /me
+
     {
+        id: id,
         name: string,
         email: string,
         imageUrl: string,
-        nickname: string    //TODO
+        nickname: string
     }
-]
+

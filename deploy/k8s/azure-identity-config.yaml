@@ -1,0 +1,16 @@
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentity
+metadata:
+  name: [you managed identity name]
+spec:
+  type: 0
+  ResourceID: [you managed identity id]
+  ClientID: [you managed identity Client ID]
+---
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentityBinding
+metadata:
+  name: [you managed identity name]-identity-binding
+spec:
+  AzureIdentity: [you managed identity name]
+  Selector: [you managed identity selector]
