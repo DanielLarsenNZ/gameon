@@ -1,10 +1,9 @@
-### POST Tournament
-
-POST http://localhost:5000/tournaments/abcd1234
+### POST Tournaments PROD
+POST http://20.193.18.98/tournaments/abcd1234
 Content-Type: application/json
 
 {
-    "id": "t55",
+    "id": "abc1046",
     "name": "Name1",
     "description": "Description1",
     "location": "Location1",
@@ -12,8 +11,16 @@ Content-Type: application/json
     "playerCount": 5
 } 
 
+### GET Tournaments PROD
+GET http://20.193.18.98/tournaments/abcd1234
+
+
 ###
 GET http://localhost:5000/tournaments/abcd1234
+
+###
+GET http://localhost:3000/tournaments/abcd1234
+
 
 ### 
 

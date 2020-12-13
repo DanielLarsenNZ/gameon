@@ -39,7 +39,7 @@ namespace GameOn.Tournaments
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

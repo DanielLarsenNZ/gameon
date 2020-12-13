@@ -7,6 +7,6 @@ spec:
   type: secretstores.azure.keyvault
   metadata:
   - name: vaultName
-    value: gameon-aue-kv
+    value: $(KeyVaultName)
   - name: spnClientId
-    value: <your_managed_identity_client_id>
+    value: $(IdentityClientId)

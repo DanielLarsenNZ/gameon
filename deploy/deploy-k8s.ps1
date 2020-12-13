@@ -1,2 +1,5 @@
-kubectl apply -f ./dapr/azure-identity-config.yaml
-kubectl apply -f ./dapr/azure-keyvault.yaml
+# https://github.com/dapr/quickstarts/tree/master/hello-kubernetes
+
+dapr init --kubernetes
+
+kubectl apply -f ./k8s/tournaments.yaml
