@@ -1,6 +1,14 @@
 # Deployment
 
-Local environment:
+## Pre-requisites
+
+Windows
+
+    # run as Admin
+    choco install kubernetes-helm
+    
+
+## Local environment
 
     dapr run --app-id gameon dotnet run
 

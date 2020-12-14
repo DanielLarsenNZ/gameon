@@ -10,3 +10,4 @@ $cosmosDbThroughput = 400
 $cosmosDbContainer = 'tournaments'
 $pk = '/partitionKey'
 $acr = "gameon$loc"
+$domainName = 'gameon.nz'
