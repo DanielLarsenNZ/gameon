@@ -1,0 +1,24 @@
+{
+  "landing": {
+    "title": "Willkommen",
+    "filter_all": "Alle",
+    "filter_ongoing": "Laufend",
+    "filter_finished": "Geended"
+  },
+  "tournament": {
+    "new_tournament": "Tunier erstellen",
+    "name": "Tournament Name",
+    "description": "Beschreibung",
+    "reward": "What are you playing for? (leave blank if no reward)",
+    "location": "Where does this tournament primarily take place?",
+    "timing": "When do players typically meet up? (leave blank for any time)",
+    "ongoing": "Laufend",
+    "finished": "Geended",
+    "be_first_to_join": "Als erster beitreten",
+    "play_anytime": "Du kannst jederzeit spielen. Es sind keine wiederkehrenden Meetups geplant.",
+    "join_tournament": "Teilnehmen",
+    "join_tooltip": "Immediately join this tournament.",
+    "registrations_closed": "Registrierungen geschlossen",
+    "registrations_closed_tooltip": "Kontaktiere den Turnierbesitzer."
+  }
+}

@@ -1,4 +1,4 @@
-# Game On!
+![Game On! Logo](https://i.imgur.com/Nw251pk.png)
 
 A simple Ladder app for intra-office tournaments like Table Tennis, Chess, Pool and so on.
 
