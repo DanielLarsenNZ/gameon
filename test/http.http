@@ -1,9 +1,9 @@
 ### POST Tournaments PROD
-POST http://20.193.18.98/tournaments/abcd1234
+POST http://20.193.18.98/tournaments/pabcd1234
 Content-Type: application/json
 
 {
-    "id": "abc1046",
+    "id": "abc1838",
     "name": "Name1",
     "description": "Description1",
     "location": "Location1",
@@ -12,19 +12,27 @@ Content-Type: application/json
 } 
 
 ### GET Tournaments PROD
-GET http://20.193.18.98/tournaments/abcd1234
+GET http://20.193.18.98/tournaments/pabcd1234
 
+### POST Tournaments LOCAL
+POST http://localhost:5000/tournaments/abcd1234
+Content-Type: application/json
 
-###
+{
+    "id": "abc1830",
+    "name": "Name1",
+    "description": "Description1",
+    "location": "Location1",
+    "playingFor": "PlayingFor1",
+    "playerCount": 5
+} 
+
+### GET Tournaments LOCAL
 GET http://localhost:5000/tournaments/abcd1234
 
-###
-GET http://localhost:3000/tournaments/abcd1234
 
-
-### 
-
- GET http://localhost:5000/tournaments/abcd1234/t2
+### GET Tournament LOCAL
+ GET http://localhost:5000/tournaments/abcd1234/abc1046
 
 ### Save Store
 POST http://localhost:57766/v1.0/state/statestore

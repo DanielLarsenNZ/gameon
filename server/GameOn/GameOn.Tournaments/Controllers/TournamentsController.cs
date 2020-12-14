@@ -3,8 +3,11 @@ using Dapr.Client;
 using GameOn.Models;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GameOn.Tournaments.Controllers
@@ -14,6 +17,9 @@ namespace GameOn.Tournaments.Controllers
     public class TournamentsController : ControllerBase
     {
         const string StoreName = "statestore";  //TODO: Config?
+        private readonly ILogger<Tournament> _log; 
+
+        public TournamentsController(ILogger<Tournament> log) => _log = log;
 
         // GET all tournaments
         [HttpGet]
@@ -47,14 +53,13 @@ namespace GameOn.Tournaments.Controllers
             string tenantId)
         {
             var entry = await dapr.GetStateEntryAsync<Tournament[]>(StoreName, tenantId);
+            var tournaments = entry.Value is null ? new List<Tournament>() : new List<Tournament>(entry.Value);
 
-            if (entry.Value is null)
+            if (tournaments.Any(t => t.Id == tournament.Id))
             {
-                entry.Value = new[] { tournament };
+                _log.LogInformation($"Post: Tournament Id \"{tournament.Id}\" already exists in Tenant Id \"{tenantId}\".");
+                return new ConflictResult();
             }
-
-            var tournaments = entry.Value.ToList();
-            if (tournaments.Any(t => t.Id == tournament.Id)) return new ConflictResult();
 
             tournaments.Add(tournament);
             entry.Value = tournaments.ToArray();

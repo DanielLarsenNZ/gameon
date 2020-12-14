@@ -1,12 +1,16 @@
 # Deployment
 
+Local environment:
+
+    dapr run --app-id gameon dotnet run
+
 ## K8s cheatsheet
 
     # Get list of pods
     kubectl get pods
 
-    # Read log of a specific pod and container
-    kubectl logs tournaments-69f68d6d99-gxjdc gameontournaments
+    # Get metrics for the app and container
+    kubectl logs --selector=app=tournaments -c gameontournaments
 
     # Restart pods (deployment)
-    kubectl -n service rollout restart deployment tournaments
+    kubectl rollout restart deployment tournaments
