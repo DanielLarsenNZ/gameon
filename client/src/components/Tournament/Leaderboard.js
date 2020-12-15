@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardBody, DropdownItem, DropdownMenu, DropdownToggle, Media, UncontrolledDropdown } from 'reactstrap';
 
 const Player = ({ name, imageUrl, rank, points }) => {
@@ -52,10 +53,12 @@ const Player = ({ name, imageUrl, rank, points }) => {
 };
 
 const Leaderboard = () => {
+  const { t } = useTranslation('common');
+
   return (
     <Card>
       <CardBody className="pt-2">
-        <h6 className="header-title mb-4">Leaderboard</h6>
+        <h6 className="header-title mb-4">{t('tournament.leaderboard')}</h6>
 
         <Player imageUrl="https://randomuser.me/api/portraits/men/34.jpg" name="Thomas Tester" rank={1} points={3400} />
         <Player

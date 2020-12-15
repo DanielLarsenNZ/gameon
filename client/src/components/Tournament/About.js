@@ -1,11 +1,14 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardBody } from 'reactstrap';
 
 const About = () => {
+  const { t } = useTranslation('common');
+
   return (
     <Card>
       <CardBody>
-        <h6 className="mt-0 header-title">About this Tournament</h6>
+        <h6 className="mt-0 header-title">{t('tournament.about_this_tournament')}</h6>
 
         <div className="text-muted mt-3">
           <p>
@@ -15,7 +18,7 @@ const About = () => {
             series, any player is welcome at any point in the competition.
           </p>
 
-          <h6 className="mt-0 header-subtitle">Rules</h6>
+          <h6 className="mt-0 header-subtitle">{t('tournament.rules')}</h6>
           <ul className="pl-4 mb-4">
             <li>
               We need distributors to evangelize the new line to local markets that's not on the roadmap optimize for
