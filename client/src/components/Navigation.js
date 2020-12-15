@@ -1,9 +1,24 @@
 import React from 'react';
-import { Menu, X } from 'react-feather';
+import { LogOut, Menu, User, X } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import logo from '../assets/images/logo.png';
 import LanguageDropdown from './LanguageDropdown';
+import ProfileDropdown from './ProfileDropdown';
+
+const ProfileMenus = [
+  {
+    label: 'My Tournaments',
+    icon: User,
+    redirectTo: '/',
+  },
+  {
+    label: 'Logout',
+    icon: LogOut,
+    redirectTo: '/account/logout',
+    hasDivider: true,
+  },
+];
 
 const Navigation = () => {
   return (
@@ -34,6 +49,12 @@ const Navigation = () => {
 
         <ul className="navbar-nav flex-row ml-auto d-flex list-unstyled topnav-menu float-right mb-0">
           <LanguageDropdown tag="li" />
+          <ProfileDropdown
+            profilePic="https://randomuser.me/api/portraits/men/31.jpg"
+            menuItems={ProfileMenus}
+            username={'Thomas Tester'}
+            tag={null}
+          />
         </ul>
       </Container>
     </div>
