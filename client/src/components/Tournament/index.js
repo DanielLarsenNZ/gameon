@@ -17,11 +17,11 @@ const Tournament = () => {
         <Col sm={4} xl={6} className="text-md-right">
           {isPlayer ? (
             <>
-              {/* <div className="btn-group ml-2 d-none d-sm-inline-block">
+              <div className="btn-group ml-2 d-none d-sm-inline-block">
                 <button type="button" className="btn btn-primary btn-sm">
-                  <i className="uil uil-edit mr-1"></i>Edit
+                  <i className="uil uil-edit mr-1"></i>Edit Tournament
                 </button>
-              </div> */}
+              </div>
               <div className="btn-group ml-1 d-none d-sm-inline-block">
                 <button type="button" className="btn btn-danger btn-sm">
                   <i className="uil uil-exit mr-1"></i>Quit Tournament

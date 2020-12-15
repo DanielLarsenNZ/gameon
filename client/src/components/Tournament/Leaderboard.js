@@ -39,11 +39,11 @@ const Player = ({ name, imageUrl, rank, points }) => {
         </DropdownToggle>
         <DropdownMenu right>
           <DropdownItem>
-            <i className="uil uil-exit mr-2"></i>Challenge this Player
+            <i className="uil uil-grin mr-2"></i>Challenge Player
           </DropdownItem>
           <DropdownItem divider />
           <DropdownItem className="text-danger">
-            <i className="uil uil-exit mr-2"></i>Remove from Tournament
+            <i className="uil uil-exit mr-2"></i>Remove Player
           </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
