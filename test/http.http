@@ -1,7 +1,3 @@
-### GET Tournaments PROD
-GET https://api.gameon.nz/tournaments/tenant1
-
-
 ### POST Tournament PROD
 POST https://api.gameon.nz/tournaments/tenant1
 Content-Type: application/json
@@ -10,9 +6,14 @@ Content-Type: application/json
     "name": "Name1",
     "description": "Description1",
     "location": "Location1",
-    "playingFor": "PlayingFor1",
+    "playingFor": "PlayingFor1"
 } 
 
+### GET Tournament PROD
+GET http://api.gameon.nz/tournaments/tenant1/849468128dd84962a2d4dd3b637367d7
+
+### GET Tournaments PROD
+GET https://api.gameon.nz/tournaments/tenant1
 
 ### POST Tournaments LOCAL DEV
 POST http://localhost:5000/tournaments/abcd1234
