@@ -17,12 +17,12 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
   const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(initState.isDisclaimerChecked);
 
   const clearForm = () => {
-    setName('');
-    setDescription('');
-    setReward('');
-    setLocation('');
-    setTiming('');
-    setIsDisclaimerChecked(false);
+    setName(initState.name);
+    setDescription(initState.description);
+    setReward(initState.reward);
+    setLocation(initState.location);
+    setTiming(initState.timing);
+    setIsDisclaimerChecked(initState.isDisclaimerChecked);
   };
 
   const createTournament = () => {
