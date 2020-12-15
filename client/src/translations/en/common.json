@@ -16,9 +16,18 @@
     "finished": "Finished",
     "be_first_to_join": "Be the first to join!",
     "play_anytime": "You can play at any time. No recurring meetups are scheduled.",
-    "join_tournament": "Join Tournament",
+    "join_tournament": "View Tournament",
     "join_tooltip": "Immediately join this tournament.",
     "registrations_closed": "Registrations Closed",
-    "registrations_closed_tooltip": "Contact the tournament owner."
+    "registrations_closed_tooltip": "Contact the tournament owner.",
+    "edit_tournament": "Edit Tournament",
+    "exit_tournament": "Quit Tournament",
+    "total_players": "Total Players",
+    "total_games": "Total Games",
+    "games_over_last_seven_days": "Games over the last 7 days",
+    "games_over_last_month": "Games over the last 30 days",
+    "leaderboard": "Leaderboard",
+    "about_this_tournament": "About this Tournament",
+    "rules": "Rules"
   }
 }

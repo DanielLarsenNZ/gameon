@@ -19,6 +19,15 @@
     "join_tournament": "Teilnehmen",
     "join_tooltip": "Immediately join this tournament.",
     "registrations_closed": "Registrierungen geschlossen",
-    "registrations_closed_tooltip": "Kontaktiere den Turnierbesitzer."
+    "registrations_closed_tooltip": "Kontaktiere den Turnierbesitzer.",
+    "edit_tournament": "Tunier bearbeiten",
+    "exit_tournament": "Tunier verlassen",
+    "total_players": "Teilnehmer",
+    "total_games": "Spiele",
+    "games_over_last_seven_days": "Spiele in den letzten 7 Tagen",
+    "games_over_last_month": "Spiele in den letzten 30 days",
+    "leaderboard": "Tabelle",
+    "about_this_tournament": "Über dieses Tunier",
+    "rules": "Spielregeln"
   }
 }

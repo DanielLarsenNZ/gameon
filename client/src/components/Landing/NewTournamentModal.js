@@ -4,17 +4,31 @@ import { Step, Steps, Wizard } from 'react-albus';
 import { useTranslation } from 'react-i18next';
 import { Button, Col, CustomInput, Modal, ModalBody, ModalHeader, Progress, Row } from 'reactstrap';
 
+const initState = { name: '', description: '', reward: '', location: '', timing: '', isDisclaimerChecked: false };
+
 const NewTournamentModal = ({ isOpen, toggle }) => {
   const { t } = useTranslation('common');
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [reward, setReward] = useState('');
-  const [location, setLocation] = useState('');
-  const [timing, setTiming] = useState('');
-  const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(false);
+  const [name, setName] = useState(initState.name);
+  const [description, setDescription] = useState(initState.description);
+  const [reward, setReward] = useState(initState.reward);
+  const [location, setLocation] = useState(initState.location);
+  const [timing, setTiming] = useState(initState.timing);
+  const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(initState.isDisclaimerChecked);
 
-  const createTournament = () => alert(JSON.stringify({ name, description, reward, location, timing }));
+  const clearForm = () => {
+    setName(initState.name);
+    setDescription(initState.description);
+    setReward(initState.reward);
+    setLocation(initState.location);
+    setTiming(initState.timing);
+    setIsDisclaimerChecked(initState.isDisclaimerChecked);
+  };
+
+  const createTournament = () => {
+    alert(JSON.stringify({ name, description, reward, location, timing }));
+    clearForm();
+  };
 
   return (
     <Modal isOpen={isOpen} toggle={toggle} size="lg" centered>
@@ -45,6 +59,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                         type="text"
                         placeholder="eg. Table Tennis Championship"
                         onChange={(e) => setName(e.target.value)}
+                        value={name}
                         required
                       />
                       <AvField
@@ -53,6 +68,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                         type="textarea"
                         placeholder="Tell everyone what this tournament is about..."
                         onChange={(e) => setDescription(e.target.value)}
+                        value={description}
                         rows={5}
                         maxLength={250}
                         required
@@ -63,6 +79,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                         type="text"
                         placeholder="eg. Chocolates"
                         onChange={(e) => setReward(e.target.value)}
+                        value={reward}
                       />
 
                       <ul className="list-inline wizard mb-0">
@@ -87,6 +104,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                         label={t('tournament.location')}
                         placeholder="eg. The Lunch Room"
                         onChange={(e) => setLocation(e.target.value)}
+                        value={location}
                         type="text"
                         required
                       />
@@ -96,6 +114,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                         type="text"
                         placeholder="eg. Mondays 9-10am"
                         onChange={(e) => setTiming(e.target.value)}
+                        value={timing}
                       />
 
                       <ul className="list-inline wizard mb-0">
@@ -138,6 +157,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                               id="understandCheckbox"
                               label="I understand my responsibilities"
                               onChange={(e) => setIsDisclaimerChecked(e.target.checked)}
+                              checked={isDisclaimerChecked}
                             />
                           </div>
                         </div>

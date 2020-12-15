@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="container-fluid">
-        <div className="row">
+        <div className="row text-center">
           <div className="col-12">
             Crafted with <i className="uil uil-heart text-danger font-size-12"></i> by
             <a href="https://linkedin.com/in/olafwrieden/" target="_blank" rel="noopener noreferrer" className="ml-1">

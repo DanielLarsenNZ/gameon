@@ -31,12 +31,6 @@ const HorizontalLayout = ({ children }) => {
           </Suspense>
         </div>
       </div>
-
-      {/* <Suspense fallback={loading()}>
-        <RightSidebar title="Customize" {...this.props}>
-          // <ThemeCustomizer />
-        </RightSidebar>
-      </Suspense> */}
     </>
   );
 };

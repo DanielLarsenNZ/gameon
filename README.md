@@ -13,7 +13,10 @@ A simple Ladder app for intra-office tournaments like Table Tennis, Chess, Pool 
 *	Doubles teams are separate to singles. Doubles can only challenge doubles, and individuals on a winning doubles team cannot claim a doubles match win as a singles match win
 *	Top of the ladder buys first round at the after Christmas party
 
-## Links & references
+## Help us translate Game On!
+Are you fluent in a language that isn't currently supported? Help us translate Game On! into your language in minutes. Simply [create an issue](https://github.com/DanielLarsenNZ/gameon/issues/new/choose) referencing your language or create a [create a pull request](https://github.com/DanielLarsenNZ/gameon/compare) if you already know how i18n works.
+
+## Links & References
 
 [Calculating ELO in C#](https://dotnetcoretutorials.com/2018/09/18/calculating-elo-in-c/)
 

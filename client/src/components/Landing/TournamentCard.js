@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, location, timing, members = [], owner }) => {
   const { t } = useTranslation('common');
@@ -77,9 +78,9 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
               <li className="list-inline-item pr-2">
                 {isOpenToJoin ? (
                   <>
-                    <Button color="primary" className="d-inline-block" id={`join-${id}`} disabled={!id}>
+                    <Link to={`tournaments/${id}`} className="btn btn-primary d-inline-block" id={`join-${id}`}>
                       {t('tournament.join_tournament')}
-                    </Button>
+                    </Link>
                     <UncontrolledTooltip placement="top" target={`join-${id}`}>
                       {t('tournament.join_tooltip')}
                     </UncontrolledTooltip>
