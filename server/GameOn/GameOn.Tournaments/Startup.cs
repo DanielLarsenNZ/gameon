@@ -29,7 +29,10 @@ namespace GameOn.Tournaments
         {
             //services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
             //    .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
-            services.AddControllers().AddDapr();
+            services
+                .AddControllers()
+                .AddDapr()
+                .AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

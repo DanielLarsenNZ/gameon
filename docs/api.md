@@ -7,17 +7,22 @@
     GET /tournaments/{tenant_id}?playerId={player_id}
     GET /tournaments/{tenant_id}/{id}
     PUT /tournaments/{tenant_id}/{id}
+    PUT /tournaments/{tenant_id}/{id}/players
 
     // Tournaments model
     [{
-        id: id,
-        name: string,
+        id: Id,                 # required
+        name: string,           # required
         description: string,
-        ownerId: string,
         location: string,
         playingFor: string,
-        playerCount: number,
-        players: [{player}]
+        playerCount: number,    # readonly, derived from players.length
+        players: [Player],      # Ignored in POST model
+        startDate: Date (nullable),
+        endDate: Date (nullable),
+        TimeOfPlayDescription: String (default: 'Anytime', e.g: 'Mondays 9-10am')
+        maxPlayers: Integer (nullable) (default: null = no limit), only a number greater than 1 is valid
+        owner: Player
     }]
 
 ## Results

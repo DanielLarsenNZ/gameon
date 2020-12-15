@@ -52,9 +52,35 @@ namespace GameOn.Tournaments.Controllers
             Tournament tournament,
             string tenantId)
         {
+            // Fake Owner. TODO: Get id from User Claims and get Owner player?
+            var owner = new Player
+            {
+                Id = "a37af70f5b774e16af0df32e5adc7862",
+                Name = "Olaf",
+                Email = "olaf@localtest.me"
+            };
+
+            // Generate Id if not provided
+            if (string.IsNullOrEmpty(tournament.Id)) tournament.Id = Guid.NewGuid().ToString("N");
+            
+            // Check for presence of Players
+            if (tournament.Players != null) 
+                throw new ArgumentException("Players must not be included in Tournaments Post model. See PUT /tournaments/{tenant_id}/{id}/players.");
+
+            // Check for presence of Owner
+            if (tournament.Owner != null)
+                throw new ArgumentException("Owner must not be included in Tournaments Post model.");
+
+            tournament.Owner = owner;
+            tournament.Players = new Player[] { owner };
+
+            // Get Tournaments from State Store as array
             var entry = await dapr.GetStateEntryAsync<Tournament[]>(StoreName, tenantId);
+            
+            // Convert into List
             var tournaments = entry.Value is null ? new List<Tournament>() : new List<Tournament>(entry.Value);
 
+            // Guard for Tournament conflict
             if (tournaments.Any(t => t.Id == tournament.Id))
             {
                 _log.LogInformation($"Post: Tournament Id \"{tournament.Id}\" already exists in Tenant Id \"{tenantId}\".");
@@ -62,9 +88,11 @@ namespace GameOn.Tournaments.Controllers
             }
 
             tournaments.Add(tournament);
+            
+            // Convert back to Array save Entry
             entry.Value = tournaments.ToArray();
-
             await entry.SaveAsync();
+
             return new CreatedResult($"{Request.GetEncodedUrl()}/{tournament.Id}", tournament);
         }
     }

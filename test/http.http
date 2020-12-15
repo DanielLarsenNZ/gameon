@@ -1,50 +1,28 @@
 ### GET Tournaments PROD
-GET https://api.gameon.nz/tournaments/pabcd1234
+GET https://api.gameon.nz/tournaments/tenant1
 
 
-### POST Tournaments PROD
-POST https://api.gameon.nz/tournaments/pabcd1234
+### POST Tournament PROD
+POST https://api.gameon.nz/tournaments/tenant1
 Content-Type: application/json
 
 {
-    "id": "abc1838",
     "name": "Name1",
     "description": "Description1",
     "location": "Location1",
     "playingFor": "PlayingFor1",
-    "playerCount": 5
 } 
 
 
-
-
-### POST Tournaments PROD
-POST http://20.193.18.98/tournaments/pabcd1234
-Content-Type: application/json
-
-{
-    "id": "abc1838",
-    "name": "Name1",
-    "description": "Description1",
-    "location": "Location1",
-    "playingFor": "PlayingFor1",
-    "playerCount": 5
-} 
-
-### GET Tournaments PROD
-GET http://20.193.18.98/tournaments/pabcd1234
-
-### POST Tournaments LOCAL
+### POST Tournaments LOCAL DEV
 POST http://localhost:5000/tournaments/abcd1234
 Content-Type: application/json
 
 {
-    "id": "abc1830",
     "name": "Name1",
     "description": "Description1",
     "location": "Location1",
-    "playingFor": "PlayingFor1",
-    "playerCount": 5
+    "playingFor": "PlayingFor1"    
 } 
 
 ### GET Tournaments LOCAL

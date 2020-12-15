@@ -10,7 +10,8 @@ Windows
 
 ## Local environment
 
-    dapr run --app-id gameon dotnet run
+    cd .\server\GameOn\GameOn.Tournaments\
+    dotnet build && dapr run --app-id gameon dotnet run
 
 ## K8s cheatsheet
 
@@ -22,3 +23,7 @@ Windows
 
     # Restart pods (deployment)
     kubectl rollout restart deployment tournaments
+
+## References & links
+
+[Troubleshooting Issuing ACME Certificates](https://cert-manager.io/docs/faq/acme/)
