@@ -1,6 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, CardBody, DropdownItem, DropdownMenu, DropdownToggle, Media, UncontrolledDropdown } from 'reactstrap';
+import {
+  Button,
+  Card,
+  CardBody,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Media,
+  UncontrolledDropdown,
+} from 'reactstrap';
 
 const Player = ({ name, imageUrl, rank, points }) => {
   let icon = null;
@@ -58,6 +67,9 @@ const Leaderboard = () => {
   return (
     <Card>
       <CardBody className="pt-2">
+        <Button outline className="float-right mt-2" size={'sm'} color="secondary">
+          <i className="uil uil-plus mr-2"></i>New Result
+        </Button>
         <h6 className="header-title mb-4">{t('tournament.leaderboard')}</h6>
 
         <Player imageUrl="https://randomuser.me/api/portraits/men/34.jpg" name="Thomas Tester" rank={1} points={3400} />
