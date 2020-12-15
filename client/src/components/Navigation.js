@@ -15,7 +15,7 @@ const ProfileMenus = [
   {
     label: 'Logout',
     icon: LogOut,
-    redirectTo: '/account/logout',
+    redirectTo: '/logout',
     hasDivider: true,
   },
 ];
