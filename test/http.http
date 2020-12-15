@@ -1,3 +1,23 @@
+### GET Tournaments PROD
+GET https://api.gameon.nz/tournaments/pabcd1234
+
+
+### POST Tournaments PROD
+POST https://api.gameon.nz/tournaments/pabcd1234
+Content-Type: application/json
+
+{
+    "id": "abc1838",
+    "name": "Name1",
+    "description": "Description1",
+    "location": "Location1",
+    "playingFor": "PlayingFor1",
+    "playerCount": 5
+} 
+
+
+
+
 ### POST Tournaments PROD
 POST http://20.193.18.98/tournaments/pabcd1234
 Content-Type: application/json

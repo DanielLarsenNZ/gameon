@@ -1,3 +1,5 @@
+$ErrorActionPreference = 'Stop'
+
 . ./vars.ps1
 
 # RESOURCE GROUP
@@ -10,6 +12,7 @@ az aks get-credentials -g $rg -n $aks
 $aksShow = ( az aks show -g $rg -n $aks | ConvertFrom-Json )
 $clusterRG = $aksShow.nodeResourceGroup
 $clusterRGId = ( az group show -n $clusterRG | ConvertFrom-Json ).id
+$clientId = $aksShow.identityProfile.kubeletidentity.clientId
 
 
 # KEY VAULT
@@ -17,7 +20,7 @@ $clusterRGId = ( az group show -n $clusterRG | ConvertFrom-Json ).id
 az keyvault create --location $location -g $rg -n $kv 
 
 # Assign roles to the cluster RG
-az role assignment create --role "Reader" --assignee $aksShow.clientId --scope $clusterRGId
+az role assignment create --role "Reader" --assignee $clientId --scope $clusterRGId
 az role assignment create --role "Managed Identity Operator"  --assignee $clientId  --scope $clusterRGId
 
 # Add a policy to the Key Vault so the managed identity can read secrets
