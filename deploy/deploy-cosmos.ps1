@@ -1,15 +1,10 @@
 . ./vars.ps1
 
-$cosmos = 'gameon-cosmos'
-$cosmosDb = 'gameon'
-$cosmosDbThroughput = 400
-$cosmosDbContainer = 'tournaments'
-$pk = '/partitionKey'
 
 # COSMOS DB
 az cosmosdb create -n $cosmos -g $rg --tags $tags --locations regionName=$location
-az cosmosdb sql database create -n $cosmos -g $rg --db-name $cosmosDb --throughput $cosmosDbThroughput
-az cosmosdb sql container create --container-name $cosmosDbContainer --db-name $cosmosDb -n $cosmos -g $rg --partition-key-path $pk
+az cosmosdb sql database create -g $rg -a $cosmos -n $cosmosDb --throughput $cosmosDbThroughput
+az cosmosdb sql container create -g $rg -a $cosmos -d $cosmosDb -n $cosmosDbContainer --partition-key-path $pk
 
 # Get the connection string
 $env:Cosmos_ConnectionString = ( az cosmosdb keys list --type 'connection-strings' -n $cosmos -g $rg | ConvertFrom-Json ).connectionStrings[0].connectionString

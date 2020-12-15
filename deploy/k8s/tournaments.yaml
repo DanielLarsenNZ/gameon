@@ -1,0 +1,41 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: tournaments
+  labels:
+    app: tournaments
+spec:
+  selector:
+    app: tournaments
+  ports:
+  - protocol: TCP
+    port: 80
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tournaments
+  labels:
+    app: tournaments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tournaments
+  template:
+    metadata:
+      labels:
+        app: tournaments
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "tournaments"
+        dapr.io/app-port: "80"
+    spec:
+      containers:
+      - name: gameontournaments
+        image: gameonaue.azurecr.io/gameontournaments:latest
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always

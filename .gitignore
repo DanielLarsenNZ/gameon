@@ -4,3 +4,5 @@ obj
 *.user
 .vs
 _work
+_k8s
+Properties
