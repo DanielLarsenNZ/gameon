@@ -2,8 +2,32 @@
 
 A simple Ladder app for intra-office tournaments like Table Tennis, Chess, Pool and so on.
 
+## Getting started
+
+For local backend dev you will need: 
+
+1. VS Code
+2. Git CLI
+3. .NET Core 3.1
+4. [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
+
+Then run these commands in a terminal:
+
+```powershell
+# Clone
+git clone https://github.com/DanielLarsenNZ/gameon.git
+cd gameon
+
+# Init Dapr local *Must run as Admin / sudo
+dapr init
+
+# Build and run server
+cd server/GameOn/GameOn.Tournaments
+dotnet build && dapr run --app-id gameon dotnet run
+```
+
 ## Table tennis tournament rules example
-	
+
 * If you challenge a player they have to play in within 5 working days (leave excluded), or forfeit the match
 *	A forfeit or refusal to play is the same as a loss
 *	Players choose the scoring/serves at the time they play, e.g. each game is first to 11 points, game must be won by two points, match is best of 5 games. [US rules](https://www.pongfit.org/official-rules-of-table-tennis) are good
@@ -22,12 +46,6 @@ Are you fluent in a language that isn't currently supported? Help us translate G
 
 [Dapr ASP.NET Core Controller Sample](https://github.com/dapr/dotnet-sdk/tree/master/samples/AspNetCore/ControllerSample)
 
-[Dapr Hellow K8s sample](https://github.com/dapr/quickstarts/tree/master/hello-kubernetes)
+[Dapr Hello K8s sample](https://github.com/dapr/quickstarts/tree/master/hello-kubernetes)
 
 [Detailed information on the Azure CosmosDB state store component](https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-cosmosdb/)
-
-[How to configure Azure Key Vault and Kubernetes to use Azure Managed Identities to access secrets](https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault-managed-identity/)
-
-[Running your first app in Kubernetes](https://yourazurecoach.com/2019/12/30/exploring-dapr-running-your-first-dapr-app-in-kubernetes/)
-
-[Dapr K8s annotations](https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/)

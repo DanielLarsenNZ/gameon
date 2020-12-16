@@ -3,10 +3,10 @@ POST https://api.gameon.nz/tournaments/tenant1
 Content-Type: application/json
 
 {
-    "name": "Name1",
-    "description": "Description1",
-    "location": "Location1",
-    "playingFor": "PlayingFor1"
+    "name": "Auckland Office - Table Tennis - Singles",
+    "description": "Singles tournament 2020",
+    "location": "The Hub on L6 Auckland",
+    "playingFor": "Beers 🍻"
 } 
 
 ### GET Tournament PROD
