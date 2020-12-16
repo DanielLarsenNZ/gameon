@@ -7,9 +7,10 @@ A simple Ladder app for intra-office tournaments like Table Tennis, Chess, Pool 
 For local backend dev you will need: 
 
 1. VS Code
-2. Git CLI
-3. .NET Core 3.1
-4. [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
+1. Git CLI
+1. .NET Core 3.1
+1. [Docker Desktop](https://www.docker.com/products/docker-desktop)
+1. [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
 
 Then run these commands in a terminal:
 
