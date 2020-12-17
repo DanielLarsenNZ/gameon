@@ -1,6 +1,6 @@
-# GameOn Web Application
+# Game On! Web Application
 
-This web application is the primary interface for GameOn; through which tournaments are managed, results are submitted, and leaderboards visualised.
+This web application is the primary interface for Game On! - through which tournaments are managed, results are submitted, and leaderboards visualised.
 
 ![Concept](https://i.imgur.com/9gqe6Wn.png)
 
@@ -14,4 +14,6 @@ This web application is the primary interface for GameOn; through which tourname
 
 ### Production Environment
 
-Coming Soon...
+1. Using the Terminal, switch into this directory using `$ cd /client`
+2. In the console: `$ npm run build` to compile the React code.
+3. Serve the newly created `./build` folder (entrypoint: `index.html`) using your preferred web server.
