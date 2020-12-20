@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import {
   Button,
