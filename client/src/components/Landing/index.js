@@ -1,15 +1,40 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Row } from 'reactstrap';
 import tournaments from '../../helpers/sampleData';
 import Loader from '../Loader';
 import NewTournamentModal from './NewTournamentModal';
 import TournamentCard from './TournamentCard';
+import axios from 'axios';
 
 const Landing = ({ loading }) => {
   const { t } = useTranslation('common');
+  // const [data, setData] = useState({});
   const [isNewModalOpen, setIsNewModalOpen] = useState(false);
   const toggleNewModal = () => setIsNewModalOpen(!isNewModalOpen);
+
+  let [responseData, setResponseData] = useState('');
+  const fetchData = useCallback(() => {
+    axios({
+      method: 'GET',
+      url: 'https://api.gameon.nz/tournaments/tenant1?limit=1',
+      headers: {
+        'content-type': 'application/json',
+      },
+      // params: {
+      //   language_code: 'en',
+      // },
+    })
+      .then((response) => {
+        setResponseData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return (
     <>

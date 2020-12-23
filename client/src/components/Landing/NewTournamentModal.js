@@ -2,12 +2,14 @@ import { AvField, AvForm } from 'availity-reactstrap-validation';
 import React, { useState } from 'react';
 import { Step, Steps, Wizard } from 'react-albus';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import { Button, Col, CustomInput, Modal, ModalBody, ModalHeader, Progress, Row } from 'reactstrap';
 
 const initState = { name: '', description: '', reward: '', location: '', timing: '', isDisclaimerChecked: false };
 
 const NewTournamentModal = ({ isOpen, toggle }) => {
   const { t } = useTranslation('common');
+  const history = useHistory();
 
   const [name, setName] = useState(initState.name);
   const [description, setDescription] = useState(initState.description);
@@ -26,8 +28,24 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
   };
 
   const createTournament = () => {
-    alert(JSON.stringify({ name, description, reward, location, timing }));
-    clearForm();
+    fetch('https://api.gameon.nz/tournaments/tenant1', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        name: name,
+        description: description,
+        location: location,
+        playingFor: reward,
+        timeOfPlayDescription: timing,
+        maxPlayers: 20, // TODO: Add field to Modal
+      }),
+    })
+      .then((res) => (res.status === 201 ? res.json() : new Error('The tournament could not be created.')))
+      .then((tournament) => {
+        clearForm();
+        history.push(`/tournaments/${tournament.id}`);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -137,30 +155,43 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
                   render={({ previous }) => (
                     <Row>
                       <Col sm={12}>
-                        <div className="text-center">
-                          <h2 className="mt-0">
-                            <i className="mdi mdi-check-all"></i>
-                          </h2>
-                          <h3 className="mt-0">Almost done!</h3>
+                        {false ? (
+                          <div className="text-center">
+                            <h2 className="mt-0">
+                              <i className="mdi mdi-check-all"></i>
+                            </h2>
+                            <h3 className="mt-0">Almost done!</h3>
 
-                          <p className="w-50 mb-2 mx-auto">
-                            By creating this tournament, you will become its owner and solely responsible for keeping
-                            its details up-to-date.
-                          </p>
-                          <p className="w-50 mb-2 mx-auto">
-                            As owner, you can edit, archive, or transfer this tournament.
-                          </p>
+                            <p className="w-50 mb-2 mx-auto">
+                              By creating this tournament, you will become its owner and solely responsible for keeping
+                              its details up-to-date.
+                            </p>
+                            <p className="w-50 mb-2 mx-auto">
+                              As owner, you can edit, archive, or transfer this tournament.
+                            </p>
 
-                          <div className="mb-3">
-                            <CustomInput
-                              type="checkbox"
-                              id="understandCheckbox"
-                              label="I understand my responsibilities"
-                              onChange={(e) => setIsDisclaimerChecked(e.target.checked)}
-                              checked={isDisclaimerChecked}
-                            />
+                            <div className="mb-3">
+                              <CustomInput
+                                type="checkbox"
+                                id="understandCheckbox"
+                                label="I understand my responsibilities"
+                                onChange={(e) => setIsDisclaimerChecked(e.target.checked)}
+                                checked={isDisclaimerChecked}
+                              />
+                            </div>
                           </div>
-                        </div>
+                        ) : (
+                          <div className="text-center">
+                            <h2 className="mt-0">
+                              <i className="mdi mdi-check-all"></i>
+                            </h2>
+                            <h3 className="mt-0">One Moment!</h3>
+
+                            <p className="w-50 mb-2 mx-auto">
+                              Your tournament is being created and you will be redirected automatically. Please wait.
+                            </p>
+                          </div>
+                        )}
                       </Col>
 
                       <Col sm={12}>
@@ -186,14 +217,6 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
           )}
         />
       </ModalBody>
-      {/* <ModalFooter>
-        <Button color="primary" onClick={toggle}>
-          Create Tournament
-        </Button>{' '}
-        <Button color="secondary" onClick={toggle}>
-          Cancel
-        </Button>
-      </ModalFooter> */}
     </Modal>
   );
 };
