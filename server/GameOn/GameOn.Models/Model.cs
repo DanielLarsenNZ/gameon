@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace GameOn.Models
+﻿namespace GameOn.Models
 {
-    public class Model
+    public interface IGameOnModel
     {
-        public string Id { get; set; }
+        string Id { get; set; }
     }
 }

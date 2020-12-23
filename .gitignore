@@ -6,3 +6,4 @@ obj
 _work
 _k8s
 Properties
+appsettings.Development.json

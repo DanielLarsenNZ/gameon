@@ -18,6 +18,7 @@ GET https://api.gameon.nz/tournaments/tenant1
 ### POST Tournaments LOCAL DEV
 POST http://localhost:5000/tournaments/abcd1234
 Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1Qi...
 
 {
     "name": "Name1",
@@ -28,10 +29,16 @@ Content-Type: application/json
 
 ### GET Tournaments LOCAL
 GET http://localhost:5000/tournaments/abcd1234
+Authorization: Bearer eyJ0eXAiOiJKV1Qi...
 
 
 ### GET Tournament LOCAL
  GET http://localhost:5000/tournaments/abcd1234/abc1046
+
+
+### GET Health ASP.NET
+GET https://localhost:44318/health
+Authorization: Bearer eyJ0eXAiOiJKV1Qi...
 
 ### Save Store
 POST http://localhost:57766/v1.0/state/statestore

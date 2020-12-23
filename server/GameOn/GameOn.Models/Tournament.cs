@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace GameOn.Models
 {
-    public class Tournament : Model
+    public class Tournament : IGameOnModel
     {
         public string Description { get; set; }
         
@@ -28,5 +28,7 @@ namespace GameOn.Models
         public DateTimeOffset? StartDate { get; set; }
         
         public string TimeOfPlayDescription { get; set; }
+        
+        public string Id { get; set; }
     }
 }
