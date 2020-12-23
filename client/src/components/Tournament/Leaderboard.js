@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Button,
@@ -10,6 +10,7 @@ import {
   Media,
   UncontrolledDropdown,
 } from 'reactstrap';
+import NewScoreModal from './NewScoreModal';
 
 const Player = ({ name, imageUrl, rank, points }) => {
   let icon = null;
@@ -63,26 +64,46 @@ const Player = ({ name, imageUrl, rank, points }) => {
 
 const Leaderboard = () => {
   const { t } = useTranslation('common');
+  const [isScoreModalOpen, setIsScoreModalOpen] = useState(false);
+  const toggleScoreModal = () => setIsScoreModalOpen(!isScoreModalOpen);
 
   return (
-    <Card>
-      <CardBody className="pt-2">
-        <Button outline className="float-right mt-2" size={'sm'} color="secondary">
-          <i className="uil uil-plus mr-2"></i>New Result
-        </Button>
-        <h6 className="header-title mb-4">{t('tournament.leaderboard')}</h6>
+    <>
+      <Card>
+        <CardBody className="pt-2">
+          <Button outline className="float-right mt-2" size={'sm'} color="secondary" onClick={() => toggleScoreModal()}>
+            <i className="uil uil-plus mr-2"></i>New Result
+          </Button>
+          <h6 className="header-title mb-4">{t('tournament.leaderboard')}</h6>
 
-        <Player imageUrl="https://randomuser.me/api/portraits/men/34.jpg" name="Thomas Tester" rank={1} points={3400} />
-        <Player
-          imageUrl="https://randomuser.me/api/portraits/women/34.jpg"
-          name="Emily Employee"
-          rank={2}
-          points={2800}
-        />
-        <Player imageUrl="https://randomuser.me/api/portraits/men/14.jpg" name="Erik Employee" rank={3} points={2000} />
-        <Player imageUrl="https://randomuser.me/api/portraits/women/14.jpg" name="Emma Example" rank={4} points={840} />
-      </CardBody>
-    </Card>
+          <Player
+            imageUrl="https://randomuser.me/api/portraits/men/34.jpg"
+            name="Thomas Tester"
+            rank={1}
+            points={3400}
+          />
+          <Player
+            imageUrl="https://randomuser.me/api/portraits/women/34.jpg"
+            name="Emily Employee"
+            rank={2}
+            points={2800}
+          />
+          <Player
+            imageUrl="https://randomuser.me/api/portraits/men/14.jpg"
+            name="Erik Employee"
+            rank={3}
+            points={2000}
+          />
+          <Player
+            imageUrl="https://randomuser.me/api/portraits/women/14.jpg"
+            name="Emma Example"
+            rank={4}
+            points={840}
+          />
+        </CardBody>
+      </Card>
+      <NewScoreModal isOpen={isScoreModalOpen} toggle={toggleScoreModal} />
+    </>
   );
 };
 
