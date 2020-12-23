@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Identity.Web;
 using System;
 using System.Diagnostics;
 using System.Text;
@@ -40,31 +37,6 @@ namespace GameOn.Tournaments
                     });
             });
 
-            //services
-            //    .AddAuthentication(options =>
-            //    {
-            //        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    })
-            //    .AddJwtBearer(options => 
-            //    {
-            //        options.Audience = "73263e98-be26-450b-96cb-0ea758039fd9";
-            //        options.Authority = "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/v2.0";
-            //        options.Events = new JwtBearerEvents
-            //        {
-            //            OnAuthenticationFailed = (arg) =>
-            //            {
-            //                Debug.WriteLine(arg.Exception.Message);
-            //                //logger.LogError(arg.Exception, arg.Exception.Message);
-            //                return Task.CompletedTask;
-            //            }
-            //        };
-            //    });
-
-            //services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
-            //    .AddAzureADBearer(options => {
-            //        Configuration.Bind("AzureAd", options);
-            //    });
-
             //services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
             //services.AddProtectedWebApi(Configuration);
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer()
@@ -75,7 +47,6 @@ namespace GameOn.Tournaments
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                // add v2.0 to the end if your API is set to get v2 tokens in its manifest
                 options.Authority = "https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/";
                 options.Audience = "https://microsoft.onmicrosoft.com/GameOn.Tournaments";
 
@@ -88,7 +59,6 @@ namespace GameOn.Tournaments
                         ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
                         message += "From OnAuthenticationFailed:\n";
                         message += FlattenException(ctx.Exception);
-                        //return ctx.Response.WriteAsync(message);
                         return Task.CompletedTask;
                     },
 
@@ -109,7 +79,6 @@ namespace GameOn.Tournaments
                         if (BearerToken.Count == 0)
                             BearerToken = "no Bearer token sent\n";
                         message += "Authorization Header sent: " + BearerToken + "\n";
-                        //return ctx.Response.WriteAsync(message);
                         return Task.CompletedTask;
                     },
 
@@ -119,23 +88,7 @@ namespace GameOn.Tournaments
                         return Task.CompletedTask;
                     }
                 };
-
-                //options.Events = new JwtBearerEvents
-                //{
-                //    OnForbidden = (arg) =>
-                //    {
-                //        Debug.WriteLine(arg);
-                //        return Task.CompletedTask;
-                //    },
-                //    OnAuthenticationFailed = (arg) =>
-                //    {
-                //        Debug.WriteLine(arg.Exception.Message);
-                //            //logger.LogError(arg.Exception, arg.Exception.Message);
-                //            return Task.CompletedTask;
-                //    }
-                //};
             });
-
 
             services
                 .AddControllers()
@@ -154,12 +107,10 @@ namespace GameOn.Tournaments
             Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
             app.UseHttpsRedirection();
 
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseCors();
             app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {
@@ -167,7 +118,7 @@ namespace GameOn.Tournaments
             });
         }
 
-        public static string FlattenException(Exception exception)
+        private static string FlattenException(Exception exception)
         {
             var stringBuilder = new StringBuilder();
             while (exception != null)
