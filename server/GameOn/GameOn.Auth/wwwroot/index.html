@@ -1,51 +1,60 @@
 <html>
-    <head>
+  <head> </head>
+  <body>
+    <div id="token"></div>
 
-    </head>
-    <body>
+    <script
+      type="text/javascript"
+      src="https://alcdn.msauth.net/browser/2.8.0/js/msal-browser.min.js"
+    ></script>
 
-        <div id="token"></div>
+    <script>
+      //import * as msal from "@azure/msal-browser";
 
-        <script type="text/javascript" src="https://alcdn.msauth.net/browser/2.8.0/js/msal-browser.min.js"></script>
+      const msalConfig = {
+        auth: {
+          clientId: "73263e98-be26-450b-96cb-0ea758039fd9",
+          authority:
+            "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47",
+          redirectUri: "https://localhost:44357",
+        },
+      };
 
-        <script>
-            //import * as msal from "@azure/msal-browser";
+      const msalInstance = new msal.PublicClientApplication(msalConfig);
 
-            const msalConfig = {
-                    auth: {
-                        clientId: '73263e98-be26-450b-96cb-0ea758039fd9',
-                        authority: 'https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47',
-                        redirectUri: 'https://localhost:44357'
-                    }
-                };
+      var loginRequest = {
+        scopes: [
+          "https://microsoft.onmicrosoft.com/GameOn.Tournaments/user_impersonation",
+        ], // optional Array<string>
+      };
 
-            const msalInstance = new msal.PublicClientApplication(msalConfig);
+      msalInstance
+        .loginPopup(loginRequest)
+        .then(handleResponse)
+        .catch((error) => {
+          console.error(error);
+        });
 
-            var loginRequest = {
-                scopes: ["https://microsoft.onmicrosoft.com/GameOn.Tournaments/user_impersonation"] // optional Array<string>
-            };
+      function handleResponse(resp) {
+        console.log(resp, resp.account);
+        document.getElementById("token").innerText = resp.accessToken;
+        const currentAccounts = msalInstance.getAllAccounts();
+        if (currentAccounts === null) {
+          return;
+        } else if (currentAccounts.length > 1) {
+          // Add choose account code here
+          console.warn("Multiple accounts detected.");
+        } else if (currentAccounts.length === 1) {
+          console.log(currentAccounts[0]);
+        }
 
-            msalInstance.loginPopup(loginRequest).then(handleResponse).catch(error => {
-                console.error(error);
-            });
-
-            function handleResponse(resp) {
-                console.log(resp, resp.account);
-                document.getElementById('token').innerText = resp.accessToken;
-                const currentAccounts = msalInstance.getAllAccounts();
-                if (currentAccounts === null) {
-                    return;
-                } else if (currentAccounts.length > 1) {
-                    // Add choose account code here
-                    console.warn("Multiple accounts detected.");
-                } else if (currentAccounts.length === 1) {
-                    console.log(currentAccounts[0]);
-                }
-
-                fetch('https://localhost:44318/tournaments/abcd1234', { credentials: 'include', headers: { 'Authorization': 'Bearer ' + resp.accessToken }})
-                    .then(response => response.json())
-                    .then(data => console.log(data));
-            }
-        </script>
-    </body>
+        fetch("https://localhost:44318/tournaments/abcd1234", {
+          credentials: "include",
+          headers: { Authorization: "Bearer " + resp.accessToken },
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data));
+      }
+    </script>
+  </body>
 </html>
