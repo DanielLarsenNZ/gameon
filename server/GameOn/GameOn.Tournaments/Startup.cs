@@ -105,7 +105,7 @@ namespace GameOn.Tournaments
             }
 
             //Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseAuthentication();

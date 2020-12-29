@@ -2,31 +2,6 @@
 
 A simple Ladder app for intra-office tournaments like Table Tennis, Chess, Pool and so on.
 
-## Getting started
-
-For local backend dev you will need: 
-
-1. VS Code
-1. Git CLI
-1. .NET Core 3.1
-1. [Docker Desktop](https://www.docker.com/products/docker-desktop)
-1. [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
-
-Then run these commands in a terminal:
-
-```powershell
-# Clone
-git clone https://github.com/DanielLarsenNZ/gameon.git
-cd gameon
-
-# Init Dapr local *Must run as Admin / sudo
-dapr init
-
-# Build and run server
-cd server/GameOn/GameOn.Tournaments
-dotnet build && dapr run --app-id gameon dotnet run
-```
-
 ## Table tennis tournament rules example
 
 * If you challenge a player they have to play in within 5 working days (leave excluded), or forfeit the match

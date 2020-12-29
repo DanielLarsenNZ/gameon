@@ -1,0 +1,66 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/GameOn.Tournaments/GameOn.Tournaments.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/GameOn.Tournaments/GameOn.Tournaments.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "appId": "gameon-tournaments",
+            "appPort": 5000,
+            "label": "daprd-debug-tournaments",
+            "type": "daprd",
+            "dependsOn": "build"
+        },
+        {
+            "appId": "gameon-users",
+            "appPort": 5001,
+            "label": "daprd-debug-users",
+            "type": "daprd",
+            "dependsOn": "build"
+        },
+        {
+            "appId": "gameon-tournaments",
+            "label": "daprd-down-tournaments",
+            "type": "daprd-down"
+        },
+        {
+            "appId": "gameon-users",
+            "label": "daprd-down-users",
+            "type": "daprd-down"
+        }
+    ]
+}
