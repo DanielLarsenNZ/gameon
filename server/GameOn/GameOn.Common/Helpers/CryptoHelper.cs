@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace GameOn.Common.Helpers
+namespace GameOn.Helpers
 {
     public class CryptoHelper
     {

@@ -5,9 +5,11 @@
     GET /tournaments/{tenant_id}
     GET /tournaments/{tenant_id}?skip=0&limit=20
     GET /tournaments/{tenant_id}?playerId={player_id}
-    GET /tournaments/{tenant_id}/{id}
-    PUT /tournaments/{tenant_id}/{id}
-    PUT /tournaments/{tenant_id}/{id}/players
+    GET /tournaments/{tenant_id}/{tournament_id}
+    PUT /tournaments/{tenant_id}/{tournament_id}
+    PUT /tournaments/{tenant_id}/{tournament_id}/players
+    GET /tournaments/{tenant_id}/{tournament_id}/players
+    DELETE /tournaments/{tenant_id}/{tournament_id}/players
 
     // Tournaments model
     [{
@@ -88,30 +90,18 @@
         }
     ]
 
-## Players
+## Me (Users)
 
-    //TODO: 
-    GET /players/{tournament_id}
-
-    [
-        {
-            id: id,
-            name: string,
-            email: string,
-            imageUrl: string,
-            nickname: string    //TODO
-        }
-    ]
-
-## Me
-    
     GET /me
+    POST /me
+    PUT /me
+    DELETE /me
 
     {
+        tenantId: string,
         id: id,
         name: string,
-        email: string,
+        //email: string,    // private property
         imageUrl: string,
         nickname: string
     }
-

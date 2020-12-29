@@ -1,7 +1,7 @@
 ﻿using Dapr;
 using Dapr.Client;
-using GameOn.Common.Extensions;
-using GameOn.Common.Helpers;
+using GameOn.Extensions;
+using GameOn.Helpers;
 using GameOn.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;

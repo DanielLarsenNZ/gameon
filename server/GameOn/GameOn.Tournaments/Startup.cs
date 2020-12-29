@@ -104,7 +104,7 @@ namespace GameOn.Tournaments
                 app.UseDeveloperExceptionPage();
             }
 
-            Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
+            //Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
             app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -6,10 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Identity.Web" Version="1.4.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\GameOn.Models\GameOn.Models.csproj" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
 </Project>
