@@ -41,6 +41,8 @@ The VS Code `launch.json` and `tasks.json` files are included in this repo. To o
 
 [ASP.NET Core Middleware order](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-3.1)
 
+[ASP.NET Core Routing Sample](https://github.com/dapr/dotnet-sdk/tree/master/samples/AspNetCore/RoutingSample) - for inter-service calls
+
 [How to review your Azure AD B2C tokens using Policy – Run Now and jwt.ms](https://saraford.net/2017/09/18/how-to-review-your-azure-ad-b2c-tokens-using-policy-run-now-and-jwt-ms/)
 
 [Quickstart: Protect an ASP.NET Core web API with Microsoft identity platform](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-v2-aspnet-core-web-api)
