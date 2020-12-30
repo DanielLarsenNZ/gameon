@@ -1,9 +1,7 @@
 ﻿using Dapr;
 using Dapr.Client;
-using Dapr.Client.Autogen.Grpc.v1;
 using GameOn.Common;
 using GameOn.Extensions;
-using GameOn.Helpers;
 using GameOn.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -12,7 +10,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GameOn.Tournaments.Controllers
@@ -72,17 +69,13 @@ namespace GameOn.Tournaments.Controllers
             // TODO: Get Player from Player Service
             // The HttpInvocationOptions object is needed to specify additional information such as the HTTP method and an optional query string, because the receiving service is listening on HTTP.  If it were listening on gRPC, it is not needed.
             var userResponse = await dapr.InvokeMethodWithResponseAsync<string, User>(
-                GameOnNames.UsersAppName, 
-                GameOnUsersMethodNames.GetUser, 
+                GameOnNames.UsersAppName,
+                GameOnUsersMethodNames.GetUser,
                 userId,
                 httpExtension: new Dapr.Client.Http.HTTPExtension { Verb = Dapr.Client.Http.HTTPVerb.Get });
 
-            // Create Player from User
-            var player = new Player(userResponse.Body, tournament.Id);
-            //var player = new Player(User.GameOnUser(), tournament.Id);
-
-            tournament.Owner = player;
-            tournament.Players = new Player[] { player };
+            tournament.Owner = userResponse.Body;
+            tournament.Players = new [] { userResponse.Body };
 
             // Get Tournaments from State Store as array
             var entry = await dapr.GetStateEntryAsync<Tournament[]>(GameOnNames.StateStoreName, tenantId);

@@ -19,12 +19,12 @@
         location: string,
         playingFor: string,
         playerCount: number,    # readonly, derived from players.length
-        players: [Player],      # Ignored in POST model
+        players: User[],        # Ignored in POST model
         startDate: Date (nullable),
         endDate: Date (nullable),
         TimeOfPlayDescription: String (default: 'Anytime', e.g: 'Mondays 9-10am')
         maxPlayers: Integer (nullable) (default: null = no limit), only a number greater than 1 is valid
-        owner: Player
+        owner: User
     }]
 
 ## Results
