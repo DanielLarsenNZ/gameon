@@ -2,6 +2,7 @@
 using GameOn.Common;
 using GameOn.Extensions;
 using GameOn.Models;
+using GameOn.Users.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -16,18 +17,22 @@ namespace GameOn.Users.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ILogger<User> _log;
+        private readonly UsersService _users;
 
-        public UsersController(ILogger<User> log) => _log = log;
+        public UsersController(ILogger<User> log, UsersService usersService)
+        {
+            _log = log;
+            _users = usersService;
+        }
 
         // Get User
         [HttpGet]
-        public async Task<ActionResult<User>> Get([FromServices] DaprClient dapr)
+        public async Task<ActionResult<User>> Get()
         {
             var userId = User.GameOnUserId();
-            var entry = await dapr.GetStateEntryAsync<User>(GameOnNames.StateStoreName, userId);
-
-            if (entry.Value is null) return NotFound($"User Id {userId} not found");
-            return entry.Value;
+            var user = await _users.GetUser(userId);
+            if (user is null) return NotFound($"User Id {userId} not found");
+            return user;
         }
 
         // POST - Create User

@@ -96,7 +96,7 @@
     "compounds": [
         {
             "name": "gameon",
-            "configurations": [".NET Core Launch (tournaments) with Dapr", ".NET Core Launch (Users) with Dapr"],
+            "configurations": [".NET Core Launch (Users) with Dapr", ".NET Core Launch (tournaments) with Dapr"],
             "preLaunchTask": "build"
         }
     ]

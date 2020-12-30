@@ -1,7 +1,5 @@
-using Dapr.Client;
 using GameOn.Common;
 using GameOn.Extensions;
-using GameOn.Models;
 using GameOn.Users.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,8 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GameOn.Users
@@ -32,8 +28,8 @@ namespace GameOn.Users
         {
             services.AddGameOnAuthentication(Configuration, Logger);
             services.AddGameOnCors(Configuration);
-            
-            //services.AddDaprClient();
+
+            services.AddTransient<UsersService>();
 
             services
                 .AddControllers()
@@ -62,29 +58,10 @@ namespace GameOn.Users
             });
         }
 
+        /// <summary>
+        /// GetUser delegate
+        /// </summary>
         private async Task GetUser(HttpContext context)
-        {
-            var serializerOptions = new JsonSerializerOptions()
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                PropertyNameCaseInsensitive = true,
-            };
-
-            var client = context.RequestServices.GetRequiredService<DaprClient>();
-            
-            var userId = await JsonSerializer.DeserializeAsync<string>(context.Request.Body, serializerOptions);
-
-            var user = await client.GetStateAsync<User>(GameOnNames.StateStoreName, userId);
-            
-            if (user == null)
-            {
-                Console.WriteLine("User not found");
-                context.Response.StatusCode = 404;
-                return;
-            }
-
-            context.Response.ContentType = "application/json";
-            await JsonSerializer.SerializeAsync(context.Response.Body, user, serializerOptions);
-        }
+            => await context.RequestServices.GetRequiredService<UsersService>().GetUser(context);
     }
 }
