@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GameOn.CommonCore\GameOn.CommonCore.csproj" />
     <ProjectReference Include="..\GameOn.Common\GameOn.Common.csproj" />
   </ItemGroup>
 

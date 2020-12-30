@@ -55,14 +55,6 @@ namespace GameOn.Tournaments.Controllers
             Tournament tournament,
             string tenantId)
         {
-            var user = User.GameOnUser();
-
-            var owner = new Player
-            {
-                Id = CryptoHelper.Sha256(user.ObjectId),
-                Name = user.Name,
-            };
-
             // Generate Id if not provided
             if (string.IsNullOrEmpty(tournament.Id)) tournament.Id = Guid.NewGuid().ToString("N");
 
@@ -74,10 +66,17 @@ namespace GameOn.Tournaments.Controllers
             if (tournament.Owner != null)
                 throw new ArgumentException("Owner must not be included in Tournaments Post model.");
 
+            string userId = User.GameOnUserId();
+
             // TODO: Get Player from Player Service
-            //var ownerResponse = await dapr.InvokeMethodWithResponseAsync<string, Player>("player", "create", user.ObjectId);
-            tournament.Owner = owner;
-            tournament.Players = new Player[] { owner };
+            //var userResponse = await dapr.InvokeMethodWithResponseAsync<string, User>("user", "get", userId);
+
+            // Create Player from User
+            //var player = new Player(userResponse.Body, tournament.Id);
+            var player = new Player(User.GameOnUser(), tournament.Id);
+
+            tournament.Owner = player;
+            tournament.Players = new Player[] { player };
 
             // Get Tournaments from State Store as array
             var entry = await dapr.GetStateEntryAsync<Tournament[]>(StoreName, tenantId);

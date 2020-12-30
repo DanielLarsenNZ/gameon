@@ -23,10 +23,10 @@ namespace GameOn.Users.Controllers
         [HttpGet]
         public async Task<ActionResult<User>> Get([FromServices] DaprClient dapr)
         {
-            var userInfo = User.GameOnUser();
-            var entry = await dapr.GetStateEntryAsync<User>(StoreName, userInfo.Id);
+            var userId = User.GameOnUserId();
+            var entry = await dapr.GetStateEntryAsync<User>(StoreName, userId);
 
-            if (entry.Value is null) return NotFound($"User Id {userInfo.Id} not found");
+            if (entry.Value is null) return NotFound($"User Id {userId} not found");
             return entry.Value;
         }
 
@@ -34,8 +34,7 @@ namespace GameOn.Users.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> Post([FromServices] DaprClient dapr)
         {
-            var user = User.GameOnUser() as User;
-
+            var user = User.GameOnUser();
             // TODO: Get pic and Email from Graph
 
             // Create in Storage
@@ -47,7 +46,7 @@ namespace GameOn.Users.Controllers
 
             // TODO: Pub user created
 
-            return new CreatedResult($"{Request.GetEncodedUrl()}/{user.Id}", user);
+            return new CreatedResult($"{Request.GetEncodedUrl()}", user);
         }
     }
 }
