@@ -1,7 +1,12 @@
 ﻿using Dapr.AppCallback.Autogen.Grpc.v1;
 using Dapr.Client;
 using Dapr.Client.Autogen.Grpc.v1;
+using GameOn.Common;
+using GameOn.Models;
+using Google.Protobuf;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,11 +18,7 @@ namespace GameOn.Users.Services
 {
     public class UsersService: AppCallback.AppCallbackBase
     {
-        /// <summary>
-        /// State store name.
-        /// </summary>
-        public const string StoreName = "statestore";
-
+        
         private readonly ILogger<UsersService> _log;
         private readonly DaprClient _daprClient;
         readonly JsonSerializerOptions jsonOptions 
@@ -45,29 +46,27 @@ namespace GameOn.Users.Services
             var response = new InvokeResponse();
             switch (request.Method)
             {
-                case "getaccount":
-                    //var input = JsonSerializer.Deserialize<GetAccountInput>(request.Data.Value.ToByteArray(), this.jsonOptions);
-                    //var output = await GetAccount(input, context);
-                    //response.Data = new Any
-                    //{
-                    //    Value = ByteString.CopyFrom(JsonSerializer.SerializeToUtf8Bytes<Account>(output, this.jsonOptions)),
-                    //};
-                    break;
-                case "deposit":
-                case "withdraw":
-                    //var transaction = JsonSerializer.Deserialize<Transaction>(request.Data.Value.ToByteArray(), this.jsonOptions);
-                    //var account = request.Method == "deposit" ?
-                    //    await Deposit(transaction, context) :
-                    //    await Withdraw(transaction, context);
-                    //response.Data = new Any
-                    //{
-                    //    Value = ByteString.CopyFrom(JsonSerializer.SerializeToUtf8Bytes<Account>(account, this.jsonOptions)),
-                    //};
+                case "get-user":
+                    string userId = JsonSerializer.Deserialize<string>(
+                        request.Data.Value.ToByteArray(), 
+                        this.jsonOptions);
+                    var userEntry = await _daprClient.GetStateEntryAsync<User>(GameOnNames.StateStoreName, userId);
+
+                    response.Data = new Any
+                    {
+                        Value = ByteString.CopyFrom(
+                            JsonSerializer.SerializeToUtf8Bytes<User>(userEntry.Value, this.jsonOptions))
+                    };
                     break;
                 default:
-                    break;
+                    throw new NotSupportedException($"Request method name {request.Method} is not supported");
             }
             return response;
+        }
+
+        public static Task GetUser(HttpContext context)
+        {
+            return Task.CompletedTask;
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using Dapr.Client;
+using GameOn.Common;
 using GameOn.Extensions;
 using GameOn.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +15,6 @@ namespace GameOn.Users.Controllers
     [Authorize]
     public class UsersController : ControllerBase
     {
-        const string StoreName = "statestore";  //TODO: Config?
         private readonly ILogger<User> _log;
 
         public UsersController(ILogger<User> log) => _log = log;
@@ -24,7 +24,7 @@ namespace GameOn.Users.Controllers
         public async Task<ActionResult<User>> Get([FromServices] DaprClient dapr)
         {
             var userId = User.GameOnUserId();
-            var entry = await dapr.GetStateEntryAsync<User>(StoreName, userId);
+            var entry = await dapr.GetStateEntryAsync<User>(GameOnNames.StateStoreName, userId);
 
             if (entry.Value is null) return NotFound($"User Id {userId} not found");
             return entry.Value;
@@ -39,7 +39,7 @@ namespace GameOn.Users.Controllers
 
             // Create in Storage
             await dapr.SaveStateAsync(
-                StoreName,
+                GameOnNames.StateStoreName,
                 user.Id,
                 user,
                 stateOptions: new StateOptions { Consistency = ConsistencyMode.Strong });

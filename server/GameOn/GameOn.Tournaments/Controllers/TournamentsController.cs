@@ -1,5 +1,7 @@
 ﻿using Dapr;
 using Dapr.Client;
+using Dapr.Client.Autogen.Grpc.v1;
+using GameOn.Common;
 using GameOn.Extensions;
 using GameOn.Helpers;
 using GameOn.Models;
@@ -10,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GameOn.Tournaments.Controllers
@@ -19,16 +22,14 @@ namespace GameOn.Tournaments.Controllers
     [Authorize]
     public class TournamentsController : ControllerBase
     {
-        const string StoreName = "statestore";  //TODO: Config?
         private readonly ILogger<Tournament> _log;
 
         public TournamentsController(ILogger<Tournament> log) => _log = log;
 
         // GET all tournaments
-        [HttpGet]
         [HttpGet("{tenantId}")]
         public ActionResult<IEnumerable<Tournament>> Get(
-            [FromState(StoreName, "tenantId")] StateEntry<Tournament[]> entry,
+            [FromState(GameOnNames.StateStoreName, "tenantId")] StateEntry<Tournament[]> entry,
             string tenantId)
         {
             if (entry.Value is null) return NotFound($"Tenant Id {tenantId} is not found");
@@ -38,7 +39,7 @@ namespace GameOn.Tournaments.Controllers
         // Get tournament
         [HttpGet("{tenantId}/{tournamentId}")]
         public ActionResult<Tournament> Get(
-            [FromState(StoreName, "tenantId")] StateEntry<Tournament[]> entry,
+            [FromState(GameOnNames.StateStoreName, "tenantId")] StateEntry<Tournament[]> entry,
             string tenantId,
             string tournamentId)
         {
@@ -69,17 +70,22 @@ namespace GameOn.Tournaments.Controllers
             string userId = User.GameOnUserId();
 
             // TODO: Get Player from Player Service
-            //var userResponse = await dapr.InvokeMethodWithResponseAsync<string, User>("user", "get", userId);
+            // The HttpInvocationOptions object is needed to specify additional information such as the HTTP method and an optional query string, because the receiving service is listening on HTTP.  If it were listening on gRPC, it is not needed.
+            var userResponse = await dapr.InvokeMethodWithResponseAsync<string, User>(
+                GameOnNames.UsersAppName, 
+                GameOnUsersMethodNames.GetUser, 
+                userId,
+                httpExtension: new Dapr.Client.Http.HTTPExtension { Verb = Dapr.Client.Http.HTTPVerb.Get });
 
             // Create Player from User
-            //var player = new Player(userResponse.Body, tournament.Id);
-            var player = new Player(User.GameOnUser(), tournament.Id);
+            var player = new Player(userResponse.Body, tournament.Id);
+            //var player = new Player(User.GameOnUser(), tournament.Id);
 
             tournament.Owner = player;
             tournament.Players = new Player[] { player };
 
             // Get Tournaments from State Store as array
-            var entry = await dapr.GetStateEntryAsync<Tournament[]>(StoreName, tenantId);
+            var entry = await dapr.GetStateEntryAsync<Tournament[]>(GameOnNames.StateStoreName, tenantId);
 
             // Convert into List
             var tournaments = entry.Value is null ? new List<Tournament>() : new List<Tournament>(entry.Value);
