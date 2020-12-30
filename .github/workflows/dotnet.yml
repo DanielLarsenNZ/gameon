@@ -49,4 +49,4 @@ jobs:
     - name: Azure CLI Action
       uses: Azure/cli@1.0.4
       with:
-        inlineScript: cd server/GameOn/GameOn.Tournaments && az acr build --registry gameonaue --image gameontournaments:latest .
+        inlineScript: cd $GITHUB_WORKSPACE/server/GameOn && az acr build --registry gameonaue --image gameontournaments:latest $GITHUB_WORKSPACE/server/GameOn
