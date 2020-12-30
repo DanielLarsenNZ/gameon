@@ -29,3 +29,16 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: server/GameOn
+    - name: Azure Container Registry Login
+      uses: Azure/docker-login@v1
+      with:
+        username: gameonaue 
+        password: $ACR_PASSWORD 
+        login-server: https://gameonaue.azurecr.io
+    - name: Azure Login
+      uses: Azure/login@v1.1
+    - name: Azure CLI Action
+      uses: Azure/cli@1.0.4
+      with:
+        working-directory: server/GameOn/GameOn.Tournaments
+        inlineScript: az acr build --registry gameonaue --image gameontournaments:latest .
