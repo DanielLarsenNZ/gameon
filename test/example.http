@@ -1,6 +1,7 @@
 ### POST Tournament PROD
 POST https://api.gameon.nz/tournaments/tenant1
 Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1Q...
 
 {
     "name": "Auckland Office - Table Tennis - Singles",
@@ -14,12 +15,12 @@ GET http://api.gameon.nz/tournaments/tenant1/849468128dd84962a2d4dd3b637367d7
 
 ### GET Tournaments PROD
 GET https://api.gameon.nz/tournaments/tenant1
+Authorization: Bearer eyJ0eXAiOiJKV1Q...
 
 ### POST Tournaments LOCAL DEV
 POST http://localhost:5000/tournaments/abcd1234
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1Qi...
-
+Authorization: Bearer eyJ0eXAiOiJKV1Q...
 {
     "name": "Name1",
     "description": "Description1",
@@ -29,7 +30,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1Qi...
 
 ### GET Tournaments LOCAL
 GET http://localhost:5000/tournaments/abcd1234
-Authorization: Bearer eyJ0eXAiOiJKV1Qi...
+Authorization: Bearer eyJ0eXAiOiJKV1Q...
 
 
 ### GET Tournament LOCAL
@@ -38,7 +39,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1Qi...
 
 ### GET Health ASP.NET
 GET https://localhost:44318/health
-Authorization: Bearer eyJ0eXAiOiJKV1Qi...
+Authorization: Bearer eyJ0eXAiOiJKV1Q...
 
 ### Save Store
 POST http://localhost:57766/v1.0/state/statestore

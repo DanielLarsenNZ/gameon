@@ -17,13 +17,13 @@ namespace GameOn.Models
         [Required]
         public string Name { get; set; }
         
-        public Player Owner { get; set; }
+        public User Owner { get; set; }
         
         public int PlayerCount => (Players is null || !Players.Any()) ? 0 : Players.Length;
 
         public string PlayingFor { get; set; }
         
-        public Player[] Players { get; set; }
+        public User[] Players { get; set; }
         
         public DateTimeOffset? StartDate { get; set; }
         

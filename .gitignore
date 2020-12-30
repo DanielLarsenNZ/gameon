@@ -7,3 +7,5 @@ _work
 _k8s
 Properties
 appsettings.Development.json
+prod.http
+local.http

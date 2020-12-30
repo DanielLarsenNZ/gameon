@@ -1,7 +1,7 @@
 ﻿using Dapr;
 using Dapr.Client;
-using GameOn.Common.Extensions;
-using GameOn.Common.Helpers;
+using GameOn.Common;
+using GameOn.Extensions;
 using GameOn.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -19,16 +19,14 @@ namespace GameOn.Tournaments.Controllers
     [Authorize]
     public class TournamentsController : ControllerBase
     {
-        const string StoreName = "statestore";  //TODO: Config?
         private readonly ILogger<Tournament> _log;
 
         public TournamentsController(ILogger<Tournament> log) => _log = log;
 
         // GET all tournaments
-        [HttpGet]
         [HttpGet("{tenantId}")]
         public ActionResult<IEnumerable<Tournament>> Get(
-            [FromState(StoreName, "tenantId")] StateEntry<Tournament[]> entry,
+            [FromState(GameOnNames.StateStoreName, "tenantId")] StateEntry<Tournament[]> entry,
             string tenantId)
         {
             if (entry.Value is null) return NotFound($"Tenant Id {tenantId} is not found");
@@ -38,7 +36,7 @@ namespace GameOn.Tournaments.Controllers
         // Get tournament
         [HttpGet("{tenantId}/{tournamentId}")]
         public ActionResult<Tournament> Get(
-            [FromState(StoreName, "tenantId")] StateEntry<Tournament[]> entry,
+            [FromState(GameOnNames.StateStoreName, "tenantId")] StateEntry<Tournament[]> entry,
             string tenantId,
             string tournamentId)
         {
@@ -55,14 +53,6 @@ namespace GameOn.Tournaments.Controllers
             Tournament tournament,
             string tenantId)
         {
-            var user = User.GameOnUser();
-
-            var owner = new Player
-            {
-                Id = CryptoHelper.Sha256(user.ObjectId),
-                Name = user.Name,
-            };
-
             // Generate Id if not provided
             if (string.IsNullOrEmpty(tournament.Id)) tournament.Id = Guid.NewGuid().ToString("N");
 
@@ -74,13 +64,21 @@ namespace GameOn.Tournaments.Controllers
             if (tournament.Owner != null)
                 throw new ArgumentException("Owner must not be included in Tournaments Post model.");
 
+            string userId = User.GameOnUserId();
+
             // TODO: Get Player from Player Service
-            //var ownerResponse = await dapr.InvokeMethodWithResponseAsync<string, Player>("player", "create", user.ObjectId);
-            tournament.Owner = owner;
-            tournament.Players = new Player[] { owner };
+            // The HttpInvocationOptions object is needed to specify additional information such as the HTTP method and an optional query string, because the receiving service is listening on HTTP.  If it were listening on gRPC, it is not needed.
+            var userResponse = await dapr.InvokeMethodWithResponseAsync<string, User>(
+                GameOnNames.UsersAppName,
+                GameOnUsersMethodNames.GetUser,
+                userId,
+                httpExtension: new Dapr.Client.Http.HTTPExtension { Verb = Dapr.Client.Http.HTTPVerb.Get });
+
+            tournament.Owner = userResponse.Body;
+            tournament.Players = new [] { userResponse.Body };
 
             // Get Tournaments from State Store as array
-            var entry = await dapr.GetStateEntryAsync<Tournament[]>(StoreName, tenantId);
+            var entry = await dapr.GetStateEntryAsync<Tournament[]>(GameOnNames.StateStoreName, tenantId);
 
             // Convert into List
             var tournaments = entry.Value is null ? new List<Tournament>() : new List<Tournament>(entry.Value);
