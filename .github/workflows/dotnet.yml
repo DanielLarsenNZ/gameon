@@ -44,6 +44,8 @@ jobs:
         login-server: https://gameonaue.azurecr.io
     - name: Azure Login
       uses: Azure/login@v1.1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Azure CLI Action
       uses: Azure/cli@1.0.4
       with:
