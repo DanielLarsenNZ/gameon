@@ -9,6 +9,13 @@ on:
     branches: [ main ]
     paths:
       - "server/GameOn"
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'information'
+        
 jobs:
   build:
 
