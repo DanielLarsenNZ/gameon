@@ -8,7 +8,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["GameOn.Tournaments/GameOn.Tournaments.csproj", "GameOn.Tournaments/"]
-COPY ["GameOn.Models/GameOn.Models.csproj", "GameOn.Models/"]
+COPY ["GameOn.Common/GameOn.Common.csproj", "GameOn.Common/"]
+COPY ["GameOn.CommonCore/GameOn.CommonCore.csproj", "GameOn.Common/"]
 RUN dotnet restore "GameOn.Tournaments/GameOn.Tournaments.csproj"
 COPY . .
 WORKDIR "/src/GameOn.Tournaments"
