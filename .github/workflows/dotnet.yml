@@ -50,8 +50,8 @@ jobs:
       uses: Azure/cli@1.0.4
       with:
         inlineScript: 
-          cd server/GameOn/GameOn.Tournaments
-          az acr build --registry gameonaue -t gameontournaments:latest -t gameontournaments:run-$GITHUB_RUN_NUMBER .
+          cd $GITHUB_WORKSPACE/server/GameOn
+          az acr build --registry gameonaue -t gameontournaments:latest -t gameontournaments:run-$GITHUB_RUN_NUMBER $GITHUB_WORKSPACE/server/GameOn
     - name: kubectl rollout restart
       uses: Azure/cli@1.0.4
       with:
