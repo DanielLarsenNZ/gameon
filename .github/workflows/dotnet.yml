@@ -4,18 +4,18 @@ on:
   push:
     branches: [ main ]
     paths:
-      - "server/GameOn"
+      - "server/GameOn/**"
   pull_request:
     branches: [ main ]
     paths:
-      - "server/GameOn"
+      - "server/GameOn/**"
   workflow_dispatch:
     inputs:
       logLevel:
         description: 'Log level'     
         required: true
         default: 'information'
-        
+
 jobs:
   build:
 
@@ -46,7 +46,16 @@ jobs:
       uses: Azure/login@v1.1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: Azure CLI Action
+    - name: az acr build
       uses: Azure/cli@1.0.4
       with:
-        inlineScript: cd server/GameOn/GameOn.Tournaments && az acr build --registry gameonaue --image gameontournaments:latest .
+        inlineScript: 
+          cd server/GameOn/GameOn.Tournaments
+          az acr build --registry gameonaue -t gameontournaments:latest -t gameontournaments:run-$GITHUB_RUN_NUMBER .
+    - name: kubectl rollout restart
+      uses: Azure/cli@1.0.4
+      with:
+        inlineScript: 
+          az aks get-credentials --name "gameon-aue-aks" --resource-group "gameon-rg"
+          kubectl rollout restart deployment tournaments
+    
