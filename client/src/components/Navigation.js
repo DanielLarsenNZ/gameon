@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogOut, Menu, User, X } from 'react-feather';
+import { LogOut, Menu, User, X, HelpCircle } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import logo from '../assets/images/logo.png';
@@ -11,6 +11,11 @@ const ProfileMenus = [
     label: 'My Tournaments',
     icon: User,
     redirectTo: '/',
+  },
+  {
+    label: 'FAQs',
+    icon: HelpCircle,
+    redirectTo: '/faq',
   },
   {
     label: 'Logout',
