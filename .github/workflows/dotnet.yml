@@ -53,11 +53,12 @@ jobs:
           cd $GITHUB_WORKSPACE/server/GameOn
           az acr build --registry gameonaue -f Tournaments.Dockerfile -t gameontournaments:latest -t gameontournaments:run-$GITHUB_RUN_NUMBER $GITHUB_WORKSPACE/server/GameOn
     - name: Kubectl tool installer
+      id: kubectl-install
       uses: Azure/setup-kubectl@v1
     - name: kubectl rollout restart
       uses: Azure/cli@1.0.4
       with:
         inlineScript: |
           az aks get-credentials --name "gameon-aue-aks" --resource-group "gameon-rg"
-          kubectl rollout restart deployment tournaments
+          ${{ steps.kubectl-install.outputs.kubectl-path }} rollout restart deployment tournaments
     
