@@ -49,13 +49,13 @@ jobs:
     - name: az acr build
       uses: Azure/cli@1.0.4
       with:
-        inlineScript: 
+        inlineScript: |
           cd $GITHUB_WORKSPACE/server/GameOn
           az acr build --registry gameonaue -t gameontournaments:latest -t gameontournaments:run-$GITHUB_RUN_NUMBER $GITHUB_WORKSPACE/server/GameOn
     - name: kubectl rollout restart
       uses: Azure/cli@1.0.4
       with:
-        inlineScript: 
+        inlineScript: |
           az aks get-credentials --name "gameon-aue-aks" --resource-group "gameon-rg"
           kubectl rollout restart deployment tournaments
     
