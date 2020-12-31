@@ -24,6 +24,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Azure Login
+      uses: Azure/login@v1.1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Kubectl tool installer
       id: kubectl-install
       uses: Azure/setup-kubectl@v1
@@ -53,10 +57,7 @@ jobs:
         username: gameonaue 
         password: $ACR_PASSWORD 
         login-server: https://gameonaue.azurecr.io
-    - name: Azure Login
-      uses: Azure/login@v1.1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: az acr build
       uses: Azure/cli@1.0.4
       with:
