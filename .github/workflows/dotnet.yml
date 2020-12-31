@@ -24,20 +24,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Azure Login
-      uses: Azure/login@v1.1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: Kubectl tool installer
-      id: kubectl-install
-      uses: Azure/setup-kubectl@v1
-    - name: kubectl rollout restart
-      uses: Azure/cli@1.0.4
-      with:
-        inlineScript: |
-          az aks get-credentials --name "gameon-aue-aks" --resource-group "gameon-rg"
-          ${{ steps.kubectl-install.outputs.kubectl-path }}/kubectl rollout restart deployment tournaments
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
@@ -57,6 +43,10 @@ jobs:
         username: gameonaue 
         password: $ACR_PASSWORD 
         login-server: https://gameonaue.azurecr.io
+    - name: Azure Login
+      uses: Azure/login@v1.1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: az acr build
       uses: Azure/cli@1.0.4
@@ -65,3 +55,12 @@ jobs:
           cd $GITHUB_WORKSPACE/server/GameOn
           az acr build --registry gameonaue -f Tournaments.Dockerfile -t gameontournaments:latest -t gameontournaments:run-$GITHUB_RUN_NUMBER $GITHUB_WORKSPACE/server/GameOn
     
+    # - name: Kubectl tool installer
+    #   id: kubectl-install
+    #   uses: Azure/setup-kubectl@v1
+    # - name: kubectl rollout restart
+    #   uses: Azure/cli@1.0.4
+    #   with:
+    #     inlineScript: |
+    #       az aks get-credentials --name "gameon-aue-aks" --resource-group "gameon-rg"
+    #       ${{ steps.kubectl-install.outputs.kubectl-path }} rollout restart deployment tournaments
