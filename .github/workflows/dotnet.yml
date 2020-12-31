@@ -14,7 +14,7 @@ on:
       logLevel:
         description: 'Log level'     
         required: true
-        default: 'information'
+        default: 'verbose'
 
 jobs:
   build:
@@ -52,6 +52,8 @@ jobs:
         inlineScript: |
           cd $GITHUB_WORKSPACE/server/GameOn
           az acr build --registry gameonaue -f Tournaments.Dockerfile -t gameontournaments:latest -t gameontournaments:run-$GITHUB_RUN_NUMBER $GITHUB_WORKSPACE/server/GameOn
+    - name: Kubectl tool installer
+      uses: Azure/setup-kubectl@v1
     - name: kubectl rollout restart
       uses: Azure/cli@1.0.4
       with:
