@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import FAQ from '../components/FAQs';
 import Landing from '../components/Landing';
 import Tournament from '../components/Tournament';
 import Error404 from './Error404';
@@ -39,6 +40,7 @@ class Routes extends Component {
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/tournaments/:id" component={Tournament} />
+            <Route exact path="/faq" component={FAQ} />
 
             {/* {routes.map((route, index) => {
               return !route.children ? (

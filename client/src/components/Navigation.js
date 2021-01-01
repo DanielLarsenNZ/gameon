@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogOut, Menu, User, X } from 'react-feather';
+import { BarChart2, HelpCircle, LogOut, Menu, X } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import logo from '../assets/images/logo.png';
@@ -8,9 +8,14 @@ import ProfileDropdown from './ProfileDropdown';
 
 const ProfileMenus = [
   {
-    label: 'My Tournaments',
-    icon: User,
+    label: 'All Tournaments',
+    icon: BarChart2,
     redirectTo: '/',
+  },
+  {
+    label: 'FAQs',
+    icon: HelpCircle,
+    redirectTo: '/faq',
   },
   {
     label: 'Logout',
