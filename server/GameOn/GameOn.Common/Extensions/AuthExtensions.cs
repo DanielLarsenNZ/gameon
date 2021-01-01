@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Threading.Tasks;
 
@@ -33,6 +34,7 @@ namespace GameOn.Extensions
                 {
                     options.Authority = configuration[AuthenticationAuthority];
                     options.Audience = configuration[AuthenticationAudience];
+                    options.TokenValidationParameters = new TokenValidationParameters { ValidateIssuer = false };
                     options.Events = new JwtBearerEvents
                     {
                         OnAuthenticationFailed = (arg) =>

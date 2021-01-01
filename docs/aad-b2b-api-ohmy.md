@@ -49,3 +49,25 @@ fetch('https://localhost:44318/tournaments/abcd1234',
 * Check the Network tab in F12 Developer Tools (in Edge) to ensure that Authorization header is being sent and CORS is not failing
 * In ASP.NET, debug the Authz middleware by following these instructions: [Troubleshooting ASP.NET Core Azure AD protected web API authorization issues](https://blogs.aaddevsup.xyz/2019/12/troubleshooting-asp-net-core-azure-ad-protected-web-api-authorization-issues/)
 * Inspect the id token in <https://jwt.ms> and ensure the Audience and Authority (Issuer) match what is configured
+
+## Multi-tenant
+
+### In the services:
+
+* Set the `Authority` to `https://login.microsoftonline.com/common/`
+* Turn off Issuer validation. The app is now responsible for validating Issuers.
+
+```csharp
+options.TokenValidationParameters = new TokenValidationParameters { ValidateIssuer = false };
+```
+
+Good overview here: [Authenticate using Azure AD and OpenID Connect - Configure the auth middleware](https://docs.microsoft.com/en-us/azure/architecture/multitenant-identity/authenticate#configure-the-auth-middleware)
+
+### In the client:
+
+* Change the `authority` to: 
+  * `https://login.microsoftonline.com/organizations/` - to accept  work/school accounts only
+  * `https://login.microsoftonline.com/consumers/` - to accept personal accounts only
+  * `https://login.microsoftonline.com/common/` - to accept either
+
+See also: [Application configuration options - Authority](https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-client-application-configuration#authority)

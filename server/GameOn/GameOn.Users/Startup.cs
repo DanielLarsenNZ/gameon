@@ -45,6 +45,8 @@ namespace GameOn.Users
                 app.UseDeveloperExceptionPage();
             }
 
+            Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
+
             // Middleware order is crucial! https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-3.1
             app.UseRouting();
             app.UseAuthentication();

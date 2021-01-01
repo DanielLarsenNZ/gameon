@@ -105,7 +105,7 @@ namespace GameOn.Tournaments
                 app.UseDeveloperExceptionPage();
             }
 
-            //Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
+            Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
             //app.UseHttpsRedirection();
 
             // Middleware order is crucial! https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-3.1
