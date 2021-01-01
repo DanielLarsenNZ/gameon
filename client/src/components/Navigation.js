@@ -8,7 +8,7 @@ import ProfileDropdown from './ProfileDropdown';
 
 const ProfileMenus = [
   {
-    label: 'My Tournaments',
+    label: 'All Tournaments',
     icon: BarChart2,
     redirectTo: '/',
   },
