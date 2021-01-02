@@ -46,8 +46,7 @@ namespace GameOn.Users.Controllers
             await dapr.SaveStateAsync(
                 GameOnNames.StateStoreName,
                 user.Id,
-                user,
-                stateOptions: new StateOptions { Consistency = ConsistencyMode.Strong });
+                user);
 
             // TODO: Pub user created
 

@@ -1,0 +1,41 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: users
+  labels:
+    app: users
+spec:
+  selector:
+    app: users
+  ports:
+  - protocol: TCP
+    port: 80
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users
+  labels:
+    app: users
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "users"
+        dapr.io/app-port: "80"
+    spec:
+      containers:
+      - name: gameonusers
+        image: gameonaue.azurecr.io/gameonusers:latest
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
