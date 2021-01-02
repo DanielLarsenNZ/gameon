@@ -92,16 +92,15 @@
 
 ## Me (Users)
 
-    GET /users
-    POST /users
-    PUT /users
-    DELETE /users
+    GET /me
+    POST /me
+    PUT /me
 
     {
         tenantId: string,   // private
         id: id,
         name: string,
-        //email: string,    // private property
+        //email: string,    // private 
         imageUrl: string,
         nickname: string
     }
