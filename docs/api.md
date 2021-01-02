@@ -1,15 +1,15 @@
 
 ## Tournaments
 
-    POST /tournaments/{tenant_id}
-    GET /tournaments/{tenant_id}
-    GET /tournaments/{tenant_id}?skip=0&limit=20
-    GET /tournaments/{tenant_id}?playerId={player_id}
-    GET /tournaments/{tenant_id}/{tournament_id}
-    PUT /tournaments/{tenant_id}/{tournament_id}
-    PUT /tournaments/{tenant_id}/{tournament_id}/players
-    GET /tournaments/{tenant_id}/{tournament_id}/players
-    DELETE /tournaments/{tenant_id}/{tournament_id}/players
+    POST /tournaments
+    GET /tournaments
+    GET /tournaments?skip=0&limit=20
+    GET /tournaments?playerId={player_id}
+    GET /tournaments/{tournament_id}
+    PUT /tournaments/{tournament_id}
+    PUT /tournaments/{tournament_id}/players
+    GET /tournaments/{tournament_id}/players
+    DELETE /tournaments/{tournament_id}/players
 
     // Tournaments model
     [{
@@ -92,13 +92,13 @@
 
 ## Me (Users)
 
-    GET /me
-    POST /me
-    PUT /me
-    DELETE /me
+    GET /users
+    POST /users
+    PUT /users
+    DELETE /users
 
     {
-        tenantId: string,
+        tenantId: string,   // private
         id: id,
         name: string,
         //email: string,    // private property

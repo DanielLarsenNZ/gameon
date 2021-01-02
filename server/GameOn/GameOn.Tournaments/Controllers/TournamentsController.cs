@@ -19,9 +19,9 @@ namespace GameOn.Tournaments.Controllers
     [Authorize]
     public class TournamentsController : ControllerBase
     {
-        private readonly ILogger<Tournament> _log;
+        private readonly ILogger<TournamentsController> _log;
 
-        public TournamentsController(ILogger<Tournament> log) => _log = log;
+        public TournamentsController(ILogger<TournamentsController> log) => _log = log;
 
         // GET all tournaments
         [HttpGet]
@@ -73,11 +73,13 @@ namespace GameOn.Tournaments.Controllers
             string userId = User.GameOnUserId();
 
             // TODO: Get Player from Player Service
-            // The HttpInvocationOptions object is needed to specify additional information such as the HTTP method and an optional query string, because the receiving service is listening on HTTP.  If it were listening on gRPC, it is not needed.
-            var userResponse = await dapr.InvokeMethodWithResponseAsync<string, User>(
+            // The HttpInvocationOptions object is needed to specify additional information such as 
+            //  the HTTP method and an optional query string, because the receiving service is listening 
+            // on HTTP.  If it were listening on gRPC, it is not needed.
+            var userResponse = await dapr.InvokeMethodWithResponseAsync<GetUserParams, User>(
                 GameOnNames.UsersAppName,
                 GameOnUsersMethodNames.GetUser,
-                userId,
+                new GetUserParams { TenantId = tenantId, UserId = userId },
                 httpExtension: new Dapr.Client.Http.HTTPExtension { Verb = Dapr.Client.Http.HTTPVerb.Get });
 
             tournament.Owner = userResponse.Body;
