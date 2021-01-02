@@ -54,6 +54,7 @@ jobs:
         inlineScript: |
           cd $GITHUB_WORKSPACE/server/GameOn
           az acr build --registry gameonaue -f Tournaments.Dockerfile -t gameontournaments:latest -t gameontournaments:run-$GITHUB_RUN_NUMBER $GITHUB_WORKSPACE/server/GameOn
+          az acr build --registry gameonaue -f Users.Dockerfile -t gameonusers:latest -t gameonusers:run-$GITHUB_RUN_NUMBER $GITHUB_WORKSPACE/server/GameOn
     
     # - name: Kubectl tool installer
     #   id: kubectl-install
