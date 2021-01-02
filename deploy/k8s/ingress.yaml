@@ -21,4 +21,4 @@ spec:
       - backend:
           serviceName: users
           servicePort: 80
-        path: /users
+        path: /me
