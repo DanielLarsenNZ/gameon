@@ -33,3 +33,5 @@ Windows
 [Running your first app in Kubernetes](https://yourazurecoach.com/2019/12/30/exploring-dapr-running-your-first-dapr-app-in-kubernetes/)
 
 [Dapr K8s annotations](https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/)
+
+[Debugging Common Dapr Issues](https://xaviergeerinck.com/post/dapr/debugging)
