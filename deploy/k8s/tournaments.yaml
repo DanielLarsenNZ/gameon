@@ -30,7 +30,7 @@ spec:
         app: tournaments
       annotations:
         dapr.io/enabled: "true"
-        dapr.io/app-id: "tournaments"
+        dapr.io/app-id: "gameon-tournaments"
         dapr.io/app-port: "80"
     spec:
       containers:

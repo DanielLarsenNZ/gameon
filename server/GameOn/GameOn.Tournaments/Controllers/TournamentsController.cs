@@ -1,5 +1,4 @@
-﻿using Dapr;
-using Dapr.Client;
+﻿using Dapr.Client;
 using GameOn.Common;
 using GameOn.Extensions;
 using GameOn.Models;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,22 +24,27 @@ namespace GameOn.Tournaments.Controllers
         public TournamentsController(ILogger<Tournament> log) => _log = log;
 
         // GET all tournaments
-        [HttpGet("{tenantId}")]
-        public ActionResult<IEnumerable<Tournament>> Get(
-            [FromState(GameOnNames.StateStoreName, "tenantId")] StateEntry<Tournament[]> entry,
-            string tenantId)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Tournament>>> Get([FromServices] DaprClient dapr)
         {
-            if (entry.Value is null) return NotFound($"Tenant Id {tenantId} is not found");
+            string tenantId = User.GetTenantId();
+
+            // Get Tournaments from State Store as array
+            var entry = await dapr.GetStateEntryAsync<Tournament[]>(GameOnNames.StateStoreName, tenantId);
+
+            if (entry.Value is null) return new Tournament[] { };
             return entry.Value;
         }
 
         // Get tournament
-        [HttpGet("{tenantId}/{tournamentId}")]
-        public ActionResult<Tournament> Get(
-            [FromState(GameOnNames.StateStoreName, "tenantId")] StateEntry<Tournament[]> entry,
-            string tenantId,
-            string tournamentId)
+        [HttpGet("{tournamentId}")]
+        public async Task<ActionResult<Tournament>> Get([FromServices] DaprClient dapr, string tournamentId)
         {
+            string tenantId = User.GetTenantId();
+
+            // Get Tournaments from State Store as array
+            var entry = await dapr.GetStateEntryAsync<Tournament[]>(GameOnNames.StateStoreName, tenantId);
+
             if (entry.Value is null) return NotFound($"Tenant Id {tenantId} is not found");
             var tournament = entry.Value.FirstOrDefault(t => t.Id == tournamentId);
             if (tournament is null) return NotFound($"Tournament Id {tournamentId} is not found");
@@ -47,12 +52,13 @@ namespace GameOn.Tournaments.Controllers
         }
 
         // POST 
-        [HttpPost("{tenantId}")]
+        [HttpPost]
         public async Task<ActionResult<Tournament>> Post(
             [FromServices] DaprClient dapr,
-            Tournament tournament,
-            string tenantId)
+            Tournament tournament)
         {
+            string tenantId = User.GetTenantId();
+
             // Generate Id if not provided
             if (string.IsNullOrEmpty(tournament.Id)) tournament.Id = Guid.NewGuid().ToString("N");
 
@@ -75,7 +81,7 @@ namespace GameOn.Tournaments.Controllers
                 httpExtension: new Dapr.Client.Http.HTTPExtension { Verb = Dapr.Client.Http.HTTPVerb.Get });
 
             tournament.Owner = userResponse.Body;
-            tournament.Players = new [] { userResponse.Body };
+            tournament.Players = new[] { userResponse.Body };
 
             // Get Tournaments from State Store as array
             var entry = await dapr.GetStateEntryAsync<Tournament[]>(GameOnNames.StateStoreName, tenantId);

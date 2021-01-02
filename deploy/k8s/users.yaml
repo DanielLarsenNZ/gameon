@@ -30,7 +30,7 @@ spec:
         app: users
       annotations:
         dapr.io/enabled: "true"
-        dapr.io/app-id: "users"
+        dapr.io/app-id: "gameon-users"
         dapr.io/app-port: "80"
     spec:
       containers:
