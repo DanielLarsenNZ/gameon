@@ -1,13 +1,13 @@
 
 ## Tournaments
 
-    POST /tournaments
-    GET /tournaments
+    ✅ POST /tournaments
+    ✅ GET /tournaments
     GET /tournaments?skip=0&limit=20
     GET /tournaments?playerId={player_id}
-    GET /tournaments/{tournament_id}
+    ✅ GET /tournaments/{tournament_id}
     PUT /tournaments/{tournament_id}
-    PUT /tournaments/{tournament_id}/players
+    POST /tournaments/{tournament_id}/players
     GET /tournaments/{tournament_id}/players
     DELETE /tournaments/{tournament_id}/players
 

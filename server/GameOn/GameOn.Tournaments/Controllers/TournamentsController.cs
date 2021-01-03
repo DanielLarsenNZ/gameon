@@ -20,8 +20,13 @@ namespace GameOn.Tournaments.Controllers
     public class TournamentsController : ControllerBase
     {
         private readonly ILogger<TournamentsController> _log;
+        private readonly GameOnService<Tournament> _tournaments;
 
-        public TournamentsController(ILogger<TournamentsController> log) => _log = log;
+        public TournamentsController(ILogger<TournamentsController> log, GameOnService<Tournament> service)
+        {
+            _log = log;
+            _tournaments = service;
+        }
 
         // GET all tournaments
         [HttpGet]
@@ -38,20 +43,10 @@ namespace GameOn.Tournaments.Controllers
 
         // Get tournament
         [HttpGet("{tournamentId}")]
-        public async Task<ActionResult<Tournament>> Get([FromServices] DaprClient dapr, string tournamentId)
-        {
-            string tenantId = User.GetTenantId();
+        public async Task<ActionResult<Tournament>> Get(string tournamentId) 
+            => await _tournaments.Get(User.GetTenantId(), tournamentId);
 
-            // Get Tournaments from State Store as array
-            var entry = await dapr.GetStateEntryAsync<Tournament[]>(GameOnNames.StateStoreName, tenantId);
-
-            if (entry.Value is null) return NotFound($"Tenant Id {tenantId} is not found");
-            var tournament = entry.Value.FirstOrDefault(t => t.Id == tournamentId);
-            if (tournament is null) return NotFound($"Tournament Id {tournamentId} is not found");
-            return tournament;
-        }
-
-        // POST 
+        // Create Tournament
         [HttpPost]
         public async Task<ActionResult<Tournament>> Post(
             [FromServices] DaprClient dapr,
@@ -72,10 +67,7 @@ namespace GameOn.Tournaments.Controllers
 
             string userId = User.GameOnUserId();
 
-            // TODO: Get Player from Player Service
-            // The HttpInvocationOptions object is needed to specify additional information such as 
-            //  the HTTP method and an optional query string, because the receiving service is listening 
-            // on HTTP.  If it were listening on gRPC, it is not needed.
+            // Get Player from Player Service
             var userResponse = await dapr.InvokeMethodWithResponseAsync<GetUserParams, User>(
                 GameOnNames.UsersAppName,
                 GameOnUsersMethodNames.GetUser,

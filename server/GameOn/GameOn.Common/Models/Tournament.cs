@@ -1,10 +1,11 @@
-﻿using System;
+﻿using GameOn.Common.Exceptions;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace GameOn.Models
 {
-    public class Tournament : IGameOnModel
+    public class Tournament : GameOnModel
     {
         public string Description { get; set; }
         
@@ -29,6 +30,13 @@ namespace GameOn.Models
         
         public string TimeOfPlayDescription { get; set; }
         
-        public string Id { get; set; }
+        public override void EnforceInvariants()
+        {
+            base.EnforceInvariants();
+
+            EnforcePropertyNotSetInvariant(Name, nameof(Name));
+            if (Players is null || !Players.Any()) throw new InvariantException("Tournament must have at least one Player");
+            if (Owner is null || !Players.Any(p => p.Id == Owner.Id)) throw new InvariantException("Tournament must have an Owner who is also a Player");
+        }
     }
 }

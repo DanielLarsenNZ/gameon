@@ -1,6 +1,6 @@
 using GameOn.Common;
 using GameOn.Extensions;
-using GameOn.Users.Services;
+using GameOn.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

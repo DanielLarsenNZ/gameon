@@ -1,7 +1,7 @@
-﻿using GameOn.Exceptions;
+﻿using GameOn.Common;
+using GameOn.Exceptions;
 using GameOn.Extensions;
 using GameOn.Models;
-using GameOn.Users.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +20,9 @@ namespace GameOn.Users.Controllers
     public class MeController : ControllerBase
     {
         private readonly ILogger<MeController> _log;
-        private readonly UsersService _users;
+        private readonly GameOnService<User> _users;
 
-        public MeController(ILogger<MeController> log, UsersService usersService)
+        public MeController(ILogger<MeController> log, GameOnService<User> usersService)
         {
             _log = log;
             _users = usersService;
@@ -37,7 +37,7 @@ namespace GameOn.Users.Controllers
         {
             var tenantId = User.GetTenantId();
             var userId = User.GameOnUserId();
-            var user = await _users.GetUser(tenantId, userId);
+            var user = await _users.Get(tenantId, userId);
 
             if (user is null)
             {
@@ -59,7 +59,7 @@ namespace GameOn.Users.Controllers
             {
                 return new CreatedResult(
                                $"{Request.GetEncodedUrl()}",
-                               await _users.CreateUser(User.GetTenantId(), User.GameOnUser()));
+                               await _users.Create(User.GetTenantId(), User.GameOnUser()));
             }
             catch (ConflictException)
             {

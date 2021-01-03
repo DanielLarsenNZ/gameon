@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapr.Client" Version="1.0.0-rc02" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.4.1" />
   </ItemGroup>
 
