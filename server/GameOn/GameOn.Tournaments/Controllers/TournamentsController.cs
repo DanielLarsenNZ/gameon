@@ -1,5 +1,6 @@
 ﻿using Dapr.Client;
 using GameOn.Common;
+using GameOn.Exceptions;
 using GameOn.Extensions;
 using GameOn.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -20,9 +21,9 @@ namespace GameOn.Tournaments.Controllers
     public class TournamentsController : ControllerBase
     {
         private readonly ILogger<TournamentsController> _log;
-        private readonly GameOnService<Tournament> _tournaments;
+        private readonly TournamentsService _tournaments;
 
-        public TournamentsController(ILogger<TournamentsController> log, GameOnService<Tournament> service)
+        public TournamentsController(ILogger<TournamentsController> log, TournamentsService service)
         {
             _log = log;
             _tournaments = service;
@@ -67,35 +68,20 @@ namespace GameOn.Tournaments.Controllers
 
             string userId = User.GameOnUserId();
 
-            // Get Player from Player Service
-            var userResponse = await dapr.InvokeMethodWithResponseAsync<GetUserParams, User>(
-                GameOnNames.UsersAppName,
-                GameOnUsersMethodNames.GetUser,
-                new GetUserParams { TenantId = tenantId, UserId = userId },
-                httpExtension: new Dapr.Client.Http.HTTPExtension { Verb = Dapr.Client.Http.HTTPVerb.Get });
+            User user = await _tournaments.GetUser(tenantId, userId);
 
-            tournament.Owner = userResponse.Body;
-            tournament.Players = new[] { userResponse.Body };
+            tournament.Owner = user;
+            tournament.Players = new[] { user };
 
-            // Get Tournaments from State Store as array
-            var entry = await dapr.GetStateEntryAsync<Tournament[]>(GameOnNames.StateStoreName, tenantId);
-
-            // Convert into List
-            var tournaments = entry.Value is null ? new List<Tournament>() : new List<Tournament>(entry.Value);
-
-            // Guard for Tournament conflict
-            if (tournaments.Any(t => t.Id == tournament.Id))
+            try
             {
-                _log.LogInformation($"Post: Tournament Id \"{tournament.Id}\" already exists in Tenant Id \"{tenantId}\".");
+                await _tournaments.Create(tenantId, tournament);
+            }
+            catch (ConflictException)
+            {
                 return new ConflictResult();
             }
-
-            tournaments.Add(tournament);
-
-            // Convert back to Array save Entry
-            entry.Value = tournaments.ToArray();
-            await entry.SaveAsync();
-
+            
             return new CreatedResult($"{Request.GetEncodedUrl()}/{tournament.Id}", tournament);
         }
     }

@@ -2,6 +2,6 @@
 {
     public static class GameOnUsersMethodNames
     {
-        public const string GetUser = "GetUser";
+        public const string GetUsers = "GetUsers";
     }
 }

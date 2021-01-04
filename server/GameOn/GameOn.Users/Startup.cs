@@ -56,14 +56,14 @@ namespace GameOn.Users
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapGet(GameOnUsersMethodNames.GetUser, GetUser);
+                endpoints.MapGet(GameOnUsersMethodNames.GetUsers, GetUsers);
             });
         }
 
         /// <summary>
         /// GetUser delegate
         /// </summary>
-        private async Task GetUser(HttpContext context)
-            => await context.RequestServices.GetRequiredService<UsersService>().GetUser(context);
+        private async Task GetUsers(HttpContext context)
+            => await context.RequestServices.GetRequiredService<UsersService>().GetUsers(context);
     }
 }

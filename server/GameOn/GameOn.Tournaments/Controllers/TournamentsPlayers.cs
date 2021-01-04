@@ -20,9 +20,9 @@ namespace GameOn.Tournaments.Controllers
     public class TournamentsPlayersController : ControllerBase
     {
         private readonly ILogger<TournamentsPlayersController> _log;
-        private readonly GameOnService<Tournament> _tournaments;
+        private readonly TournamentsService _tournaments;
 
-        public TournamentsPlayersController(ILogger<TournamentsPlayersController> log, GameOnService<Tournament> service)
+        public TournamentsPlayersController(ILogger<TournamentsPlayersController> log, TournamentsService service)
         {
             _log = log;
             _tournaments = service;
@@ -32,10 +32,8 @@ namespace GameOn.Tournaments.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get(string tournamentId)
         {
-            string tenantId = User.GetTenantId();
-
             // Get Tournament
-            var tournament = await _tournaments.Get(tenantId, tournamentId);
+            var tournament = await _tournaments.Get(User.GetTenantId(), tournamentId);
             return tournament.Players;
         }
 
@@ -45,7 +43,14 @@ namespace GameOn.Tournaments.Controllers
             string tournamentId, 
             string userId)
         {
-            string tenantId = User.GetTenantId();
+            // Get Tournament
+            var tournament = await _tournaments.Get(User.GetTenantId(), tournamentId);
+
+            // Get Player
+            var player = tournament.Players.FirstOrDefault(p => p.Id == userId);
+
+            if (player is null) return new NotFoundResult();
+            return player;
         }
 
         // Add Users as Players to Tournament
@@ -54,8 +59,8 @@ namespace GameOn.Tournaments.Controllers
             string tournamentId,
             string[] userIds)
         {
-            string tenantId = User.GetTenantId();
-
+            await _tournaments.AddPlayers(User.GetTenantId(), tournamentId, userIds);
+            return NoContent();
         }
     }
 }

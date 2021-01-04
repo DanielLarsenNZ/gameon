@@ -19,22 +19,22 @@ namespace GameOn.Users
             // TODO: Pub User Create
         }
 
-        public async Task GetUser(HttpContext context)
+        public async Task GetUsers(HttpContext context)
         {
-            var @params = await JsonSerializer.DeserializeAsync<GetUserParams>(
+            var @params = await JsonSerializer.DeserializeAsync<GetUsersParams>(
                 context.Request.Body, _jsonOptions);
 
-            var user = await Get(@params.TenantId, @params.UserId);
+            User[] users = await GetBatch(@params.TenantId, @params.UserIds);
 
-            if (user == null)
+            if (users == null)
             {
-                _log.LogWarning($"User Id {@params.UserId} not found in Tenant {@params.TenantId}");
+                _log.LogWarning($"User Ids {@params.UserIds} not found in Tenant {@params.TenantId}");
                 context.Response.StatusCode = 404;
                 return;
             }
 
             context.Response.ContentType = "application/json";
-            await JsonSerializer.SerializeAsync(context.Response.Body, user, _jsonOptions);
+            await JsonSerializer.SerializeAsync(context.Response.Body, users, _jsonOptions);
         }
     }
 }

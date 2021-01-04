@@ -1,8 +1,8 @@
 ﻿namespace GameOn.Models
 {
-    public class GetUserParams
+    public class GetUsersParams
     {
         public string TenantId { get; set; }
-        public string UserId { get; set; }
+        public string[] UserIds { get; set; }
     }
 }
