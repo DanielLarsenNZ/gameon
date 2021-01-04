@@ -55,12 +55,9 @@ namespace GameOn.Tournaments.Controllers
 
         // Add Users as Players to Tournament
         [HttpPost]
-        public async Task<ActionResult> Post(
+        public async Task<ActionResult<Tournament>> Post(
             string tournamentId,
-            string[] userIds)
-        {
-            await _tournaments.AddPlayers(User.GetTenantId(), tournamentId, userIds);
-            return NoContent();
-        }
+            string[] userIds) 
+            => await _tournaments.AddPlayers(User.GetTenantId(), tournamentId, userIds);
     }
 }

@@ -1,6 +1,4 @@
-﻿using Dapr.Client;
-using GameOn.Common;
-using GameOn.Exceptions;
+﻿using GameOn.Exceptions;
 using GameOn.Extensions;
 using GameOn.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GameOn.Tournaments.Controllers
@@ -31,27 +28,21 @@ namespace GameOn.Tournaments.Controllers
 
         // GET all tournaments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tournament>>> Get([FromServices] DaprClient dapr)
-        {
-            string tenantId = User.GetTenantId();
-
-            // Get Tournaments from State Store as array
-            var entry = await dapr.GetStateEntryAsync<Tournament[]>(GameOnNames.StateStoreName, tenantId);
-
-            if (entry.Value is null) return new Tournament[] { };
-            return entry.Value;
-        }
+        public async Task<ActionResult<IEnumerable<Tournament>>> Get()
+            => await _tournaments.GetAll(User.GetTenantId());
 
         // Get tournament
         [HttpGet("{tournamentId}")]
-        public async Task<ActionResult<Tournament>> Get(string tournamentId) 
-            => await _tournaments.Get(User.GetTenantId(), tournamentId);
+        public async Task<ActionResult<Tournament>> Get(string tournamentId)
+        {
+            var tournament = await _tournaments.Get(User.GetTenantId(), tournamentId);
+            if (tournament is null) return new NotFoundResult();
+            return tournament;
+        }
 
         // Create Tournament
         [HttpPost]
-        public async Task<ActionResult<Tournament>> Post(
-            [FromServices] DaprClient dapr,
-            Tournament tournament)
+        public async Task<ActionResult<Tournament>> Post(Tournament tournament)
         {
             string tenantId = User.GetTenantId();
 
@@ -81,7 +72,7 @@ namespace GameOn.Tournaments.Controllers
             {
                 return new ConflictResult();
             }
-            
+
             return new CreatedResult($"{Request.GetEncodedUrl()}/{tournament.Id}", tournament);
         }
     }

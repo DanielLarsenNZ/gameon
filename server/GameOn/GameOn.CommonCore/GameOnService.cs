@@ -50,12 +50,7 @@ namespace GameOn.Common
                 throw new ConflictException($"{nameof(T)} Id \"{entity.Id}\" already exists.");
             }
 
-            entities.Add(entity);
-
-            // Convert back to Array save Entry
-            entry.Value = entities.ToArray();
-            await entry.SaveAsync();
-
+            await AddAndSaveStateEntry(entry, entity);
             return entity;
         }
 
@@ -74,6 +69,24 @@ namespace GameOn.Common
 
         public async Task<StateEntry<T[]>> GetStateEntry(string tenantId) 
             => await _dapr.GetStateEntryAsync<T[]>(GameOnNames.StateStoreName, tenantId);
+
+        public async Task AddAndSaveStateEntry(StateEntry<T[]> entry, T entity)
+        {
+            // Enforce Invariants
+            entity.EnforceInvariants();
+
+            var entities = ToList(entry);
+
+            // Remove the entity from entites as it will be replaced
+            entities.RemoveAll(e => e.Id == entity.Id);
+
+            // Add entity to collection
+            entities.Add(entity);
+
+            // Convert back to Array save Entry
+            entry.Value = entities.ToArray();
+            await entry.SaveAsync();
+        }
 
         protected List<T> ToList(StateEntry<T[]> entry) => entry.Value is null ? new List<T>() : new List<T>(entry.Value);
     }

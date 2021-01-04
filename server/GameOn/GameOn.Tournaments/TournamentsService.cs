@@ -14,7 +14,7 @@ namespace GameOn.Tournaments
         {
         }
 
-        internal async Task AddPlayers(string tenantId, string tournamentId, string[] userIds)
+        internal async Task<Tournament> AddPlayers(string tenantId, string tournamentId, string[] userIds)
         {
             // Get Tournament Entry
             var entry = await GetStateEntry(tenantId);
@@ -27,7 +27,7 @@ namespace GameOn.Tournaments
                 throw new NotFoundException($"Tournament Id {tournamentId} is not found");
 
             var tournament = tournaments.First(t => t.Id == tournamentId);
-
+            
             // get Users from User service 
             User[] users = await GetUsers(tenantId, userIds);
 
@@ -36,9 +36,9 @@ namespace GameOn.Tournaments
             foreach (var user in users) players[user.Id] = user;
             tournament.Players = players.Select(p => p.Value).ToArray();
 
-            // Convert back to Array save Entry
-            entry.Value = tournaments.ToArray();
-            await entry.SaveAsync();
+            await AddAndSaveStateEntry(entry, tournament);
+
+            return tournament;
         }
 
         internal async Task<User[]> GetUsers(string tenantId, string[] userIds)

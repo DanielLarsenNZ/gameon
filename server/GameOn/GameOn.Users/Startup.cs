@@ -1,5 +1,6 @@
 using GameOn.Common;
 using GameOn.Extensions;
+using GameOn.Models;
 using GameOn.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,7 @@ namespace GameOn.Users
             services.AddGameOnCors(Configuration);
 
             services.AddTransient<UsersService>();
+            services.AddTransient<GameOnService<User>, UsersService>();
 
             services
                 .AddControllers()

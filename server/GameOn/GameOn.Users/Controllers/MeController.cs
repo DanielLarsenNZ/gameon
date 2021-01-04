@@ -61,9 +61,13 @@ namespace GameOn.Users.Controllers
                                $"{Request.GetEncodedUrl()}",
                                await _users.Create(User.GetTenantId(), User.GameOnUser()));
             }
-            catch (ConflictException)
+            catch (ConflictException ex)
             {
-                return new ConflictResult();
+                // So that this endpoint can be idempotent, a Conflict status is not returned here.
+                // The stored User is returned. It is not replaced. A 200 Ok status code is returned 
+                // instead of 201 Created.
+                _log.LogInformation($"Post: {ex.Message}. User was not replaced.");
+                return new JsonResult(await _users.Get(User.GetTenantId(), User.GameOnUserId()));
             }
         }
     }

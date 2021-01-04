@@ -1,4 +1,6 @@
+using GameOn.Common;
 using GameOn.Extensions;
+using GameOn.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +26,10 @@ namespace GameOn.Tournaments
         {
             services.AddGameOnAuthentication(Configuration, Logger);
             services.AddGameOnCors(Configuration);
+
+            services.AddTransient<GameOnService<Tournament>, TournamentsService>();
+            services.AddTransient<TournamentsService>();
+
 
             //services.AddCors(options =>
             //{
