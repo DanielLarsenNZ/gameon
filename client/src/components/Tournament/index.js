@@ -8,14 +8,34 @@ import Leaderboard from './Leaderboard';
 const Tournament = () => {
   const { t } = useTranslation('common');
 
-  const [tournament, setTournament] = useState({ title: 'Table Tennis Championship' });
+  // TODO: Remove me later
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const [tournament, setTournament] = useState({
+    id: 1,
+    name: 'Table Tennis Championship',
+    description:
+      "Every good tournament has an even better description to inform its potential players and tell them what's up for grabs. In this series, any player is welcome at any point in the competition. Every good tournament has an even better description to inform its potential players and tell them what's up for grabs. In this series, any player is welcome at any point in the competition.",
+    location: 'The Hub, Auckland',
+    playingFor: 'Land the plane they have downloaded gmail and seems to be working for now granularity.',
+    playerCount: 3,
+    players: [],
+    startDate: today,
+    endDate: tomorrow,
+    timeOfPlayDescription: 'Every Mon, Wed, Fri at Lunch',
+    maxPlayers: 25,
+    owner: { id: 1234 },
+    rulesURL: 'https://www.rulesofsport.com/sports/table-tennis-ping-pong.html',
+  });
   const isPlayer = true;
 
   return (
     <>
       <Row className="page-title">
         <Col sm={8} xl={6}>
-          <h4 className="mb-1 mt-0">{tournament.title}</h4>
+          <h4 className="mb-1 mt-0">{tournament.name}</h4>
         </Col>
         <Col sm={4} xl={6} className="text-md-right">
           {isPlayer ? (
@@ -46,7 +66,17 @@ const Tournament = () => {
           <Leaderboard />
         </Col>
         <Col xl={8}>
-          <About />
+          <About
+            description={tournament.description}
+            reward={tournament.playingFor}
+            rulesURL={tournament.rulesURL}
+            startDate={tournament.startDate}
+            endDate={tournament.endDate}
+            location={tournament.location}
+            timeOfPlay={tournament.timeOfPlayDescription}
+            maxPlayers={tournament.maxPlayers}
+            playerCount={tournament.playerCount}
+          />
         </Col>
       </Row>
     </>

@@ -2,8 +2,19 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardBody } from 'reactstrap';
 
-const About = () => {
+const About = ({
+  description,
+  reward,
+  rulesURL,
+  startDate,
+  endDate,
+  location,
+  timeOfPlay,
+  maxPlayers,
+  playerCount,
+}) => {
   const { t } = useTranslation('common');
+  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
   return (
     <Card>
@@ -11,70 +22,58 @@ const About = () => {
         <h6 className="mt-0 header-title">{t('tournament.about_this_tournament')}</h6>
 
         <div className="text-muted mt-3">
-          <p>
-            Every good tournament has an even better description to inform its potential players and tell them what's up
-            for grabs. In this series, any player is welcome at any point in the competition. Every good tournament has
-            an even better description to inform its potential players and tell them what's up for grabs. In this
-            series, any player is welcome at any point in the competition.
-          </p>
+          <Section title="Description">{description}</Section>
+          <Section title={t('tournament.rules')}>
+            <a href={rulesURL} target="_blank" rel="noreferrer">
+              {rulesURL}
+            </a>
+          </Section>
+          <Section title="Reward">{reward}</Section>
+          {maxPlayers && (
+            <Section title="Maximum Players">
+              This tournament is limited to {maxPlayers} players. There are {maxPlayers - playerCount} spots left.
+              Please contact the tournament owner for more information.
+            </Section>
+          )}
 
-          <h6 className="mt-0 header-subtitle">{t('tournament.rules')}</h6>
-          <ul className="pl-4 mb-4">
-            <li>
-              We need distributors to evangelize the new line to local markets that's not on the roadmap optimize for
-              search.
-            </li>
-            <li>
-              Scope creep. What do you feel you would bring to the table if you were hired for this position circle back
-              get all your ducks in a row.
-            </li>
-            <li>
-              Minimize backwards overflow incentivization form without content style without meaning or social currency.
-            </li>
-            <li>In an ideal world teams were able to drive adoption and awareness powerpoint.</li>
-          </ul>
-
-          <h6 className="mt-0 header-subtitle">Reward</h6>
-          <p>Land the plane they have downloaded gmail and seems to be working for now granularity.</p>
-
+          {/* Key Details */}
           <div className="row">
-            <div className="col-lg-3 col-md-6">
-              <div className="mt-4">
-                <p className="mb-2">
-                  <i className="uil-calender text-danger"></i> Start Date
-                </p>
-                <h5 className="font-size-16">01 December 2020</h5>
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-6">
-              <div className="mt-4">
-                <p className="mb-2">
-                  <i className="uil-calendar-slash text-danger"></i> End Date
-                </p>
-                <h5 className="font-size-16">Ongoing</h5>
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-6">
-              <div className="mt-4">
-                <p className="mb-2">
-                  <i className="uil-clock text-danger"></i> When
-                </p>
-                <h5 className="font-size-16">Every Mon, Wed, Fri at Lunch</h5>
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-6">
-              <div className="mt-4">
-                <p className="mb-2">
-                  <i className="uil-location-pin-alt text-danger"></i> Location
-                </p>
-                <h5 className="font-size-16">The Hub, Auckland</h5>
-              </div>
-            </div>
+            <Detail title="Start Date" iconClass="uil-calender">
+              {/* TODO: Start Date should default to date of tournament creation unless defined in the future. */}
+              {startDate ? startDate.toLocaleDateString(undefined, dateOptions) : 'A while ago...'}
+            </Detail>
+            <Detail title="End Date" iconClass="uil-calendar-slash">
+              {endDate ? endDate.toLocaleDateString(undefined, dateOptions) : 'Ongoing'}
+            </Detail>
+            <Detail title="When" iconClass="uil-clock">
+              {timeOfPlay}
+            </Detail>
+            <Detail title="Location" iconClass="uil-location-pin-alt">
+              {location}
+            </Detail>
           </div>
         </div>
       </CardBody>
     </Card>
   );
 };
+
+const Section = ({ title, children }) => (
+  <>
+    <h6 className="mt-0 header-subtitle">{title}</h6>
+    <p>{children}</p>
+  </>
+);
+
+const Detail = ({ title, iconClass, children }) => (
+  <div className="col-lg-3 col-md-6">
+    <div className="mt-4">
+      <p className="mb-2">
+        <i className={`${iconClass} text-danger`}></i> {title}
+      </p>
+      <h5 className="font-size-16">{children}</h5>
+    </div>
+  </div>
+);
 
 export default About;
