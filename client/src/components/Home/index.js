@@ -6,7 +6,7 @@ import Loader from '../Loader';
 import NewTournamentModal from './NewTournamentModal';
 import TournamentCard from './TournamentCard';
 
-const Landing = ({ loading }) => {
+const Home = ({ loading }) => {
   const { t } = useTranslation('common');
   const [isNewModalOpen, setIsNewModalOpen] = useState(false);
   const toggleNewModal = () => setIsNewModalOpen(!isNewModalOpen);
@@ -77,4 +77,4 @@ const Landing = ({ loading }) => {
   );
 };
 
-export default Landing;
+export default Home;

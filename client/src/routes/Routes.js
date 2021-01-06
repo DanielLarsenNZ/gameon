@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import FAQ from '../components/FAQs';
-import Landing from '../components/Landing';
+import Home from '../components/Home';
 import Tournament from '../components/Tournament';
 import Error404 from './Error404';
 
@@ -38,7 +38,7 @@ class Routes extends Component {
       <BrowserRouter>
         <Layout {...this.props}>
           <Switch>
-            <Route exact path="/" component={Landing} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/tournaments/:id" component={Tournament} />
             <Route exact path="/faq" component={FAQ} />
 

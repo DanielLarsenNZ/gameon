@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@azure/msal-browser": "^2.8.0",
+    "@azure/msal-react": "^1.0.0-alpha.1",
     "apexcharts": "^3.23.0",
     "availity-reactstrap-validation": "^2.7.0",
     "axios": "^0.21.1",
@@ -27,7 +29,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
