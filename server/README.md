@@ -37,6 +37,8 @@ The VS Code `launch.json` and `tasks.json` files are included in this repo. To o
 
 ## Links & references
 
+👉🏻 <https://docs.microsoft.com/en-us/graph/tutorials/aspnet-core?tutorial-step=3>
+
 [GitHub Actions Default environment variables](https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables)
 
 [Debugging Dapr applications with Visual Studio Code](https://blog.ehn.nu/2020/03/debugging-dapr-applications-with-visual-studio-code/)

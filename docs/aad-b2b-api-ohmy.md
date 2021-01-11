@@ -71,3 +71,46 @@ Good overview here: [Authenticate using Azure AD and OpenID Connect - Configure 
   * `https://login.microsoftonline.com/common/` - to accept either
 
 See also: [Application configuration options - Authority](https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-client-application-configuration#authority)
+
+## More Graph API pain
+
+Copy the Application ID URL into the Client Id: <https://stackoverflow.com/a/63475289/610731>
+
+You also need an "Audience" setting on the server side: <https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-protected-web-api-app-configuration#case-where-you-used-a-custom-app-id-uri-for-your-web-api>
+
+On the client: 
+
+```javascript
+const msalConfig = {
+auth: {
+        clientId: "api://GameOn.Api",
+    authority: "https://login.microsoftonline.com/organizations/",
+    redirectUri: "https://localhost:44357"
+}
+};
+
+//...
+
+var loginRequest = {
+    scopes: [
+        "api://GameOn.Api/Users"
+] 
+};
+
+```
+
+On the server:
+
+```json
+"AzureAd": {
+    "Instance": "https://login.microsoftonline.com/",
+    "ClientId": "api://GameOn.Api",
+    "TenantId": "72f988bf-...",
+    "ClientSecret": "h10_TtBdU...",
+    "Audience": "api://GameOn.Api"
+  }
+```
+
+## Gotchas
+
+If you get a CORS error from the authentication endpoint, check that you have created a SPA reply URL and not a Web reply URL. It seems to make a difference somehow.

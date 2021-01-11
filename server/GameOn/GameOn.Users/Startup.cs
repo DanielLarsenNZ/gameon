@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Web;
 using System.Threading.Tasks;
 
 namespace GameOn.Users
@@ -30,8 +31,13 @@ namespace GameOn.Users
             services.AddGameOnAuthentication(Configuration, Logger);
             services.AddGameOnCors(Configuration);
 
+            // Add Services
+            services.AddHttpClient();
+            services.AddScoped<GraphService>();
+            services.AddMemoryCache();
+            
+            services.AddTransient<GraphService>();
             services.AddTransient<UsersService>();
-            services.AddTransient<GameOnService<User>, UsersService>();
 
             services
                 .AddControllers()
