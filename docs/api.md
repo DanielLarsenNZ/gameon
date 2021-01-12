@@ -89,7 +89,7 @@
 ## Me (Users)
 
     GET /me
-    GET /me/photos[?size=128x128]
+    GET /me/photos[?size=120x120]
     POST /me
     PUT /me
 
@@ -103,4 +103,4 @@
 # Users
 
     GET /users
-    GET /users/{user_id}/photos[?size=128x128]
+    GET /users/{user_id}/photos[?size=120x120]

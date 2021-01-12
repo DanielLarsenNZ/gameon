@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
+using System;
 using System.Threading.Tasks;
 
 namespace GameOn.Users.Controllers
@@ -77,12 +78,17 @@ namespace GameOn.Users.Controllers
         [HttpGet("photos")]
         public async Task<ActionResult<User>> GetPhoto([FromQuery] string size)
         {
-            if (string.IsNullOrEmpty(size)) size = "128x128";
+            if (string.IsNullOrEmpty(size)) size = "120x120";
 
-            var tenantId = User.GetTenantId();
-            var aadUserId = User.GetObjectId();
-            var result = await _users.GetUserPhoto(tenantId, aadUserId, size);
-            return File(result.Content, result.ContentType);
+            try
+            {
+                var result = await _users.GetUserPhoto(User.GetTenantId(), User.GetObjectId(), size);
+                return File(result.Content, result.ContentType);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return new BadRequestObjectResult(ex.Message);
+            }
         }
     }
 }

@@ -39,3 +39,9 @@ spec:
         ports:
         - containerPort: 80
         imagePullPolicy: Always
+        env:
+          - name: AzureAd__ClientSecret
+            valueFrom:
+              secretKeyRef:
+                name: azuread
+                key: clientsecret

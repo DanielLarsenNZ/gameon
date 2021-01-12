@@ -1,5 +1,6 @@
 ﻿using GameOn.Users.Models;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
 using Microsoft.Identity.Web;
 using System;
@@ -18,12 +19,14 @@ namespace GameOn.Users
         private readonly IHttpClientFactory _httpFactory;
         private readonly IMemoryCache _cache;
         private readonly ITokenAcquisition _tokenAcquisition;
+        private readonly ILogger<GraphService> _log;
 
-        public GraphService(IHttpClientFactory clientFactory, IMemoryCache cache, ITokenAcquisition tokenAcquisition)
+        public GraphService(IHttpClientFactory clientFactory, IMemoryCache cache, ITokenAcquisition tokenAcquisition, ILogger<GraphService> logger)
         {
             _httpFactory = clientFactory;
             _cache = cache;
             _tokenAcquisition = tokenAcquisition;
+            _log = logger;
         }
 
         private async Task<GraphServiceClient> GetGraphClient(string[] scopes)
@@ -42,8 +45,7 @@ namespace GameOn.Users
                 async (requestMessage) =>
 #pragma warning restore CS1998 
                 {
-                    requestMessage.Headers.Authorization =
-                        new AuthenticationHeaderValue("bearer", token);
+                    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("bearer", token);
                 })
             };
 
@@ -61,18 +63,22 @@ namespace GameOn.Users
                     nameof(size),
                     size, $"`size` param must be one of the following values: {string.Join(',', PhotoSizes)}");
 
-            string url = $"https://graph.microsoft.com/v1.0/users/{aadUserId}/photos/{size}/$value";
-            string key = $"{tenantId}|{url}";
+            string uri = $"https://graph.microsoft.com/v1.0/users/{aadUserId}/photos/{size}/$value";
+            string key = $"{tenantId}|{uri}";
 
             if (_cache.TryGetValue(key, out PhotoResult cacheValue)) return cacheValue;
 
-            var graphclient = await GetGraphClient(
-                new string[] { "User.ReadBasic.All", "user.read" })
-               .ConfigureAwait(false);
+            _log.LogTrace($"GetUserPhoto: Cache miss key = {key}");
+
+            var graphclient = await GetGraphClient(new string[] { "User.ReadBasic.All", "user.read" });
 
             using (Stream photo = await graphclient.Users[aadUserId].Photos[size].Content.Request().GetAsync())
             {
-                if (photo is null) return null;
+                if (photo is null)
+                {
+                    _log.LogWarning($"GetUserPhoto: Photo not found. TenantId = {tenantId}, Uri = {uri}");
+                    return null;
+                }
 
                 MemoryStream ms = new MemoryStream();
                 photo.CopyTo(ms);
