@@ -1,6 +1,7 @@
 ﻿using Dapr.Client;
 using GameOn.Common;
 using GameOn.Models;
+using GameOn.Users.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
@@ -10,19 +11,25 @@ namespace GameOn.Users
 {
     public class UsersService : GameOnService<User>
     {
-        public UsersService(DaprClient daprClient, ILogger<UsersService> logger) : base(daprClient, logger) { }
+        private readonly GraphService _graph;
 
-        public override Task<User> Create(string tenantId, User entity)
+        public UsersService(DaprClient daprClient, ILogger<UsersService> logger, GraphService graph)
+            : base(daprClient, logger)
         {
-            // TODO: Augment pic and email from Graph
-            return base.Create(tenantId, entity);
+            _graph = graph;
+        }
+
+        public override async Task<User> Create(string tenantId, User entity)
+        {
+            return await base.Create(tenantId, entity);
             // TODO: Pub User Create
         }
 
         public async Task GetUsers(HttpContext context)
         {
             var @params = await JsonSerializer.DeserializeAsync<GetUsersParams>(
-                context.Request.Body, _jsonOptions);
+                context.Request.Body,
+                _jsonOptions);
 
             User[] users = await GetBatch(@params.TenantId, @params.UserIds);
 
@@ -36,5 +43,10 @@ namespace GameOn.Users
             context.Response.ContentType = "application/json";
             await JsonSerializer.SerializeAsync(context.Response.Body, users, _jsonOptions);
         }
+
+        public async Task<PhotoResult> GetUserPhoto(
+            string tenantId,
+            string aadUserObjectId,
+            string size) => await _graph.GetUserPhoto(tenantId, aadUserObjectId, size);
     }
 }

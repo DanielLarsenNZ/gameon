@@ -1,5 +1,4 @@
-﻿using GameOn.Common;
-using GameOn.Exceptions;
+﻿using GameOn.Exceptions;
 using GameOn.Extensions;
 using GameOn.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -20,9 +19,9 @@ namespace GameOn.Users.Controllers
     public class MeController : ControllerBase
     {
         private readonly ILogger<MeController> _log;
-        private readonly GameOnService<User> _users;
+        private readonly UsersService _users;
 
-        public MeController(ILogger<MeController> log, GameOnService<User> usersService)
+        public MeController(ILogger<MeController> log, UsersService usersService)
         {
             _log = log;
             _users = usersService;
@@ -69,6 +68,21 @@ namespace GameOn.Users.Controllers
                 _log.LogInformation($"Post: {ex.Message}. User was not replaced.");
                 return new JsonResult(await _users.Get(User.GetTenantId(), User.GameOnUserId()));
             }
+        }
+
+        /// <summary>
+        /// Get the current authenticated User profile photo
+        /// </summary>
+        /// <remarks> /me/photo[?size=128x128] </remarks>
+        [HttpGet("photos")]
+        public async Task<ActionResult<User>> GetPhoto([FromQuery] string size)
+        {
+            if (string.IsNullOrEmpty(size)) size = "128x128";
+
+            var tenantId = User.GetTenantId();
+            var aadUserId = User.GetObjectId();
+            var result = await _users.GetUserPhoto(tenantId, aadUserId, size);
+            return File(result.Content, result.ContentType);
         }
     }
 }

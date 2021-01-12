@@ -49,7 +49,6 @@ namespace GameOn.Tournaments
                 GameOnUsersMethodNames.GetUsers,
                 new GetUsersParams { TenantId = tenantId, UserIds = userIds },
                 httpOptions: new HttpInvocationOptions { Method = System.Net.Http.HttpMethod.Get });
-                //httpExtension: new Dapr.Client.Http.HTTPExtension { Verb = Dapr.Client.Http.HTTPVerb.Get });
 
             return userResponse.Body;
         }

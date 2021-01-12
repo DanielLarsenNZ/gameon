@@ -13,19 +13,18 @@
 
       const msalConfig = {
         auth: {
-          clientId: "73263e98-be26-450b-96cb-0ea758039fd9",
-          authority:
-            "https://login.microsoftonline.com/organizations/",
-          redirectUri: "https://localhost:44357",
-        },
+              clientId: "api://GameOn.Api",
+          authority: "https://login.microsoftonline.com/organizations/",
+          redirectUri: "https://localhost:44357"
+        }
       };
 
       const msalInstance = new msal.PublicClientApplication(msalConfig);
 
       var loginRequest = {
-        scopes: [
-          "https://microsoft.onmicrosoft.com/GameOn.Tournaments/user_impersonation",
-        ], // optional Array<string>
+          scopes: [
+              "api://GameOn.Api/Users"
+        ] 
       };
 
       msalInstance

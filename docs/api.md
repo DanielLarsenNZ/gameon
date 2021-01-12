@@ -69,8 +69,6 @@
             rank: 1,
             player: {
                 name: string,
-                email: string,
-                imageUrl: string,
                 nickname: string    //TODO
             },
             score: 1000
@@ -79,8 +77,6 @@
             rank: 2,
             player: {
                 name: string,
-                email: string,
-                imageUrl: string,
                 nickname: string    //TODO
             },
             score: 900
@@ -93,6 +89,7 @@
 ## Me (Users)
 
     GET /me
+    GET /me/photos[?size=128x128]
     POST /me
     PUT /me
 
@@ -100,7 +97,10 @@
         tenantId: string,   // private
         id: id,
         name: string,
-        //email: string,    // private 
-        imageUrl: string,
         nickname: string
     }
+
+# Users
+
+    GET /users
+    GET /users/{user_id}/photos[?size=128x128]

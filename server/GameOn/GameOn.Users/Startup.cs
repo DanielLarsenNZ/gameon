@@ -1,7 +1,5 @@
 using GameOn.Common;
 using GameOn.Extensions;
-using GameOn.Models;
-using GameOn.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,11 +25,15 @@ namespace GameOn.Users
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddGameOnAuthentication(Configuration, Logger);
+            services.AddGameOnAuthentication(Configuration);
             services.AddGameOnCors(Configuration);
 
+            // Add Services
+            services.AddHttpClient();
+            services.AddMemoryCache();
+
+            services.AddTransient<GraphService>();
             services.AddTransient<UsersService>();
-            services.AddTransient<GameOnService<User>, UsersService>();
 
             services
                 .AddControllers()
@@ -45,9 +47,8 @@ namespace GameOn.Users
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
             }
-
-            Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
 
             // Middleware order is crucial! https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-3.1
             app.UseRouting();
@@ -58,6 +59,8 @@ namespace GameOn.Users
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
+                // This is an inter-service call that is not accessible via a controller
                 endpoints.MapGet(GameOnUsersMethodNames.GetUsers, GetUsers);
             });
         }
