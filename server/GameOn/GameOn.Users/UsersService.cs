@@ -4,7 +4,6 @@ using GameOn.Models;
 using GameOn.Users.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -14,20 +13,14 @@ namespace GameOn.Users
     {
         private readonly GraphService _graph;
 
-        public UsersService(DaprClient daprClient, ILogger<UsersService> logger, GraphService graph) 
-            : base(daprClient, logger) 
+        public UsersService(DaprClient daprClient, ILogger<UsersService> logger, GraphService graph)
+            : base(daprClient, logger)
         {
             _graph = graph;
         }
 
         public override async Task<User> Create(string tenantId, User entity)
         {
-            // TODO: Augment pic and email from Graph
-            //var graphUser = await _graph.GetGraphApiUser();
-            //if (graphUser == null) throw new InvalidOperationException("Me does not exist in AAD Graph");
-
-            //graphUser//.Photo.Content.
-
             return await base.Create(tenantId, entity);
             // TODO: Pub User Create
         }
@@ -35,7 +28,8 @@ namespace GameOn.Users
         public async Task GetUsers(HttpContext context)
         {
             var @params = await JsonSerializer.DeserializeAsync<GetUsersParams>(
-                context.Request.Body, _jsonOptions);
+                context.Request.Body,
+                _jsonOptions);
 
             User[] users = await GetBatch(@params.TenantId, @params.UserIds);
 

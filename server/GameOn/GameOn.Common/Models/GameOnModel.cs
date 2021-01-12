@@ -1,5 +1,4 @@
 ﻿using GameOn.Common.Exceptions;
-using System.ComponentModel.DataAnnotations;
 
 namespace GameOn.Models
 {
