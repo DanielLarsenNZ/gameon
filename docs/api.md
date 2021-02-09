@@ -7,10 +7,10 @@
     GET /tournaments?playerId={player_id}
     ✅ GET /tournaments/{tournament_id}
     PUT /tournaments/{tournament_id}
-    POST /tournaments/{tournament_id}/players
-    GET /tournaments/{tournament_id}/players
+    ✅ POST /tournaments/{tournament_id}/players
+    ✅ GET /tournaments/{tournament_id}/players
     DELETE /tournaments/{tournament_id}/players
-
+    
     // Tournaments model
     [{
         id: Id,                 # required
@@ -93,14 +93,9 @@
     POST /me
     PUT /me
 
-    {
-        tenantId: string,   // private
-        id: id,
-        name: string,
-        nickname: string
-    }
-
 # Users
 
     GET /users
     GET /users/{user_id}/photos[?size=120x120]
+    POST /users
+    PUT /users

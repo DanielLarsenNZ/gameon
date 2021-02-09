@@ -16,6 +16,13 @@ A simple Ladder app for intra-office tournaments like Table Tennis, Chess, Pool 
 ## Help us translate Game On!
 Are you fluent in a language that isn't currently supported? Help us translate Game On! into your language in minutes. Simply [create an issue](https://github.com/DanielLarsenNZ/gameon/issues/new/choose) referencing your language or create a [create a pull request](https://github.com/DanielLarsenNZ/gameon/compare) if you already know how i18n works.
 
+## Developer documentation
+
+* [API, technical and product docs](/docs)
+* [Deployment docs](/deploy/README.md)
+* [Client-side dev](/client/README.md)
+* [Server-side dev](/server/README.md)
+
 ## Links & References
 
 [Calculating ELO in C#](https://dotnetcoretutorials.com/2018/09/18/calculating-elo-in-c/)
