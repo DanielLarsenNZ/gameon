@@ -39,3 +39,6 @@ spec:
         ports:
         - containerPort: 80
         imagePullPolicy: Always
+        env:
+          - name: DefaultCorsPolicyOrigins
+            value: "https://localhost:3000;http://localhost:3000;https://gameon.nz;https://localhost:44357"

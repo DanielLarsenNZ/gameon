@@ -23,6 +23,7 @@ Windows
 
     # Restart pods (deployment)
     kubectl rollout restart deployment tournaments
+    kubectl rollout restart deployment users
 
 ## References & links
 
