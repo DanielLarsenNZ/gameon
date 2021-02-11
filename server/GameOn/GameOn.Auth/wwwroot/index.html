@@ -13,18 +13,16 @@
 
       const msalConfig = {
         auth: {
-              clientId: "api://GameOn.Api",
+          clientId: "api://GameOn.Api",
           authority: "https://login.microsoftonline.com/organizations/",
-          redirectUri: "https://localhost:44357"
-        }
+          redirectUri: "https://localhost:44357",
+        },
       };
 
       const msalInstance = new msal.PublicClientApplication(msalConfig);
 
       var loginRequest = {
-          scopes: [
-              "api://GameOn.Api/Users"
-        ] 
+        scopes: ["api://GameOn.Api/Users"],
       };
 
       msalInstance
