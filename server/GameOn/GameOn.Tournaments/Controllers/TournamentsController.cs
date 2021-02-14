@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GameOn.Tournaments.Controllers
@@ -29,7 +30,12 @@ namespace GameOn.Tournaments.Controllers
         // GET all tournaments
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tournament>>> Get()
-            => await _tournaments.GetAll(User.GetTenantId());
+        {
+            var tournaments = await _tournaments.GetAll(User.GetTenantId());
+            // if no tournaments, return empty array
+            if (tournaments is null || !tournaments.Any()) return new Tournament[] { };
+            return tournaments;
+        }
 
         // Get tournament
         [HttpGet("{tournamentId}")]
