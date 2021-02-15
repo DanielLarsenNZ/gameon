@@ -18,7 +18,7 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
       <CardBody>
         <div
           className={classNames('badge', 'float-right', {
-            'badge-success': endDate === true,
+            'badge-success': endDate === true || !endDate,
             'badge-warning': endDate === false,
           })}>
           {endDate ? t('tournament.ongoing') : t('tournament.finished')}
