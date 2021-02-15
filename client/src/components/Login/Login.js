@@ -1,7 +1,7 @@
 import { useAccount, useMsal } from '@azure/msal-react';
 import React, { useEffect, useState } from 'react';
-import Loader from 'react-loader-spinner';
 import { Redirect } from 'react-router-dom';
+import Loader from '../Loader';
 
 const { REACT_APP_API_URI, REACT_APP_AAD_CLIENT_ID } = process.env;
 
@@ -61,7 +61,7 @@ const Login = () => {
     // Take Home once Authed
     return <Redirect to="/" />;
   } else if (inProgress === 'login' || !apiData) {
-    return <Loader type="Bars" color="#00BFFF" height={80} width={80} />;
+    return <Loader />;
   } else {
     // Microsoft Authentication Experience
     return instance.loginRedirect();
