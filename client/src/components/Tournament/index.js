@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Col, Row } from 'reactstrap';
 import About from './About';
 import AdminStats from './AdminStats';
+import ChallengeWidget from './ChallengeWidget';
 import Leaderboard from './Leaderboard';
 
 const Tournament = () => {
@@ -63,6 +64,7 @@ const Tournament = () => {
       <AdminStats players={42} games={89} last7={14} last30={53} /> {/* TODO: Remove Temp Data */}
       <Row>
         <Col xl={4}>
+          <ChallengeWidget name="Erik Employee" endDate="02 February" />
           <Leaderboard />
         </Col>
         <Col xl={8}>
