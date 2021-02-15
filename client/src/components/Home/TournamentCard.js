@@ -4,7 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { Button, Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, location, timing, members = [], owner }) => {
+const sanitiseName = (first, last) => {
+  // Removes content in () from name fields like: First Last (they/them)
+  const removeParens = new RegExp(/\s*\(.*?\)\s*/g);
+  return `${first.replace(removeParens, '')} ${last.replace(removeParens, '')}`;
+};
+
+const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, location, timing, players = [], owner }) => {
   const { t } = useTranslation('common');
 
   return (
@@ -26,31 +32,42 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
         </p>
 
         <h5>
-          <a href="/" className="text-dark">
+          <Link to={`/tournaments/${id}`} className="text-dark">
             {title}
-          </a>
+          </Link>
         </h5>
 
         <p className="text-muted mb-4">{description}</p>
 
         <div>
           {/* NOTE: Tournament owner is the only member */}
-          {members.length === 1 ? (
+          {players.length === 1 ? (
             <p>{t('tournament.be_first_to_join')}</p>
           ) : (
             <>
               {/* Show 7 members max */}
-              {members.slice(0, 7).map((member) => (
-                <a key={member.id} href="/" className="d-inline-block mr-1">
-                  <img src={member?.imageUrl} className="avatar-sm m-1 rounded-circle" alt="Player Avatar" />
-                </a>
-              ))}
+              {players.slice(0, 7).map((player) => {
+                const { givenName = '', surname = '' } = player;
+                const avatarURL = `https://ui-avatars.com/api/?background=ddd&color=999&name=${sanitiseName(
+                  givenName,
+                  surname
+                )}&format=svg`;
+                return (
+                  <a key={player.id} href="/" className="d-inline-block mr-1">
+                    <img
+                      src={player?.imageUrl || avatarURL}
+                      className="avatar-sm m-1 rounded-circle"
+                      alt="Player Avatar"
+                    />
+                  </a>
+                );
+              })}
             </>
           )}
-          {members.length - 7 > 0 && (
+          {players.length - 7 > 0 && (
             <a href="/" className="">
               <div className="avatar-sm font-weight-bold d-inline-block m-1">
-                <span className="avatar-title rounded-circle bg-soft-info text-info">+{members.length - 7}</span>
+                <span className="avatar-title rounded-circle bg-soft-info text-info">+{players.length - 7}</span>
               </div>
             </a>
           )}
@@ -78,7 +95,10 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
               <li className="list-inline-item pr-2">
                 {isOpenToJoin ? (
                   <>
-                    <Link to={`tournaments/${id}`} className="btn btn-primary d-inline-block" id={`join-${id}`}>
+                    <Link
+                      to={`tournaments/${id}?action=join`}
+                      className="btn btn-primary d-inline-block"
+                      id={`join-${id}`}>
                       {t('tournament.join_tournament')}
                     </Link>
                     <UncontrolledTooltip placement="top" target={`join-${id}`}>
