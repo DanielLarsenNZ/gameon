@@ -7,14 +7,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { config as i18nextConfig } from '../../translations';
 
 import '../../assets/scss/theme.scss';
+import { ProvideProfile } from './Profile';
 
 i18n.use(LanguageDetector).use(initReactI18next).init(i18nextConfig);
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
+    <ProvideProfile>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </ProvideProfile>
   );
 };
 

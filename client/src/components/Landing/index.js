@@ -35,7 +35,7 @@ const Navigation = ({ login, inProgress }) => {
   const toggleNavbar = () => setCollapsed(!collapsed);
 
   return (
-    <Navbar color="faded" light fixed expand="lg" className="py-lg-3 mb-2">
+    <Navbar color="faded" light expand="lg" className="py-lg-3 mb-2">
       <div className="container">
         <NavbarBrand href="/" className="mr-auto">
           <img src={logo} alt="Logo" height="24" className="logo-dark" />
