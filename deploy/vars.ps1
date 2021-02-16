@@ -11,3 +11,4 @@ $cosmosDbContainer = 'tournaments'
 $pk = '/partitionKey'
 $acr = "gameon$loc"
 $domainName = 'gameon.nz'
+$storage = "gameonnz$loc"

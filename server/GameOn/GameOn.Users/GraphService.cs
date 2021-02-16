@@ -70,7 +70,8 @@ namespace GameOn.Users
 
             _log.LogTrace($"GetUserPhoto: Cache miss key = {key}");
 
-            var graphclient = await GetGraphClient(new string[] { "User.ReadBasic.All", "user.read" });
+            //var graphclient = await GetGraphClient(new string[] { "User.ReadBasic.All", "user.read" });
+            var graphclient = await GetGraphClient(new string[] { "User.ReadBasic.All", "profile" });
 
             using (Stream photo = await graphclient.Users[aadUserId].Photos[size].Content.Request().GetAsync())
             {

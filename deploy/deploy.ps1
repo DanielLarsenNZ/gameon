@@ -5,4 +5,6 @@
 
 # Deploy K8S
 ./deploy-k8s.ps1
-./deploy
+
+# Deploy Storage SPA
+./deploy-storage.ps1
