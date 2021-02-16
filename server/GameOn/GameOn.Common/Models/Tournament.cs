@@ -8,24 +8,29 @@ namespace GameOn.Models
     public class Tournament : GameOnModel
     {
         public string Description { get; set; }
-        
+
         public DateTimeOffset? EndDate { get; set; }
-        
+
         public string Location { get; set; }
-        
+
         public int? MaxPlayers { get; set; }
-        
+
         [Required]
         public string Name { get; set; }
-        
+
         public User Owner { get; set; }
-        
+
         public int PlayerCount => (Players is null || !Players.Any()) ? 0 : Players.Length;
 
         public string PlayingFor { get; set; }
-        
+
         public User[] Players { get; set; }
-        
+
+        /// <summary>
+        /// A link to the rules for this Tournament
+        /// </summary>
+        public string RulesLink { get; set; }
+
         public DateTimeOffset? StartDate { get; set; }
         
         public string TimeOfPlayDescription { get; set; }
