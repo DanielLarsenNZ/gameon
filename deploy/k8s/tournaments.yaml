@@ -41,4 +41,4 @@ spec:
         imagePullPolicy: Always
         env:
           - name: DefaultCorsPolicyOrigins
-            value: "https://localhost:3000;http://localhost:3000;https://gameon.nz;https://localhost:44357"
+            value: "https://localhost:3000;http://localhost:3000;https://gameon.nz;https://localhost:44357;https://gameonnzaue.z8.web.core.windows.net"
