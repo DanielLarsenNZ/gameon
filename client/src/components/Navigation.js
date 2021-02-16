@@ -3,6 +3,7 @@ import { BarChart2, HelpCircle, LogOut, Menu, X } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import logo from '../assets/images/logo.png';
+import { useProfile } from './App/Profile';
 import LanguageDropdown from './LanguageDropdown';
 import ProfileDropdown from './ProfileDropdown';
 
@@ -26,6 +27,8 @@ const ProfileMenus = [
 ];
 
 const Navigation = () => {
+  const { profile } = useProfile();
+
   return (
     <div className="navbar navbar-expand flex-column flex-md-row navbar-custom">
       <Container fluid>
@@ -55,9 +58,9 @@ const Navigation = () => {
         <ul className="navbar-nav flex-row ml-auto d-flex list-unstyled topnav-menu float-right mb-0">
           <LanguageDropdown tag="li" />
           <ProfileDropdown
-            profilePic="https://randomuser.me/api/portraits/men/31.jpg"
+            profilePic={`https://ui-avatars.com/api/?background=ddd&color=999&name=${profile?.name}&format=svg`}
             menuItems={ProfileMenus}
-            username={'Thomas Tester'}
+            username={profile?.name}
             tag={null}
           />
         </ul>

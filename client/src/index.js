@@ -9,11 +9,11 @@ import reportWebVitals from './reportWebVitals';
 const msalInstance = new PublicClientApplication(msalConfig);
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <MsalProvider instance={msalInstance}>
       <App />
-    </MsalProvider>
-  </React.StrictMode>,
+    </MsalProvider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

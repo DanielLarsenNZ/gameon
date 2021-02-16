@@ -6,6 +6,7 @@ import { Spinner } from 'reactstrap';
 import FAQ from '../components/FAQs';
 import Home from '../components/Home';
 import Landing from '../components/Landing';
+import Login from '../components/Login/Login';
 import Logout from '../components/Logout';
 import Tournament from '../components/Tournament';
 import Error404 from './Error404';
@@ -69,6 +70,7 @@ const Routes = () => {
           <Route exact path="/" component={HomeRoute} />
           <Route exact path="/tournaments/:id" component={Tournament} />
           <Route exact path="/faq" component={FAQ} />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
 
           {/* {routes.map((route, index) => {
