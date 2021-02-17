@@ -68,16 +68,14 @@
         {
             rank: 1,
             player: {
-                name: string,
-                nickname: string    //TODO
+                name: string
             },
             score: 1000
         },
         {
             rank: 2,
             player: {
-                name: string,
-                nickname: string    //TODO
+                name: string
             },
             score: 900
         },

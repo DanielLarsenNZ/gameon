@@ -19,7 +19,8 @@ Windows
     kubectl get pods
 
     # Get metrics for the app and container
-    kubectl logs --selector=app=tournaments -c gameontournaments
+    kubectl logs --selector=app=tournaments -c gameontournaments --tail 100
+    kubectl logs --selector=app=users -c gameonusers --tail 100
 
     # Restart pods (deployment)
     kubectl rollout restart deployment tournaments
