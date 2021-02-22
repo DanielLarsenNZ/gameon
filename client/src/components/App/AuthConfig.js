@@ -1,4 +1,5 @@
 import { LogLevel } from '@azure/msal-browser';
+const { REACT_APP_ENV } = process.env;
 
 // Config object to be passed to Msal on creation
 export const msalConfig = {
@@ -11,27 +12,31 @@ export const msalConfig = {
   system: {
     loggerOptions: {
       loggerCallback: (level, message, containsPii) => {
+        // Don't show logger output if it contains PII
         if (containsPii) {
           return;
         }
-        switch (level) {
-          case LogLevel.Error:
-            console.error(message);
-            return;
-          case LogLevel.Info:
-            console.info(message);
-            return;
-          case LogLevel.Verbose:
-            console.debug(message);
-            return;
-          case LogLevel.Warning:
-            console.warn(message);
-            return;
-          default:
-            return;
+        // When in Dev
+        if (REACT_APP_ENV === 'dev') {
+          switch (level) {
+            case LogLevel.Error:
+              return console.error(message);
+            case LogLevel.Info:
+              return console.info(message);
+            case LogLevel.Verbose:
+              console.debug(message);
+              return;
+            case LogLevel.Warning:
+              return console.warn(message);
+            default:
+              return;
+          }
+          // When in Prod
+        } else if (level === LogLevel.Error) {
+          return console.error(message);
         }
       },
-      logLevel: LogLevel.Verbose,
+      logLevel: REACT_APP_ENV === 'dev' ? LogLevel.Verbose : LogLevel.Error,
     },
   },
 };
