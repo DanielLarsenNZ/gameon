@@ -33,26 +33,6 @@ const getProfile = async (accessToken) => {
   }
 };
 
-// TODO: Get /me Profile Picture
-const getAvatar = async (accessToken) => {
-  const headers = new Headers();
-  const bearer = `Bearer ${accessToken}`;
-
-  headers.append('Authorization', bearer);
-
-  const options = {
-    method: 'GET',
-    headers: headers,
-  };
-
-  try {
-    const response = await fetch(`${REACT_APP_API_URI}/me/photos?size=120x120`, options);
-    return response;
-  } catch (error) {
-    return console.log(error);
-  }
-};
-
 // Business Logic
 const useProvideProfile = () => {
   const { instance, accounts } = useMsal();
