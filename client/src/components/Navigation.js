@@ -28,8 +28,9 @@ const ProfileMenus = [
 ];
 
 const Navigation = () => {
-  const { profile } = useProfile();
-  const { givenName = '', surname = '' } = profile;
+  const { profile = undefined } = useProfile();
+  const givenName = profile?.givenName || '';
+  const surname = profile?.surname || '';
 
   return (
     <div className="navbar navbar-expand flex-column flex-md-row navbar-custom">

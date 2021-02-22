@@ -13,5 +13,5 @@ export const sanitiseName = (first, last) => {
  * @param {String} first Player's first name
  * @param {String} last Player's last name
  */
-export const initialsAvatarURL = (first, last) =>
+export const initialsAvatarURL = (first = 'U', last = 'U') =>
   `https://ui-avatars.com/api/?background=ddd&color=999&name=${sanitiseName(first, last)}&format=svg`;
