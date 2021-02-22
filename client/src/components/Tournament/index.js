@@ -35,6 +35,7 @@ const joinTournament = async (tid, uid, accessToken) => {
   const bearer = `Bearer ${accessToken}`;
 
   headers.append('Authorization', bearer);
+  headers.append('Content-Type', 'application/json');
 
   const options = {
     method: 'POST',
@@ -53,10 +54,12 @@ const joinTournament = async (tid, uid, accessToken) => {
 const Tournament = ({ match, location }) => {
   const { t } = useTranslation('common');
 
+  // Get search params
   const { id } = match.params;
   const params = new URLSearchParams(location.search);
   const action = params.get('action');
 
+  // Tournament Store
   const [tournament, setTournament] = useState({});
 
   const { instance, accounts } = useMsal();
@@ -149,7 +152,7 @@ const Tournament = ({ match, location }) => {
           )}
         </Col>
       </Row>
-      <AdminStats players={42} games={89} last7={14} last30={53} /> {/* TODO: Remove Temp Data */}
+      <AdminStats players={tournament?.playerCount} games={89} last7={14} last30={53} /> {/* TODO: Remove Temp Data */}
       <Row>
         <Col xl={4}>
           <ChallengeWidget name="Erik Employee" endDate="02 February" />

@@ -6,7 +6,7 @@ const About = ({
   description,
   reward,
   rulesURL,
-  startDate,
+  startDate = new Date(),
   endDate,
   location,
   timeOfPlay,
@@ -14,7 +14,7 @@ const About = ({
   playerCount,
 }) => {
   const { t } = useTranslation('common');
-  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+  const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 
   return (
     <Card>
@@ -22,13 +22,22 @@ const About = ({
         <h6 className="mt-0 header-title">{t('tournament.about_this_tournament')}</h6>
 
         <div className="text-muted mt-3">
-          <Section title="Description">{description}</Section>
+          {/* Description */}
+          <Section title="Description">
+            {description || 'No description was provided. Please ask the tournament owner to add a description.'}
+          </Section>
+
+          {/* Rules */}
           <Section title={t('tournament.rules')}>
             <a href={rulesURL} target="_blank" rel="noreferrer">
-              {rulesURL}
+              {rulesURL || 'Regular sport rules apply.'}
             </a>
           </Section>
-          <Section title="Reward">{reward}</Section>
+
+          {/* Reward */}
+          {reward && <Section title="Reward">{reward}</Section>}
+
+          {/* Maximum Players */}
           {maxPlayers && (
             <Section title="Maximum Players">
               This tournament is limited to {maxPlayers} players. There are {maxPlayers - playerCount} spots left.
@@ -40,16 +49,16 @@ const About = ({
           <div className="row">
             <Detail title="Start Date" iconClass="uil-calender">
               {/* TODO: Start Date should default to date of tournament creation unless defined in the future. */}
-              {startDate ? startDate.toLocaleDateString(undefined, dateOptions) : 'A while ago...'}
+              {startDate ? startDate.toLocaleDateString(startDate, dateOptions) : 'Recently'}
             </Detail>
             <Detail title="End Date" iconClass="uil-calendar-slash">
-              {endDate ? endDate.toLocaleDateString(undefined, dateOptions) : 'Ongoing'}
+              {endDate ? endDate.toLocaleDateString(endDate, dateOptions) : 'Ongoing'}
             </Detail>
             <Detail title="When" iconClass="uil-clock">
-              {timeOfPlay}
+              {timeOfPlay || 'Anytime'}
             </Detail>
             <Detail title="Location" iconClass="uil-location-pin-alt">
-              {location}
+              {location || 'Anywhere'}
             </Detail>
           </div>
         </div>
