@@ -3,6 +3,7 @@ import { BarChart2, HelpCircle, LogOut, Menu, X } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import logo from '../assets/images/logo.png';
+import { initialsAvatarURL } from '../helpers/Helpers';
 import { useProfile } from './App/Profile';
 import LanguageDropdown from './LanguageDropdown';
 import ProfileDropdown from './ProfileDropdown';
@@ -28,6 +29,7 @@ const ProfileMenus = [
 
 const Navigation = () => {
   const { profile } = useProfile();
+  const { givenName = '', surname = '' } = profile;
 
   return (
     <div className="navbar navbar-expand flex-column flex-md-row navbar-custom">
@@ -58,7 +60,7 @@ const Navigation = () => {
         <ul className="navbar-nav flex-row ml-auto d-flex list-unstyled topnav-menu float-right mb-0">
           <LanguageDropdown tag="li" />
           <ProfileDropdown
-            profilePic={`https://ui-avatars.com/api/?background=ddd&color=999&name=${profile?.name}&format=svg`}
+            profilePic={initialsAvatarURL(givenName, surname)}
             menuItems={ProfileMenus}
             username={profile?.name}
             tag={null}
