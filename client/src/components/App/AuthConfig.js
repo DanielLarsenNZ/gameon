@@ -1,5 +1,5 @@
 import { LogLevel } from '@azure/msal-browser';
-const { REACT_APP_ENV } = process.env;
+const { NODE_ENV } = process.env;
 
 // Config object to be passed to Msal on creation
 export const msalConfig = {
@@ -17,7 +17,7 @@ export const msalConfig = {
           return;
         }
         // When in Dev
-        if (REACT_APP_ENV === 'dev') {
+        if (NODE_ENV === 'development') {
           switch (level) {
             case LogLevel.Error:
               return console.error(message);
@@ -36,7 +36,7 @@ export const msalConfig = {
           return console.error(message);
         }
       },
-      logLevel: REACT_APP_ENV === 'dev' ? LogLevel.Verbose : LogLevel.Error,
+      logLevel: NODE_ENV === 'development' ? LogLevel.Verbose : LogLevel.Error,
     },
   },
 };
