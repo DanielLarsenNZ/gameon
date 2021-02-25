@@ -10,7 +10,6 @@ import {
   Col,
   CustomInput,
   FormGroup,
-  Input,
   Label,
   Modal,
   ModalBody,
