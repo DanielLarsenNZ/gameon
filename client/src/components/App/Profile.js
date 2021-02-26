@@ -1,7 +1,6 @@
 import { useAccount, useMsal } from '@azure/msal-react';
-import React, { createContext, useContext, useEffect, useState } from 'react';
-
-const { REACT_APP_API_URI, REACT_APP_AAD_CLIENT_ID } = process.env;
+import React, { createContext, useContext } from 'react';
+import { useAPI } from '../../helpers/useApi';
 
 // Create Authentication Context
 const ProfileContext = createContext();
@@ -13,59 +12,8 @@ export const ProvideProfile = ({ children }) => {
   return <ProfileContext.Provider value={profile}>{children}</ProfileContext.Provider>;
 };
 
-// Get /me Profile
-const getProfile = async (accessToken) => {
-  const headers = new Headers();
-  const bearer = `Bearer ${accessToken}`;
-
-  headers.append('Authorization', bearer);
-
-  const options = {
-    method: 'GET',
-    headers: headers,
-  };
-
-  try {
-    const response = await fetch(`${REACT_APP_API_URI}/me`, options);
-    return await response.json();
-  } catch (error) {
-    return console.log(error);
-  }
-};
-
 // Business Logic
 const useProvideProfile = () => {
-  const { instance, accounts } = useMsal();
-  const account = useAccount(accounts[0] || {});
-  const [profile, setProfile] = useState(null);
-
-  useEffect(() => {
-    if (account) {
-      instance
-        .acquireTokenSilent({
-          scopes: [`${REACT_APP_AAD_CLIENT_ID}/Users`],
-          account: account,
-        })
-        .then((response) => {
-          if (response) {
-            getProfile(response.accessToken)
-              .then((result) => setProfile(result))
-              // .then(() => getAvatar(response.accessToken)) // FIXME: Can't get image (500 error)
-              .catch((err) => console.log(err));
-          }
-        })
-        .catch(function (error) {
-          // TODO: Acquire token silent failure, and send an interactive request
-          console.log(error);
-          if (error.errorMessage.indexOf('interaction_required') !== -1) {
-            instance.acquireTokenRedirect({
-              scopes: [`${REACT_APP_AAD_CLIENT_ID}/Users`],
-              account: account,
-            });
-          }
-        });
-    }
-  }, [account, instance]);
-
-  return { profile };
+  const { data: me, status, error } = useAPI('/me');
+  return { me, status, error };
 };

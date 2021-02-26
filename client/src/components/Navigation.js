@@ -28,9 +28,9 @@ const ProfileMenus = [
 ];
 
 const Navigation = () => {
-  const { profile = undefined } = useProfile();
-  const givenName = profile?.givenName || '';
-  const surname = profile?.surname || '';
+  const { me = undefined } = useProfile();
+  const givenName = me?.givenName || '';
+  const surname = me?.surname || '';
 
   return (
     <div className="navbar navbar-expand flex-column flex-md-row navbar-custom">
@@ -63,7 +63,7 @@ const Navigation = () => {
           <ProfileDropdown
             profilePic={initialsAvatarURL(givenName, surname)}
             menuItems={ProfileMenus}
-            username={profile?.name}
+            username={me?.name}
             tag={null}
           />
         </ul>
