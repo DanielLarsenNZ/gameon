@@ -1,4 +1,3 @@
-import { useAccount, useMsal } from '@azure/msal-react';
 import React, { createContext, useContext } from 'react';
 import { useAPI } from '../../helpers/useApi';
 
