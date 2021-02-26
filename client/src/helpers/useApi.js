@@ -10,7 +10,7 @@ const { REACT_APP_API_URI, REACT_APP_AAD_CLIENT_ID } = process.env;
  * @param {STRING} method HTTP method
  * @returns data = [], status = 'idle', error = null
  */
-const useAPI = (uri, method = 'GET') => {
+const useAPI = (uri, method = 'GET', body = null) => {
   // Request Stores
   const cache = useRef({});
   const initialState = {
@@ -53,10 +53,14 @@ const useAPI = (uri, method = 'GET') => {
 
       headers.append('Authorization', bearer);
 
-      const options = {
-        method: method,
-        headers: headers,
-      };
+      // Request options
+      const options = Object.assign(
+        {
+          method: method,
+          headers: headers,
+        },
+        body ? { body } : null // Add body if provided (no method check)
+      );
 
       dispatch({ type: 'FETCHING' });
 

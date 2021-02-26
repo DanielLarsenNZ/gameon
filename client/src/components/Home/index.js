@@ -70,9 +70,9 @@ const Home = () => {
           </Col>
         ))}
         {error && (
-          <p>
+          <>
             There was an error: <pre>{JSON.stringify(error, null, 2)}</pre>
-          </p>
+          </>
         )}
       </Row>
 
