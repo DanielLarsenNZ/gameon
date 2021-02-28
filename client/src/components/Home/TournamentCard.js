@@ -1,14 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
-const sanitiseName = (first, last) => {
-  // Removes content in () from name fields like: First Last (they/them)
-  const removeParens = new RegExp(/\s*\(.*?\)\s*/g);
-  return `${first.replace(removeParens, '')} ${last.replace(removeParens, '')}`;
-};
+import { Button, Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
+import { initialsAvatarURL } from '../../helpers/Helpers';
 
 const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, location, timing, players = [], owner }) => {
   const { t } = useTranslation('common');
@@ -48,10 +43,8 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
               {/* Show 7 members max */}
               {players.slice(0, 7).map((player) => {
                 const { givenName = '', surname = '' } = player;
-                const avatarURL = `https://ui-avatars.com/api/?background=ddd&color=999&name=${sanitiseName(
-                  givenName,
-                  surname
-                )}&format=svg`;
+                const avatarURL = initialsAvatarURL(givenName, surname);
+
                 return (
                   <a key={player.id} href="/" className="d-inline-block mr-1">
                     <img
