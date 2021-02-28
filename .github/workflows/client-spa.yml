@@ -2,8 +2,13 @@ name: publish-webapp
 
 on: 
   push:
-    jobs: 
+    branches: [master]
+    
+  jobs:
+    build:
+
       steps:
-        uses: actions/checkout@v2
-        uses: Azure/login@v1.1
-        uses: Azure/cli@1.0.4
+      - uses: actions/checkout@v2
+       
+       #uses: Azure/login@v1.1
+        #uses: Azure/cli@1.0.4
