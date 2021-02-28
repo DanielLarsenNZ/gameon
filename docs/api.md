@@ -25,6 +25,7 @@
         TimeOfPlayDescription: String (default: 'Anytime', e.g: 'Mondays 9-10am')
         maxPlayers: Integer (nullable) (default: null = no limit), only a number greater than 1 is valid
         owner: User
+        rulesLink: string
     }]
 
 ## Results
