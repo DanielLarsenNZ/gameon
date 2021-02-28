@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

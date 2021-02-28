@@ -114,3 +114,9 @@ On the server:
 ## Gotchas
 
 If you get a CORS error from the authentication endpoint, check that you have created a SPA reply URL and not a Web reply URL. It seems to make a difference somehow.
+
+## More links
+
+<https://joonasw.net/view/azure-ad-v2-and-msal-from-dev-pov>
+
+<https://massivescale.com/microsoft-v2-endpoint-admin-consent/>
