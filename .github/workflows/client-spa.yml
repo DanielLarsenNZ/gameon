@@ -5,11 +5,25 @@ on:
     branches: [main]
     
 jobs:
-  build:
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - run: |
+        az webapp list --query "[?state=='Running']"
+
+
+#jobs:
+ # build:
 
   #runs-on: ubuntu-latest
 
-  steps:
-  uses: actions/checkout@v2
-  uses: Azure/login@v1.1
-  uses: Azure/cli@1.0.4
+ # steps:
+  #uses: actions/checkout@v2
+  #uses: Azure/login@v1.1
+ # uses: Azure/cli@1.0.4
