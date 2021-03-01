@@ -1,13 +1,10 @@
-﻿using Dapr.Client;
-using GameOn.Common;
-using GameOn.Extensions;
+﻿using GameOn.Extensions;
 using GameOn.Models;
+using GameOn.Tournaments.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,7 +37,7 @@ namespace GameOn.Tournaments.Controllers
         // Get Player
         [HttpGet("{userId}")]
         public async Task<ActionResult<User>> Get(
-            string tournamentId, 
+            string tournamentId,
             string userId)
         {
             // Get Tournament
@@ -53,11 +50,24 @@ namespace GameOn.Tournaments.Controllers
             return player;
         }
 
-        // Add Users as Players to Tournament
+        /// <summary>
+        /// Add Users as Players to Tournament. Accepts an <see cref="AddPlayersModel"/> with three optional 
+        /// properties: `playerId` (a string), `playerIds` (an array of strings) or `addMe` (a boolean). At 
+        /// least one of these properties must be set. Any combination is accepted.
+        /// </summary>
+        /// <returns>The <see cref="Tournament"/> after any players have been added.</returns>
         [HttpPost]
-        public async Task<ActionResult<Tournament>> Post(
-            string tournamentId,
-            string[] userIds) 
-            => await _tournaments.AddPlayers(User.GetTenantId(), tournamentId, userIds);
+        public async Task<ActionResult<Tournament>> Post(string tournamentId, [FromBody] AddPlayersModel addPlayers)
+        {
+            var playerIds = new List<string>();
+
+            if (addPlayers.AddMe) playerIds.Add(User.GameOnUserId());
+            if (addPlayers.PlayerId != null) playerIds.Add(addPlayers.PlayerId);
+            if (addPlayers.PlayerIds != null) playerIds.AddRange(addPlayers.PlayerIds);
+
+            if (!playerIds.Any()) return new BadRequestObjectResult("Provide either playerId or playerIds or addMe: true");
+
+            return await _tournaments.AddPlayers(User.GetTenantId(), tournamentId, playerIds.ToArray());
+        }
     }
 }
