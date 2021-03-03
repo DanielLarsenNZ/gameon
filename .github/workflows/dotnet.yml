@@ -2,60 +2,59 @@ name: .NET
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
       - "server/GameOn/**"
   pull_request:
-    branches: [ main ]
+    branches: [main]
     paths:
       - "server/GameOn/**"
   workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log level'     
+        description: "Log level"
         required: true
-        default: 'verbose'
+        default: "verbose"
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.301
-    - name: Restore dependencies
-      working-directory: server/GameOn
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-      working-directory: server/GameOn
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-      working-directory: server/GameOn
-    - name: Azure Container Registry Login
-      uses: Azure/docker-login@v1
-      with:
-        username: gameonaue 
-        password: $ACR_PASSWORD 
-        login-server: https://gameonaue.azurecr.io
-    - name: Azure Login
-      uses: Azure/login@v1.1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.301
+      - name: Restore dependencies
+        working-directory: server/GameOn
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+        working-directory: server/GameOn
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+        working-directory: server/GameOn
+      - name: Azure Container Registry Login
+        uses: Azure/docker-login@v1
+        with:
+          username: gameonaue
+          password: $ACR_PASSWORD
+          login-server: https://gameonaue.azurecr.io
+      - name: Azure Login
+        uses: Azure/login@v1.1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: az acr build
-      uses: Azure/cli@1.0.4
-      with:
-        inlineScript: |
-          cd $GITHUB_WORKSPACE/server/GameOn
-          az acr build --registry gameonaue -f Tournaments.Dockerfile -t gameontournaments:latest -t gameontournaments:run-$GITHUB_RUN_NUMBER $GITHUB_WORKSPACE/server/GameOn
-          az acr build --registry gameonaue -f Users.Dockerfile -t gameonusers:latest -t gameonusers:run-$GITHUB_RUN_NUMBER $GITHUB_WORKSPACE/server/GameOn
-    
+      - name: az acr build
+        uses: Azure/cli@1.0.4
+        with:
+          inlineScript: |
+            cd $GITHUB_WORKSPACE/server/GameOn
+            az acr build --registry gameonaue -f Tournaments.Dockerfile -t gameontournaments:latest -t gameontournaments:run-$GITHUB_RUN_NUMBER $GITHUB_WORKSPACE/server/GameOn
+            az acr build --registry gameonaue -f Users.Dockerfile -t gameonusers:latest -t gameonusers:run-$GITHUB_RUN_NUMBER $GITHUB_WORKSPACE/server/GameOn
+
     # - name: Kubectl tool installer
     #   id: kubectl-install
     #   uses: Azure/setup-kubectl@v1
