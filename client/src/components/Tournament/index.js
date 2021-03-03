@@ -6,29 +6,7 @@ import { useProfile } from '../App/Profile';
 import Loader from '../Loader';
 import About from './About';
 import AdminStats from './AdminStats';
-import ChallengeWidget from './ChallengeWidget';
 import Leaderboard from './Leaderboard';
-
-const joinTournament = async (tid, uid, accessToken) => {
-  const headers = new Headers();
-  const bearer = `Bearer ${accessToken}`;
-
-  headers.append('Authorization', bearer);
-  headers.append('Content-Type', 'application/json');
-
-  const options = {
-    method: 'POST',
-    headers: headers,
-    body: `["${uid}"]`,
-  };
-
-  try {
-    // const response = await fetch(`${REACT_APP_API_URI}/tournaments/${tid}/players`, options);
-    return console.log(JSON.stringify(uid, null, 2)); //await response.json();
-  } catch (error) {
-    return console.log(error);
-  }
-};
 
 const Tournament = ({ match, location }) => {
   const { t } = useTranslation('common');
@@ -36,6 +14,7 @@ const Tournament = ({ match, location }) => {
   // Get search params
   const { id } = match.params;
   const params = new URLSearchParams(location.search);
+  // eslint-disable-next-line no-unused-vars
   const action = params.get('action');
 
   const { data: tournament, status, error } = useAPI(`/tournaments/${id}`);
@@ -45,11 +24,10 @@ const Tournament = ({ match, location }) => {
   const hasUserJoined = tournament?.players?.some((player) => player.id === me?.id);
 
   /* TODO: Implement Joining
-    if (action === 'join') {
-      console.log('User wants to join this tournament.', profile?.id);
-      joinTournament(id, profile?.id, response.accessToken);
-    }  
-  */
+  if (action === 'join') {
+    console.log('User wants to join this tournament.');
+    joinTournament(id, profile?.id, response.accessToken);
+  }*/
 
   return (
     <>
@@ -91,8 +69,8 @@ const Tournament = ({ match, location }) => {
           <AdminStats players={tournament?.playerCount} games={89} last7={14} last30={53} />
           <Row>
             <Col xl={4}>
-              <ChallengeWidget name="Erik Employee" endDate="02 February" />
-              <Leaderboard />
+              {/* <ChallengeWidget name="Erik Employee" endDate="02 February" /> */}
+              <Leaderboard tid={tournament?.id} canSubmitScore={hasUserJoined} />
             </Col>
             <Col xl={8}>
               <About
