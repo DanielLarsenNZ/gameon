@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { AvField, AvForm, AvInput, AvRadio, AvRadioGroup } from 'availity-reactstrap-validation';
 import React, { useState } from 'react';
 import { Button, Col, CustomInput, FormGroup, Label, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 
-const NewScoreModal = ({ isOpen, toggle }) => {
+const NewScoreModal = ({ players = [], isOpen, toggle }) => {
   const [opponent, setOpponent] = useState('');
   const [didPlayerWin, setDidPlayerWin] = useState(false);
   const [didConsent, setDidConsent] = useState(false);
@@ -22,12 +23,21 @@ const NewScoreModal = ({ isOpen, toggle }) => {
           }}>
           <Row>
             <Col>
-              <AvField type="select" name="opponent" label="My Opponent" required>
-                <option>Thomas Tester</option>
-                <option>Erik Employee</option>
-                <option>Emma Employee</option>
-                <option>Jane Doe</option>
-                <option>Emily Example</option>
+              <AvField
+                type="select"
+                name="opponent"
+                label="My Opponent"
+                onChange={(e) => setOpponent(e.target.value)}
+                required>
+                <option hidden selected>
+                  Select your opponent...
+                </option>
+
+                {players.map((player) => (
+                  <option key={player.id} value={player.id}>
+                    {player.name}
+                  </option>
+                ))}
               </AvField>
             </Col>
             <Col>

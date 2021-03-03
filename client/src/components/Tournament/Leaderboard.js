@@ -64,7 +64,7 @@ const Player = ({ name, imageUrl, rank, points }) => {
   );
 };
 
-const Leaderboard = ({ tid }) => {
+const Leaderboard = ({ tid, canSubmitScore }) => {
   const { t } = useTranslation('common');
   const [isScoreModalOpen, setIsScoreModalOpen] = useState(false);
   const toggleScoreModal = () => setIsScoreModalOpen(!isScoreModalOpen);
@@ -79,9 +79,16 @@ const Leaderboard = ({ tid }) => {
     <>
       <Card>
         <CardBody className="pt-2">
-          <Button outline className="float-right mt-2" size={'sm'} color="secondary" onClick={() => toggleScoreModal()}>
-            <i className="uil uil-plus mr-2"></i>New Result
-          </Button>
+          {canSubmitScore && (
+            <Button
+              outline
+              className="float-right mt-2"
+              size={'sm'}
+              color="secondary"
+              onClick={() => toggleScoreModal()}>
+              <i className="uil uil-plus mr-2"></i>New Result
+            </Button>
+          )}
           <h6 className="header-title mb-4">{t('tournament.leaderboard')}</h6>
           {status === 'fetching' && <p>Building Leaderboard</p>}
 
@@ -100,7 +107,7 @@ const Leaderboard = ({ tid }) => {
           })}
         </CardBody>
       </Card>
-      <NewScoreModal isOpen={isScoreModalOpen} toggle={toggleScoreModal} />
+      <NewScoreModal players={[]} isOpen={isScoreModalOpen} toggle={toggleScoreModal} />
     </>
   );
 };
