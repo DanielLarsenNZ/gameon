@@ -10,6 +10,8 @@ import {
   Media,
   UncontrolledDropdown,
 } from 'reactstrap';
+import { initialsAvatarURL } from '../../helpers/Helpers';
+import { useAPI } from '../../helpers/useApi';
 import NewScoreModal from './NewScoreModal';
 
 const Player = ({ name, imageUrl, rank, points }) => {
@@ -62,47 +64,50 @@ const Player = ({ name, imageUrl, rank, points }) => {
   );
 };
 
-const Leaderboard = () => {
+const Leaderboard = ({ tid, canSubmitScore }) => {
   const { t } = useTranslation('common');
   const [isScoreModalOpen, setIsScoreModalOpen] = useState(false);
   const toggleScoreModal = () => setIsScoreModalOpen(!isScoreModalOpen);
+
+  // TODO: Implement endpoint in hook
+  const scoreboard = [];
+  const status = 'fetched';
+  const error = 'Endpoint /rankings/{t_id} is not implemented.';
+  // const { data: scoreboard, status, error } = useAPI(`/rankings/${tid}`);
 
   return (
     <>
       <Card>
         <CardBody className="pt-2">
-          <Button outline className="float-right mt-2" size={'sm'} color="secondary" onClick={() => toggleScoreModal()}>
-            <i className="uil uil-plus mr-2"></i>New Result
-          </Button>
+          {canSubmitScore && (
+            <Button
+              outline
+              className="float-right mt-2"
+              size={'sm'}
+              color="secondary"
+              onClick={() => toggleScoreModal()}>
+              <i className="uil uil-plus mr-2"></i>New Result
+            </Button>
+          )}
           <h6 className="header-title mb-4">{t('tournament.leaderboard')}</h6>
+          {status === 'fetching' && <p>Building Leaderboard</p>}
 
-          <Player
-            imageUrl="https://randomuser.me/api/portraits/men/34.jpg"
-            name="Thomas Tester"
-            rank={1}
-            points={3400}
-          />
-          <Player
-            imageUrl="https://randomuser.me/api/portraits/women/34.jpg"
-            name="Emily Employee"
-            rank={2}
-            points={2800}
-          />
-          <Player
-            imageUrl="https://randomuser.me/api/portraits/men/14.jpg"
-            name="Erik Employee"
-            rank={3}
-            points={2000}
-          />
-          <Player
-            imageUrl="https://randomuser.me/api/portraits/women/14.jpg"
-            name="Emma Example"
-            rank={4}
-            points={840}
-          />
+          {error && <p>Unable to load the leaderboard.</p>}
+          {scoreboard.map((ranking) => {
+            const { player } = ranking;
+            return (
+              <Player
+                key={player.id}
+                imageUrl={initialsAvatarURL(player.givenName, player.surname)}
+                name={player.name}
+                rank={ranking.rank}
+                points={ranking.score}
+              />
+            );
+          })}
         </CardBody>
       </Card>
-      <NewScoreModal isOpen={isScoreModalOpen} toggle={toggleScoreModal} />
+      <NewScoreModal players={[]} isOpen={isScoreModalOpen} toggle={toggleScoreModal} />
     </>
   );
 };

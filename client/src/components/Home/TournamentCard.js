@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
 import { initialsAvatarURL } from '../../helpers/Helpers';
 
-const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, location, timing, players = [], owner }) => {
+const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, location, hasReward, players = [] }) => {
   const { t } = useTranslation('common');
 
   return (
@@ -13,7 +13,7 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
       <CardBody>
         <div
           className={classNames('badge', 'float-right', {
-            'badge-success': endDate === true,
+            'badge-success': endDate === true || !endDate,
             'badge-warning': endDate === false,
           })}>
           {endDate ? t('tournament.ongoing') : t('tournament.finished')}
@@ -70,14 +70,14 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
       <CardBody className="border-top">
         <Row className="align-items-center">
           <Col className="col-sm-auto">
-            {timing && (
+            {hasReward && (
               <ul className="list-inline mb-0">
                 <li className="list-inline-item pr-2">
-                  <a href="/" className="text-muted d-inline-block" id={`timing-${id}`}>
-                    <i className="uil uil-calender mr-1"></i> {timing}
-                  </a>
-                  <UncontrolledTooltip placement="top" target={`timing-${id}`}>
-                    {t('tournament.play_anytime')}
+                  <div className="text-muted d-inline-block" id={`reward-${id}`}>
+                    <i className={`uil uil-trophy mr-1 ${isOpenToJoin && 'text-warning'}`}></i> Prizes
+                  </div>
+                  <UncontrolledTooltip placement="top" target={`reward-${id}`}>
+                    {t('tournament.reward_offered')}
                   </UncontrolledTooltip>
                 </li>
               </ul>
@@ -88,10 +88,7 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
               <li className="list-inline-item pr-2">
                 {isOpenToJoin ? (
                   <>
-                    <Link
-                      to={`tournaments/${id}?action=join`}
-                      className="btn btn-primary d-inline-block"
-                      id={`join-${id}`}>
+                    <Link to={`tournaments/${id}`} className="btn btn-primary d-inline-block" id={`join-${id}`}>
                       {t('tournament.join_tournament')}
                     </Link>
                     <UncontrolledTooltip placement="top" target={`join-${id}`}>
