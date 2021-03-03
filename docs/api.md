@@ -7,9 +7,6 @@
     GET /tournaments?playerId={player_id}
     ✅ GET /tournaments/{tournament_id}
     PUT /tournaments/{tournament_id}
-    ✅ POST /tournaments/{tournament_id}/players
-    ✅ GET /tournaments/{tournament_id}/players
-    DELETE /tournaments/{tournament_id}/players
     
     // Tournaments model
     [{
@@ -25,7 +22,35 @@
         TimeOfPlayDescription: String (default: 'Anytime', e.g: 'Mondays 9-10am')
         maxPlayers: Integer (nullable) (default: null = no limit), only a number greater than 1 is valid
         owner: User
+        rulesLink: string
     }]
+
+## Tournaments / Players
+
+### ✅ Add Player(s) to a Tournament
+
+Accepts an `AddPlayersModel` with three optional properties: `playerId` (a string), `playerIds` (an array of strings) or `addMe` (a boolean, defaults to `false`). At least one of these properties must be set. Any combination is accepted. Returns the `Tournament` after any players have been added.
+
+    POST /tournaments/{tournament_id}/players
+    Content-Type: application/json
+    Authorization: Bearer {{accessToken}}
+
+    {
+        "playerId": String?,
+        "playerIds": String[]?,
+        "addMe": Bool?
+    }
+
+Example:
+
+    POST http://localhost:5000/tournaments/de0bf26e422c4137a537a4794113f3da/players
+    Content-Type: application/json
+    Authorization: Bearer {{accessToken}}
+
+    {
+        "playerIds": ["E4B9CCAB54357895680E535E7DCB431EE73613FA91A10B5A8D87DE10A2588B86", "6411ACC82C7255873B7E34E0FD08D6B6A4B87C8757F167B8D48824964C686801"],
+        "addMe": true
+    }
 
 ## Results
 

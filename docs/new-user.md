@@ -104,12 +104,14 @@ Response:
 
 `POST /tournaments/players` takes an array of User Ids in the body. Any User Id that is not found in the collection of Players on the Tournament will cause the User with that Id to be copied into the Tournament's Players collection. Note that Players is a Collection of Users.
 
-    ### Add Player to Tournament
+    ### Add Players to Tournament
     POST http://api.gameon.nz/tournaments/04022d7e841f46d58f7b056b5d18e6d3/players
     Content-Type: application/json
     Authorization: Bearer {{accessToken}}
 
-    ["E4B9CCAB54357895680E535E7DCB431EE73613FA91A10B5A8D87DE10A2588B86", "6411ACC82C7255873B7E34E0FD08D6B6A4B87C8757F167B8D48824964C686801"]
+    {
+        "playerIds": ["E4B9CCAB54357895680E535E7DCB431EE73613FA91A10B5A8D87DE10A2588B86", "6411ACC82C7255873B7E34E0FD08D6B6A4B87C8757F167B8D48824964C686801"]
+    }
 
 Response:
 
