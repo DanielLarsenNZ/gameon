@@ -83,6 +83,7 @@ namespace GameOn.Users.Controllers
             try
             {
                 var result = await _users.GetUserPhoto(User.GetTenantId(), User.GetObjectId(), size);
+                if (result is null) return NotFound();
                 return File(result.Content, result.ContentType);
             }
             catch (ArgumentOutOfRangeException ex)

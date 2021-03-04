@@ -6,6 +6,7 @@ using Microsoft.Identity.Web;
 using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -71,23 +72,36 @@ namespace GameOn.Users
             _log.LogTrace($"GetUserPhoto: Cache miss key = {key}");
 
             //var graphclient = await GetGraphClient(new string[] { "User.ReadBasic.All", "user.read" });
-            var graphclient = await GetGraphClient(new string[] { "User.ReadBasic.All", "profile" });
+            //var graphclient = await GetGraphClient(new string[] { "User.ReadBasic.All", "profile" });
+            //var graphclient = await GetGraphClient(new string[] { "https://graph.microsoft.com/profile" });
+            var graphclient = await GetGraphClient(new string[] { "https://graph.microsoft.com/User.Read" });
+            //api://GameOn.Api
+            //var graphclient = await GetGraphClient(new string[] { "api://GameOn.Api/Users", "https://graph.microsoft.com/User.Read" });
 
-            using (Stream photo = await graphclient.Users[aadUserId].Photos[size].Content.Request().GetAsync())
+            try
             {
-                if (photo is null)
+                using (Stream photo = await graphclient.Users[aadUserId].Photos[size].Content.Request().GetAsync())
                 {
-                    _log.LogWarning($"GetUserPhoto: Photo not found. TenantId = {tenantId}, Uri = {uri}");
-                    return null;
+                    if (photo is null)
+                    {
+                        _log.LogWarning($"GetUserPhoto: Photo not found. TenantId = {tenantId}, Uri = {uri}");
+                        return null;
+                    }
+
+                    MemoryStream ms = new MemoryStream();
+                    photo.CopyTo(ms);
+
+                    var result = new PhotoResult { Content = ms.ToArray(), ContentType = "image/png" };
+
+                    _cache.Set(key, result, TimeSpan.FromDays(1));
+                    return result;
                 }
-
-                MemoryStream ms = new MemoryStream();
-                photo.CopyTo(ms);
-
-                var result = new PhotoResult { Content = ms.ToArray(), ContentType = "image/png" };
-
-                _cache.Set(key, result, TimeSpan.FromDays(1));
-                return result;
+            }
+            catch (ServiceException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+            {
+                _log.LogWarning($"GetUserPhoto: Photo not found. TenantId = {tenantId}, Uri = {uri}");
+                _cache.Set(key, default(PhotoResult), TimeSpan.FromDays(1));
+                return null;
             }
         }
     }
