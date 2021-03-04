@@ -16,7 +16,7 @@ const AdminStats = ({ players, games, last7, last30 }) => {
                 <Media className="p-3">
                   <Users className="align-self-center icon-lg mr-4"></Users>
                   <Media body>
-                    <h4 className="mt-0 mb-0">{players}</h4>
+                    <h4 className="mt-0 mb-0">{players || '-'}</h4>
                     <span className="text-muted font-size-13">{t('tournament.total_players')}</span>
                   </Media>
                 </Media>

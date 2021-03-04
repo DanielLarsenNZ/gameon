@@ -1,48 +1,35 @@
-name: publish-webapp
+name: Deploy Web App
 
-on: 
+on:
   push:
     branches: [main]
     paths:
       - "client/**"
   pull_request:
-    branches: [ main ]
-    paths: 
+    branches: [main]
+    paths:
       - "client/**"
   workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log Level'
+        description: "Log Level"
         required: true
-        default: 'verbose'
-        
-jobs:
+        default: "verbose"
 
+jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    
-    - uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: actions/checkout@v2
 
-    - name: Azure PowerShell Action
-      uses: Azure/powershell@v1
-      with:
-        azPSVersion: 'latest'
-        inlineScript: |
-          cd ./deploy
-          ./publish-web.ps1
-       
-    
-    
-#jobs:
- # build:
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-  #runs-on: ubuntu-latest
-
- # steps:
-  #uses: actions/checkout@v2
-  #uses: Azure/login@v1.1
- # uses: Azure/cli@1.0.4
+      - name: Azure PowerShell Action
+        uses: Azure/powershell@v1
+        with:
+          azPSVersion: "latest"
+          inlineScript: |
+            cd ./deploy
+            ./publish-web.ps1

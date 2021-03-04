@@ -1,72 +1,21 @@
-import { useAccount, useMsal } from '@azure/msal-react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Row } from 'reactstrap';
+import { useAPI } from '../../helpers/useApi';
 import Loader from '../Loader';
 import NewTournamentModal from './NewTournamentModal';
 import TournamentCard from './TournamentCard';
 
-const fetchAll = async (accessToken) => {
-  const { REACT_APP_API_URI } = process.env;
-
-  const headers = new Headers();
-  const bearer = `Bearer ${accessToken}`;
-
-  headers.append('Authorization', bearer);
-
-  const options = {
-    method: 'GET',
-    headers: headers,
-  };
-
-  try {
-    const response = await fetch(`${REACT_APP_API_URI}/tournaments`, options);
-    return await response.json();
-  } catch (error) {
-    return console.log(error);
-  }
-};
-
-const Home = ({ loading }) => {
+const Home = () => {
   const { t } = useTranslation('common');
   const [isNewModalOpen, setIsNewModalOpen] = useState(false);
   const toggleNewModal = () => setIsNewModalOpen(!isNewModalOpen);
 
-  const [tournaments, setTournaments] = useState(null);
-
-  const { instance, accounts } = useMsal();
-  const account = useAccount(accounts[0] || {});
-
-  useEffect(() => {
-    if (account) {
-      instance
-        .acquireTokenSilent({
-          scopes: ['api://GameOn.Api/Users'],
-          account: account,
-        })
-        .then((response) => {
-          if (response) {
-            fetchAll(response.accessToken)
-              .then((result) => setTournaments(result))
-              .catch((err) => console.log(err));
-          }
-        })
-        .catch(function (error) {
-          //Acquire token silent failure, and send an interactive request
-          console.log(error);
-          if (error.errorMessage.indexOf('interaction_required') !== -1) {
-            instance.acquireTokenRedirect({
-              scopes: ['api://GameOn.Api/Users'],
-              account: account,
-            });
-          }
-        });
-    }
-  }, [account, instance]);
+  const { data: tournaments, status, error } = useAPI('/tournaments');
 
   return (
     <>
-      {!tournaments && <Loader />}
+      {status === 'fetching' && <Loader />}
 
       <Row className="page-title">
         <Col md={3} xl={6}>
@@ -105,22 +54,26 @@ const Home = ({ loading }) => {
       </Row>
 
       <Row>
-        {tournaments &&
-          tournaments.map((t) => (
-            <Col key={t.id} lg={6} xl={4}>
-              <TournamentCard
-                id={t.id}
-                title={t.name}
-                description={t.description}
-                location={t.location}
-                timing={t.TimeOfPlayDescription}
-                endDate={t.endDate}
-                isOpenToJoin={t.isOpenToJoin}
-                players={t.players}
-                owner={t.owner}
-              />
-            </Col>
-          ))}
+        {tournaments.map((t) => (
+          <Col key={t.id} lg={6} xl={4}>
+            <TournamentCard
+              id={t.id}
+              title={t.name}
+              description={t.description}
+              location={t.location}
+              hasReward={t.playingFor !== null}
+              endDate={t.endDate}
+              isOpenToJoin={!t.isOpenToJoin}
+              players={t.players}
+              owner={t.owner}
+            />
+          </Col>
+        ))}
+        {error && (
+          <>
+            There was an error: <pre>{JSON.stringify(error, null, 2)}</pre>
+          </>
+        )}
       </Row>
 
       <NewTournamentModal isOpen={isNewModalOpen} toggle={toggleNewModal} />
