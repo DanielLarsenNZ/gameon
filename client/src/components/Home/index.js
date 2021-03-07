@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Row } from 'reactstrap';
-import { useAPI } from '../../helpers/useApi';
+import { useFetch } from '../../helpers/useApi';
 import Loader from '../Loader';
 import NewTournamentModal from './NewTournamentModal';
 import TournamentCard from './TournamentCard';
@@ -11,7 +11,7 @@ const Home = () => {
   const [isNewModalOpen, setIsNewModalOpen] = useState(false);
   const toggleNewModal = () => setIsNewModalOpen(!isNewModalOpen);
 
-  const { data: tournaments, status, error } = useAPI('/tournaments');
+  const { data: tournaments, status, error } = useFetch('/tournaments');
 
   return (
     <>

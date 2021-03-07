@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Row } from 'reactstrap';
-import { useAPI } from '../../helpers/useApi';
+import { useFetch } from '../../helpers/useApi';
 import { useProfile } from '../App/Profile';
 import Loader from '../Loader';
 import About from './About';
@@ -17,7 +17,7 @@ const Tournament = ({ match, location }) => {
   // eslint-disable-next-line no-unused-vars
   const action = params.get('action');
 
-  const { data: tournament, status, error } = useAPI(`/tournaments/${id}`);
+  const { data: tournament, status, error } = useFetch(`/tournaments/${id}`);
 
   // FIXME: Fix fragile statement
   const { me } = useProfile();

@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { useAPI } from '../../helpers/useApi';
+import { useFetch } from '../../helpers/useApi';
 
 // Create Authentication Context
 const ProfileContext = createContext();
@@ -13,6 +13,6 @@ export const ProvideProfile = ({ children }) => {
 
 // Business Logic
 const useProvideProfile = () => {
-  const { data: me, status, error } = useAPI('/me');
+  const { data: me, status, error } = useFetch('/me');
   return { me, status, error };
 };
