@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Button,
@@ -12,6 +12,7 @@ import {
 } from 'reactstrap';
 import { initialsAvatarURL } from '../../helpers/Helpers';
 import { useAPI } from '../../helpers/useApi';
+import useModalState from '../../helpers/useModalState';
 import NewScoreModal from './NewScoreModal';
 
 const Player = ({ name, imageUrl, rank, points }) => {
@@ -66,8 +67,7 @@ const Player = ({ name, imageUrl, rank, points }) => {
 
 const Leaderboard = ({ tid, canSubmitScore }) => {
   const { t } = useTranslation('common');
-  const [isScoreModalOpen, setIsScoreModalOpen] = useState(false);
-  const toggleScoreModal = () => setIsScoreModalOpen(!isScoreModalOpen);
+  const { isOpen, onToggle } = useModalState();
 
   // TODO: Implement endpoint in hook
   const scoreboard = [];
@@ -80,12 +80,7 @@ const Leaderboard = ({ tid, canSubmitScore }) => {
       <Card>
         <CardBody className="pt-2">
           {canSubmitScore && (
-            <Button
-              outline
-              className="float-right mt-2"
-              size={'sm'}
-              color="secondary"
-              onClick={() => toggleScoreModal()}>
+            <Button outline className="float-right mt-2" size={'sm'} color="secondary" onClick={() => onToggle()}>
               <i className="uil uil-plus mr-2"></i>New Result
             </Button>
           )}
@@ -107,7 +102,7 @@ const Leaderboard = ({ tid, canSubmitScore }) => {
           })}
         </CardBody>
       </Card>
-      <NewScoreModal players={[]} isOpen={isScoreModalOpen} toggle={toggleScoreModal} />
+      <NewScoreModal players={[]} isOpen={isOpen} toggle={onToggle} />
     </>
   );
 };
