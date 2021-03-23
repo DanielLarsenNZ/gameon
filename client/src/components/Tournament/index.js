@@ -26,7 +26,7 @@ const Tournament = ({ match, location }) => {
   // FIXME: Fix fragile statement
   const { me } = useProfile();
   const hasUserJoined = tournament?.players?.some((player) => player.id === me?.id);
-  const userIsOwner = tournament?.owner?.id === me?.id;
+  const userIsOwner = tournament?.owner?.id !== undefined && tournament?.owner?.id === me?.id; // TODO: Without 'undefined' check it be true for a brief second as both are fetching so: null === null
 
   /* TODO: Implement Joining
   if (action === 'join') {
