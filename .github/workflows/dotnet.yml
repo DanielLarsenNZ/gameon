@@ -1,4 +1,4 @@
-name: .NET
+name: Deploy API
 
 on:
   push:
