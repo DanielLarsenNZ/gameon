@@ -1,6 +1,7 @@
 import React from 'react';
-import { ChevronDown, Edit, XOctagon } from 'react-feather';
+import { ArrowLeft, ChevronDown, Edit, XOctagon } from 'react-feather';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from 'reactstrap';
 import { useAPI } from '../../helpers/useApi';
 import { useProfile } from '../App/Profile';
@@ -43,7 +44,15 @@ const Tournament = ({ match, location }) => {
         <>
           <Row className="page-title">
             <Col sm={8} xl={6}>
-              <h4 className="mb-1 mt-0">{tournament.name}</h4>
+              {/* <span */}
+              <h4 className="mb-1 mt-0">
+                <span className="mr-4 text-muted d-none d-sm-inline-block">
+                  <Link to="/" className="text-dark">
+                    <ArrowLeft />
+                  </Link>
+                </span>
+                {tournament.name}
+              </h4>
             </Col>
             <Col sm={4} xl={6} className="text-md-right">
               {/* Players can quit, owner can't */}
