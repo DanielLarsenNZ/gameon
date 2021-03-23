@@ -2,11 +2,8 @@ name: .NET
 
 on:
   push:
-    branches: [main]
-    paths:
-      - "server/GameOn/**"
-  pull_request:
-    branches: [main]
+    branches: 
+      - main
     paths:
       - "server/GameOn/**"
   workflow_dispatch:
