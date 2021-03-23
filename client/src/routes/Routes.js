@@ -3,6 +3,7 @@ import React from 'react';
 import Loadable from 'react-loadable';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
+import DevToken from '../components/DevToken';
 import FAQ from '../components/FAQs';
 import Home from '../components/Home';
 import Landing from '../components/Landing';
@@ -72,6 +73,7 @@ const Routes = () => {
           <Route exact path="/faq" component={FAQ} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
+          <Route exact path="/developer" component={DevToken} />
 
           {/* {routes.map((route, index) => {
               return !route.children ? (

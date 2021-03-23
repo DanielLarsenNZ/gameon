@@ -1,4 +1,6 @@
 ![Game On! Logo](https://i.imgur.com/Nw251pk.png)
+[![API Deployment](https://github.com/DanielLarsenNZ/gameon/actions/workflows/dotnet.yml/badge.svg)](https://github.com/DanielLarsenNZ/gameon/actions/workflows/dotnet.yml)
+[![Web App Deployment](https://github.com/DanielLarsenNZ/gameon/actions/workflows/client-spa.yml/badge.svg)](https://github.com/DanielLarsenNZ/gameon/actions/workflows/client-spa.yml)
 
 A simple Ladder app for intra-office tournaments like Table Tennis, Chess, Pool and so on.
 
