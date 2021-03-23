@@ -1,6 +1,7 @@
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useAccount, useMsal } from '@azure/msal-react';
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Input, Row } from 'reactstrap';
+import { Button, Col, Row } from 'reactstrap';
+
 const { REACT_APP_AAD_CLIENT_ID } = process.env;
 
 const DevToken = () => {

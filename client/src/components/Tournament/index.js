@@ -1,6 +1,7 @@
 import React from 'react';
+import { ChevronDown, Edit, XOctagon } from 'react-feather';
 import { useTranslation } from 'react-i18next';
-import { Col, Row } from 'reactstrap';
+import { Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from 'reactstrap';
 import { useAPI } from '../../helpers/useApi';
 import { useProfile } from '../App/Profile';
 import Loader from '../Loader';
@@ -22,6 +23,7 @@ const Tournament = ({ match, location }) => {
   // FIXME: Fix fragile statement
   const { me } = useProfile();
   const hasUserJoined = tournament?.players?.some((player) => player.id === me?.id);
+  const userIsOwner = tournament?.owner?.id === me?.id;
 
   /* TODO: Implement Joining
   if (action === 'join') {
@@ -44,22 +46,41 @@ const Tournament = ({ match, location }) => {
               <h4 className="mb-1 mt-0">{tournament.name}</h4>
             </Col>
             <Col sm={4} xl={6} className="text-md-right">
-              {hasUserJoined ? (
-                <>
-                  <div className="btn-group ml-2 d-none d-sm-inline-block">
-                    <button type="button" className="btn btn-primary btn-sm">
-                      <i className="uil uil-edit mr-1"></i>
-                      {t('tournament.edit_tournament')}
-                    </button>
-                  </div>
-                  <div className="btn-group ml-1 d-none d-sm-inline-block">
-                    <button type="button" className="btn btn-danger btn-sm">
-                      <i className="uil uil-exit mr-1"></i>
-                      {t('tournament.exit_tournament')}
-                    </button>
-                  </div>
-                </>
-              ) : (
+              {/* Players can quit, owner can't */}
+              {hasUserJoined && !userIsOwner && (
+                <div className="btn-group ml-1 d-none d-sm-inline-block">
+                  <button type="button" className="btn btn-soft-danger btn-sm">
+                    <i className="uil uil-exit mr-1"></i>
+                    {t('tournament.exit_tournament')}
+                  </button>
+                </div>
+              )}
+
+              {/* Owner Actions */}
+              {userIsOwner && (
+                <UncontrolledButtonDropdown>
+                  <DropdownToggle color="soft-danger" className="dropdown-toggle ml-2 btn-sm">
+                    <i className="uil uil-cog mr-1"></i>Admin
+                    <i className="icon ml-1">
+                      <ChevronDown />
+                    </i>
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>
+                      <Edit className="icon-dual icon-xs mr-2"></Edit>
+                      <span>{t('tournament.edit_tournament')}</span>
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem className="text-danger">
+                      <XOctagon className="icon-xs mr-2"></XOctagon>
+                      <span>End Tournament</span>
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledButtonDropdown>
+              )}
+
+              {/* New users can join */}
+              {!hasUserJoined && (
                 <button type="button" className="btn btn-danger mb-3 mb-sm-0">
                   <i className="uil-user-plus mr-1"></i> Join this Tournament
                 </button>
