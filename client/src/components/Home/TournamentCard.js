@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
-import { initialsAvatarURL } from '../../helpers/Helpers';
+import { initialsAvatarURL, sanitiseName } from '../../helpers/Helpers';
 
 const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, location, hasReward, players = [] }) => {
   const { t } = useTranslation('common');
@@ -41,18 +41,22 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
           ) : (
             <>
               {/* Show 7 members max */}
-              {players.slice(0, 7).map((player) => {
+              {players.slice(0, 7).map((player, i) => {
                 const { givenName = '', surname = '' } = player;
                 const avatarURL = initialsAvatarURL(givenName, surname);
 
                 return (
-                  <a key={player.id} href="/" className="d-inline-block mr-1">
+                  <>
                     <img
                       src={player?.imageUrl || avatarURL}
-                      className="avatar-sm m-1 rounded-circle"
+                      className="d-inline-block avatar-sm m-1 rounded-circle"
                       alt="Player Avatar"
+                      id={`avatar-${i}-${id}`}
                     />
-                  </a>
+                    <UncontrolledTooltip placement="top" id={`tooltip-${i}-${id}`} target={`avatar-${i}-${id}`}>
+                      {sanitiseName(givenName, surname)}
+                    </UncontrolledTooltip>
+                  </>
                 );
               })}
             </>

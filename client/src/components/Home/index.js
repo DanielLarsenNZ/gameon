@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Row } from 'reactstrap';
 import { useAPI } from '../../helpers/useApi';
@@ -54,6 +54,11 @@ const Home = () => {
       </Row>
 
       <Row>
+        {error && (
+          <>
+            There was an error: <pre>{JSON.stringify(error, null, 2)}</pre>
+          </>
+        )}
         {tournaments.map((t) => (
           <Col key={t.id} lg={6} xl={4}>
             <TournamentCard
@@ -69,11 +74,6 @@ const Home = () => {
             />
           </Col>
         ))}
-        {error && (
-          <>
-            There was an error: <pre>{JSON.stringify(error, null, 2)}</pre>
-          </>
-        )}
       </Row>
 
       <NewTournamentModal isOpen={isOpen} toggle={onToggle} />
