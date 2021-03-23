@@ -1,13 +1,16 @@
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useAccount, useMsal } from '@azure/msal-react';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'reactstrap';
+import useCopyToClipboard from '../../helpers/useCopyToClipboard';
 
 const { REACT_APP_AAD_CLIENT_ID } = process.env;
 
 const DevToken = () => {
   const { instance, accounts } = useMsal();
   const account = useAccount(accounts[0] || {});
-  const [data, setData] = useState({ message: 'You are not authenticated.' });
+  const [data, setData] = useState(null);
+
+  const { handleCopy } = useCopyToClipboard();
 
   const formatResponse = (response) => {
     return {
@@ -18,10 +21,6 @@ const DevToken = () => {
       username: response.account.username,
       scopes: response.scopes,
     };
-  };
-
-  const copyToClipboard = (e) => {
-    navigator.clipboard.writeText(data.access_token);
   };
 
   useEffect(() => {
@@ -63,7 +62,7 @@ const DevToken = () => {
             <pre>{JSON.stringify(data, null, 2)}</pre>
           </Col>
         </Row>
-        <Button onClick={() => copyToClipboard()}>Copy Access Token</Button>
+        {data && <Button onClick={() => handleCopy(data.access_token)}>Copy Access Token</Button>}
       </AuthenticatedTemplate>
 
       <UnauthenticatedTemplate>

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from 'reactstrap';
 import { useAPI } from '../../helpers/useApi';
+import useCopyToClipboard from '../../helpers/useCopyToClipboard';
 import { useProfile } from '../App/Profile';
 import Loader from '../Loader';
 import About from './About';
@@ -12,6 +13,7 @@ import Leaderboard from './Leaderboard';
 
 const Tournament = ({ match, location }) => {
   const { t } = useTranslation('common');
+  const { handleCopy } = useCopyToClipboard();
 
   // Get search params
   const { id } = match.params;
@@ -90,9 +92,17 @@ const Tournament = ({ match, location }) => {
 
               {/* New users can join */}
               {!hasUserJoined && (
-                <button type="button" className="btn btn-danger mb-3 mb-sm-0">
-                  <i className="uil-user-plus mr-1"></i> Join this Tournament
-                </button>
+                <>
+                  <button type="button" className="btn btn-danger mb-3 mb-sm-0">
+                    <i className="uil-user-plus mr-1"></i> Join this Tournament
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-info ml-2 mb-3 mb-sm-0"
+                    onClick={() => handleCopy(window.location.href.split('#')[0].split('?')[0])}>
+                    <i className="uil-share-alt mr-1"></i> Share
+                  </button>
+                </>
               )}
             </Col>
           </Row>
