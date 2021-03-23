@@ -6,11 +6,6 @@ on:
       - main
     paths:
       - "client/**"
-  pull_request:
-    branches: 
-      - main
-    paths:
-      - "client/**"
   workflow_dispatch:
     inputs:
       logLevel:
