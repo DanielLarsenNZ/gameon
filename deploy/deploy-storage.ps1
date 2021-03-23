@@ -50,7 +50,7 @@ az network front-door frontend-endpoint enable-https --front-door-name $frontDoo
 
 # Update the default routing rule to include the new frontend
 az network front-door routing-rule update --front-door-name $frontDoor -n 'DefaultRoutingRule' -g $rg `
-    --caching 'Enabled' -accepted-protocols 'HttpsOnly' --frontend-endpoints 'DefaultFrontendEndpoint' $frontDoorFrontEnd
+    --caching 'Enabled' --accepted-protocols 'HttpsOnly' --frontend-endpoints 'DefaultFrontendEndpoint' $frontDoorFrontEnd
 
 # Create http redirect routing rule
 az network front-door routing-rule create -f $frontDoor -g $rg -n 'httpRedirect' --frontend-endpoints $frontDoorFrontEnd `
