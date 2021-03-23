@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
@@ -46,7 +46,7 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
                 const avatarURL = initialsAvatarURL(givenName, surname);
 
                 return (
-                  <>
+                  <Fragment key={`avatar-${i}-${id}`}>
                     <img
                       src={player?.imageUrl || avatarURL}
                       className="d-inline-block avatar-sm m-1 rounded-circle"
@@ -56,7 +56,7 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
                     <UncontrolledTooltip placement="top" id={`tooltip-${i}-${id}`} target={`avatar-${i}-${id}`}>
                       {sanitiseName(givenName, surname)}
                     </UncontrolledTooltip>
-                  </>
+                  </Fragment>
                 );
               })}
             </>
