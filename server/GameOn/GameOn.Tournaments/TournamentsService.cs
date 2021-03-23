@@ -4,6 +4,7 @@ using GameOn.Common.Exceptions;
 using GameOn.Models;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GameOn.Tournaments
@@ -44,13 +45,10 @@ namespace GameOn.Tournaments
         internal async Task<User[]> GetUsers(string tenantId, string[] userIds)
         {
             // Get Player from Player Service
-            var userResponse = await _dapr.InvokeMethodWithResponseAsync<GetUsersParams, User[]>(
-                GameOnNames.UsersAppName,
+            return await _dapr.InvokeMethodAsync<GetUsersParams, User[]>(
+                HttpMethod.Get, GameOnNames.UsersAppName,
                 GameOnUsersMethodNames.GetUsers,
-                new GetUsersParams { TenantId = tenantId, UserIds = userIds },
-                httpOptions: new HttpInvocationOptions { Method = System.Net.Http.HttpMethod.Get });
-
-            return userResponse.Body;
+                new GetUsersParams { TenantId = tenantId, UserIds = userIds });
         }
 
         public async Task<User> GetUser(string tenantId, string userId)
