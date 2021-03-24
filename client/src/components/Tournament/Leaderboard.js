@@ -11,7 +11,6 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap';
 import { initialsAvatarURL } from '../../helpers/Helpers';
-import { useAPI } from '../../helpers/useApi';
 import useModalState from '../../helpers/useModalState';
 import NewScoreModal from './NewScoreModal';
 
