@@ -11,7 +11,7 @@ const Home = () => {
   const { t } = useTranslation('common');
   const { isOpen, onToggle } = useModalState();
 
-  const { data: tournaments, status, error } = useAPI('/tournaments');
+  const { data: tournaments = [], status, error } = useAPI('/tournaments');
 
   return (
     <>

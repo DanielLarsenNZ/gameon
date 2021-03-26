@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@azure/msal-browser": "^2.8.0",
-    "@azure/msal-react": "^1.0.0-alpha.1",
+    "@azure/msal-browser": "^2.12.0",
+    "@azure/msal-react": "^1.0.0-beta.1",
     "apexcharts": "^3.23.0",
     "availity-reactstrap-validation": "^2.7.0",
     "axios": "^0.21.1",
