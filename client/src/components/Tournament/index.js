@@ -12,7 +12,7 @@ import AdminStats from './AdminStats';
 import Leaderboard from './Leaderboard';
 
 const Tournament = ({ match, location }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('tournament');
   const { handleCopy } = useCopyToClipboard();
 
   // Get search params
@@ -94,13 +94,13 @@ const Tournament = ({ match, location }) => {
               {!hasUserJoined && (
                 <>
                   <button type="button" className="btn btn-danger mb-3 mb-sm-0">
-                    <i className="uil-user-plus mr-1"></i> Join this Tournament
+                    <i className="uil-user-plus mr-1"></i> {t('actions.join')}
                   </button>
                   <button
                     type="button"
                     className="btn btn-info ml-2 mb-3 mb-sm-0"
                     onClick={() => handleCopy(window.location.href.split('#')[0].split('?')[0])}>
-                    <i className="uil-share-alt mr-1"></i> Share
+                    <i className="uil-share-alt mr-1"></i> {t('actions.share')}
                   </button>
                 </>
               )}

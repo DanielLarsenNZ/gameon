@@ -1,0 +1,59 @@
+{
+  "actions": {
+    "create": "Create Tournament",
+    "edit": "Edit Tournament",
+    "join": "Join this Tournament",
+    "share": "Share",
+    "submit_score": "New Result"
+  },
+  "stats": {
+    "total_players": "Total Players",
+    "total_games": "Total Games",
+    "games_over_last_seven_days": "Games over the last 7 days",
+    "games_over_last_month": "Games over the last 30 days"
+  },
+  "leaderboard": {
+    "title": "Leaderboard"
+  },
+  "about": {
+    "title": "About this Tournament",
+    "description": {
+      "title": "Description",
+      "default_msg": "No description was provided. Please ask the tournament owner to add a description."
+    },
+    "rules": {
+      "title": "Rules",
+      "default_msg": "Regular rules for this sport apply."
+    },
+    "reward": "Reward",
+    "max_players": {
+      "title": "Maximum Players",
+      "limit_info": "This tournament is limited to {{maxPlayers}} players. There is 1 spot left. Please contact the tournament owner for more information.",
+      "limit_info_plural": "This tournament is limited to {{maxPlayers}} players. There are {{spotsLeft}} spots left. Please contact the tournament owner for more information."
+    },
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "timing": "When",
+    "location": "Location"
+  },
+  "tournament": {
+    "name": "Tournament Name",
+    "description": "Description",
+    "reward": "What are you playing for? (leave blank if no reward)",
+    "location": "Primary Tournament Location",
+    "timing": "When do players typically meet up?",
+    "ongoing": "Ongoing",
+    "finished": "Finished",
+    "be_first_to_join": "Be the first to join!",
+    "reward_offered": "You may be eligible for prizes throughout this tournament.",
+    "join_tournament": "View Tournament",
+    "join_tooltip": "Immediately join this tournament.",
+    "registrations_closed": "Registrations Closed",
+    "registrations_closed_tooltip": "Contact the tournament owner.",
+    "edit_tournament": "Edit Tournament",
+    "exit_tournament": "Quit Tournament",
+    "leaderboard": "Leaderboard",
+    "about_this_tournament": "About this Tournament",
+    "rules": "Rules"
+  }
+}

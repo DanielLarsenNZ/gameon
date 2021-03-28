@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Button, Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
+import { Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
 import { initialsAvatarURL, sanitiseName } from '../../helpers/Helpers';
 
 const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, location, hasReward, players = [] }) => {
@@ -78,10 +78,11 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
               <ul className="list-inline mb-0">
                 <li className="list-inline-item pr-2">
                   <div className="text-muted d-inline-block" id={`reward-${id}`}>
-                    <i className={`uil uil-trophy mr-1 ${isOpenToJoin && 'text-warning'}`}></i> Prizes
+                    <i className={`uil uil-trophy mr-2 ${isOpenToJoin && 'text-warning'}`}></i>
+                    {t('tournament.prizes.text')}
                   </div>
                   <UncontrolledTooltip placement="top" target={`reward-${id}`}>
-                    {t('tournament.reward_offered')}
+                    {t('tournament.prizes.tool_tip')}
                   </UncontrolledTooltip>
                 </li>
               </ul>
@@ -90,25 +91,9 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
           <Col className="ml-auto">
             <ul className="list-inline mb-0 text-right">
               <li className="list-inline-item pr-2">
-                {isOpenToJoin ? (
-                  <>
-                    <Link to={`tournaments/${id}`} className="btn btn-primary d-inline-block" id={`join-${id}`}>
-                      {t('tournament.join_tournament')}
-                    </Link>
-                    <UncontrolledTooltip placement="top" target={`join-${id}`}>
-                      {t('tournament.join_tooltip')}
-                    </UncontrolledTooltip>
-                  </>
-                ) : (
-                  <>
-                    <Button color="light" className="d-inline-block" id={`contact-${id}`} disabled={!id}>
-                      {t('tournament.registrations_closed')}
-                    </Button>
-                    <UncontrolledTooltip placement="top" target={`contact-${id}`}>
-                      {t('tournament.registrations_closed_tooltip')}
-                    </UncontrolledTooltip>
-                  </>
-                )}
+                <Link to={`tournaments/${id}`} className="btn btn-primary d-inline-block" id={`join-${id}`}>
+                  {t('tournament.view')}
+                </Link>
               </li>
             </ul>
           </Col>

@@ -24,18 +24,21 @@ const Home = () => {
         <Col md={9} xl={6} className="text-md-right">
           <div className="mt-4 mt-md-0">
             <button type="button" className="btn btn-danger mr-4 mb-3 mb-sm-0" onClick={() => onToggle()}>
-              <i className="uil-plus mr-1"></i> {t('tournament.new_tournament')}
+              <i className="uil-plus mr-1"></i> {t('tournament.create')}
             </button>
             <div className="btn-group mb-3 mb-sm-0">
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-sm btn-primary">
                 {t('landing.filter_all')}
+              </button>
+              <button type="button" className="btn btn-sm btn-white">
+                {t('landing.filter_joined')}
               </button>
             </div>
             <div className="btn-group ml-1">
-              <button type="button" className="btn btn-white">
+              <button type="button" className="btn btn-sm btn-primary">
                 {t('landing.filter_ongoing')}
               </button>
-              <button type="button" className="btn btn-white">
+              <button type="button" className="btn btn-sm btn-white">
                 {t('landing.filter_finished')}
               </button>
             </div>

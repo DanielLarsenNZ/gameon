@@ -6,7 +6,7 @@
     "filter_finished": "Finished"
   },
   "tournament": {
-    "new_tournament": "New Tournament",
+    "create": "New Tournament",
     "name": "Tournament Name",
     "description": "Description",
     "reward": "What are you playing for? (leave blank if no reward)",

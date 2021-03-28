@@ -65,7 +65,7 @@ const Player = ({ name, imageUrl, rank, points }) => {
 };
 
 const Leaderboard = ({ tid, canSubmitScore }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('tournament');
   const { isOpen, onToggle } = useModalState();
 
   // TODO: Implement endpoint in hook
@@ -80,10 +80,11 @@ const Leaderboard = ({ tid, canSubmitScore }) => {
         <CardBody className="pt-2">
           {canSubmitScore && (
             <Button outline className="float-right mt-2" size={'sm'} color="secondary" onClick={() => onToggle()}>
-              <i className="uil uil-plus mr-2"></i>New Result
+              <i className="uil uil-plus mr-2"></i>
+              {t('actions.submit_score')}
             </Button>
           )}
-          <h6 className="header-title mb-4">{t('tournament.leaderboard')}</h6>
+          <h6 className="header-title mb-4">{t('leaderboard.title')}</h6>
           {status === 'fetching' && <p>Building Leaderboard</p>}
 
           {error && <p>Unable to load the leaderboard.</p>}

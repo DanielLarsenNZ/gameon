@@ -6,7 +6,7 @@
     "filter_finished": "Geended"
   },
   "tournament": {
-    "new_tournament": "Tunier erstellen",
+    "create": "Tunier erstellen",
     "name": "Tournament Name",
     "description": "Beschreibung",
     "reward": "What are you playing for? (leave blank if no reward)",

@@ -2,32 +2,28 @@
   "landing": {
     "title": "Welcome",
     "filter_all": "All",
+    "filter_joined": "Joined",
     "filter_ongoing": "Ongoing",
     "filter_finished": "Finished"
   },
+  "clipboard": {
+    "copied": "Copied to Clipboard!",
+    "error": "Unable to Copy to Clipboard!"
+  },
+  "profile_dropdown": {
+    "tournaments": "All Tournaments",
+    "faq": "FAQs",
+    "logout": "Logout"
+  },
   "tournament": {
-    "new_tournament": "New Tournament",
-    "name": "Tournament Name",
-    "description": "Description",
-    "reward": "What are you playing for? (leave blank if no reward)",
-    "location": "Primary Tournament Location",
-    "timing": "When do players typically meet up?",
+    "create": "Create Tournament",
+    "view": "View Tournament",
+    "be_first_to_join": "Be the first to join!",
     "ongoing": "Ongoing",
     "finished": "Finished",
-    "be_first_to_join": "Be the first to join!",
-    "reward_offered": "You may be eligible for prizes throughout this tournament.",
-    "join_tournament": "View Tournament",
-    "join_tooltip": "Immediately join this tournament.",
-    "registrations_closed": "Registrations Closed",
-    "registrations_closed_tooltip": "Contact the tournament owner.",
-    "edit_tournament": "Edit Tournament",
-    "exit_tournament": "Quit Tournament",
-    "total_players": "Total Players",
-    "total_games": "Total Games",
-    "games_over_last_seven_days": "Games over the last 7 days",
-    "games_over_last_month": "Games over the last 30 days",
-    "leaderboard": "Leaderboard",
-    "about_this_tournament": "About this Tournament",
-    "rules": "Rules"
+    "prizes": {
+      "text": "Prizes",
+      "tool_tip": "You may be eligible for prizes in this tournament."
+    }
   }
 }
