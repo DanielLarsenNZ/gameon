@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://gameon.nz",
   "dependencies": {
     "@azure/msal-browser": "^2.12.0",
     "@azure/msal-react": "^1.0.0-beta.1",
