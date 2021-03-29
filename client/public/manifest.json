@@ -11,6 +11,16 @@
       "src": "/favicons/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/og/cover-black.png",
+      "sizes": "1200x630",
+      "type": "image/png"
+    },
+    {
+      "src": "/og/cover-space.png",
+      "sizes": "1200x630",
+      "type": "image/png"
     }
   ],
   "start_url": ".",
