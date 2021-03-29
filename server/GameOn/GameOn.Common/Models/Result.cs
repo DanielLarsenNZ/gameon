@@ -21,14 +21,13 @@ namespace GameOn.Models
         public override void EnforceInvariants()
         {
             base.EnforceInvariants();
+
             EnforcePropertyNotSetInvariant(Player1Id, nameof(Player1Id));
             EnforcePropertyNotSetInvariant(Player2Id, nameof(Player2Id));
             EnforcePropertyNotSetInvariant(WinnerId, nameof(WinnerId));
 
             if (WinnerId != Player1Id || WinnerId != Player2Id)
                 throw new InvariantException("WinnerId must be either Player1 or Player2");
-            
-
         }
     }
 }

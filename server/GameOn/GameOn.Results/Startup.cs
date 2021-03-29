@@ -1,3 +1,4 @@
+using Dapr.Client;
 using GameOn.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
