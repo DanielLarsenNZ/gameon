@@ -9,7 +9,7 @@ import { BrowserRouter, useHistory } from 'react-router-dom';
 import '../../assets/scss/theme.scss';
 import Routes from '../../routes/Routes';
 import { config as i18nextConfig } from '../../translations';
-import { ProvideProfile } from './Profile';
+import { ProfileProvider } from './Profile';
 
 i18n.use(LanguageDetector).use(initReactI18next).init(i18nextConfig);
 
@@ -44,11 +44,11 @@ const App = ({ pca }) => {
 
   return (
     <MsalProvider instance={pca}>
-      <ProvideProfile>
+      <ProfileProvider>
         <BrowserRouter>
           <Routes />
         </BrowserRouter>
-      </ProvideProfile>
+      </ProfileProvider>
       <Toaster />
     </MsalProvider>
   );
