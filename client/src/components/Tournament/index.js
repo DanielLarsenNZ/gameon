@@ -67,6 +67,20 @@ const Tournament = ({ match, location }) => {
                 </div>
               )}
 
+              {/* New users can join */}
+              {!hasUserJoined && (
+                <button type="button" className="btn btn-danger mb-3 mb-sm-0">
+                  <i className="uil-user-plus mr-1"></i> {t('actions.join')}
+                </button>
+              )}
+
+              <button
+                type="button"
+                className={`btn btn-info ml-2 mb-3 mb-sm-0 ${userIsOwner ? 'btn-sm' : null}`}
+                onClick={() => handleCopy(window.location.href.split('#')[0].split('?')[0])}>
+                <i className="uil-share-alt mr-1"></i> {t('actions.share')}
+              </button>
+
               {/* Owner Actions */}
               {userIsOwner && (
                 <UncontrolledButtonDropdown>
@@ -89,21 +103,6 @@ const Tournament = ({ match, location }) => {
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledButtonDropdown>
-              )}
-
-              {/* New users can join */}
-              {!hasUserJoined && (
-                <>
-                  <button type="button" className="btn btn-danger mb-3 mb-sm-0">
-                    <i className="uil-user-plus mr-1"></i> {t('actions.join')}
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-info ml-2 mb-3 mb-sm-0"
-                    onClick={() => handleCopy(window.location.href.split('#')[0].split('?')[0])}>
-                    <i className="uil-share-alt mr-1"></i> {t('actions.share')}
-                  </button>
-                </>
               )}
             </Col>
           </Row>
