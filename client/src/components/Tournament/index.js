@@ -71,7 +71,8 @@ const Tournament = ({ match, location }) => {
               {userIsOwner && (
                 <UncontrolledButtonDropdown>
                   <DropdownToggle color="soft-danger" className="dropdown-toggle ml-2 btn-sm">
-                    <i className="uil uil-cog mr-1"></i>Admin
+                    <i className="uil uil-cog mr-1"></i>
+                    {t('actions.admin.button')}
                     <i className="icon ml-1">
                       <ChevronDown />
                     </i>
@@ -79,12 +80,12 @@ const Tournament = ({ match, location }) => {
                   <DropdownMenu right>
                     <DropdownItem>
                       <Edit className="icon-dual icon-xs mr-2"></Edit>
-                      <span>{t('tournament.edit_tournament')}</span>
+                      <span>{t('actions.admin.edit')}</span>
                     </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem className="text-danger">
                       <XOctagon className="icon-xs mr-2"></XOctagon>
-                      <span>End Tournament</span>
+                      <span>{t('actions.admin.end')}</span>
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledButtonDropdown>

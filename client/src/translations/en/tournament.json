@@ -1,10 +1,14 @@
 {
   "actions": {
     "create": "Create Tournament",
-    "edit": "Edit Tournament",
     "join": "Join this Tournament",
     "share": "Share",
-    "submit_score": "New Result"
+    "submit_score": "New Result",
+    "admin": {
+      "button": "Admin",
+      "edit": "Edit Tournament",
+      "end": "End Tournament"
+    }
   },
   "stats": {
     "total_players": "Total Players",
