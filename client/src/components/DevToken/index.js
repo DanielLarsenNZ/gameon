@@ -1,3 +1,4 @@
+import { InteractionStatus } from '@azure/msal-browser';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useAccount, useMsal } from '@azure/msal-react';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'reactstrap';
@@ -6,7 +7,7 @@ import useCopyToClipboard from '../../helpers/useCopyToClipboard';
 const { REACT_APP_AAD_CLIENT_ID } = process.env;
 
 const DevToken = () => {
-  const { instance, accounts } = useMsal();
+  const { instance, accounts, inProgress } = useMsal();
   const account = useAccount(accounts[0] || {});
   const [data, setData] = useState(null);
 
@@ -71,7 +72,9 @@ const DevToken = () => {
             <p className="mb-1 mt-0">Please sign in to view access token</p>
           </Col>
         </Row>
-        <Button onClick={() => instance.loginRedirect()}>Sign In</Button>
+        <Button onClick={() => instance.loginRedirect()} disabled={inProgress === InteractionStatus.Login}>
+          Sign In
+        </Button>
       </UnauthenticatedTemplate>
     </>
   );

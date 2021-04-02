@@ -104,4 +104,25 @@ const useAPI = (uri) => {
   return state;
 };
 
-export { useAPI };
+const getAccessToken = async (msalInstance) => {
+  const activeAccount = msalInstance.getActiveAccount();
+  const accounts = msalInstance.getAllAccounts();
+
+  if (!activeAccount && accounts.length === 0) {
+    /*
+     * User is not signed in. Throw error or wait for user to login.
+     * Do not attempt to log a user in outside of the context of MsalProvider
+     */
+    return null;
+  }
+
+  const request = {
+    scopes: [`${REACT_APP_AAD_CLIENT_ID}/Users`],
+    account: activeAccount || accounts[0],
+  };
+
+  const authResult = await msalInstance.acquireTokenSilent(request);
+  return authResult.accessToken;
+};
+
+export { useAPI, getAccessToken };
