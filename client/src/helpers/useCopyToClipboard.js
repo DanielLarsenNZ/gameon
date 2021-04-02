@@ -10,16 +10,19 @@ const useCopyToClipboard = (resetInterval = 2000) => {
   const { t } = useTranslation('common');
   const [isCopied, setCopied] = useState(false);
 
-  const handleCopy = useCallback((text, notify = true) => {
-    if (typeof text === 'string' || typeof text == 'number') {
-      navigator.clipboard.writeText(text.toString());
-      setCopied(true);
-      notify && toast.success(t('clipboard.copied'));
-    } else {
-      setCopied(false);
-      notify && toast.error(t('clipboard.error'));
-    }
-  });
+  const handleCopy = useCallback(
+    (text, notify = true) => {
+      if (typeof text === 'string' || typeof text == 'number') {
+        navigator.clipboard.writeText(text.toString());
+        setCopied(true);
+        notify && toast.success(t('clipboard.copied'));
+      } else {
+        setCopied(false);
+        notify && toast.error(t('clipboard.error'));
+      }
+    },
+    [t]
+  );
 
   useEffect(() => {
     let timeout;
