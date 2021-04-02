@@ -92,15 +92,19 @@ const Tournament = ({ match, location }) => {
                     </i>
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem>
-                      <Edit className="icon-dual icon-xs mr-2"></Edit>
-                      <span>{t('actions.admin.edit')}</span>
-                    </DropdownItem>
+                    <Link to={`${id}/manage`} className="text-dark">
+                      <DropdownItem>
+                        <Edit className="icon-dual icon-xs mr-2"></Edit>
+                        <span>{t('actions.admin.edit')}</span>
+                      </DropdownItem>
+                    </Link>
                     <DropdownItem divider />
-                    <DropdownItem className="text-danger">
-                      <XOctagon className="icon-xs mr-2"></XOctagon>
-                      <span>{t('actions.admin.end')}</span>
-                    </DropdownItem>
+                    <Link to={`${id}/manage/end`} className="text-dark">
+                      <DropdownItem className="text-danger">
+                        <XOctagon className="icon-xs mr-2"></XOctagon>
+                        <span>{t('actions.admin.end')}</span>
+                      </DropdownItem>
+                    </Link>
                   </DropdownMenu>
                 </UncontrolledButtonDropdown>
               )}
