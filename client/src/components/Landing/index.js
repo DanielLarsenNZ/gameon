@@ -1,3 +1,4 @@
+import { InteractionStatus } from '@azure/msal-browser';
 import { useMsal } from '@azure/msal-react';
 import React, { useState } from 'react';
 import {
@@ -12,9 +13,10 @@ import {
   NavbarToggler,
   NavItem,
   NavLink,
-  Spinner,
 } from 'reactstrap';
 import logo from '../../assets/images/logo.png';
+import { useConfiguration, useFeatureFlag } from '../../helpers/useFeatureFlag';
+import Loader from '../Loader';
 
 const TopAlert = ({ color, children }) => {
   const [isBannerOpen, setIsBannerOpen] = useState(true);
@@ -48,7 +50,9 @@ const Navigation = ({ login, inProgress }) => {
               <NavLink href="/faq">FAQ</NavLink>
             </NavItem>
             <NavItem className="mx-lg-1 mr-0 ml-4">
-              {inProgress === 'login' ? <Spinner color="dark" /> : <Button onClick={() => login()}>Sign in</Button>}
+              <Button onClick={() => login()} disabled={inProgress === InteractionStatus.Login}>
+                Sign in
+              </Button>
             </NavItem>
           </Nav>
         </Collapse>
@@ -72,10 +76,16 @@ const Hero = () => (
 
 const Landing = () => {
   const { instance, inProgress } = useMsal();
+  const { config: alertMessage } = useConfiguration('Landing:Alert');
+  const { enabled: showLandingAlert } = useFeatureFlag('ShowLandingAlert');
+
+  const showAlert = showLandingAlert && alertMessage.toString().trim().length;
 
   return (
     <>
-      <TopAlert color="success">✨ WELCOME ✨ LET'S MAKE OFFICE TOURNAMENTS FUN AND EXCITING!</TopAlert>
+      {inProgress !== InteractionStatus.None && <Loader />}
+      {showAlert && <TopAlert color="success">{alertMessage}</TopAlert>}
+
       <Navigation login={() => instance.loginRedirect()} inProgress={inProgress} />
       <Hero />
     </>
