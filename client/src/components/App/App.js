@@ -5,7 +5,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
 import { initReactI18next } from 'react-i18next';
-import { BrowserRouter, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import '../../assets/scss/theme.scss';
 import Routes from '../../routes/Routes';
 import { config as i18nextConfig } from '../../translations';
@@ -45,9 +45,7 @@ const App = ({ pca }) => {
   return (
     <MsalProvider instance={pca}>
       <ProfileProvider>
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
+        <Routes />
       </ProfileProvider>
       <Toaster />
     </MsalProvider>
