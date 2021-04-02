@@ -8,6 +8,7 @@ import Landing from '../components/Landing';
 import Login from '../components/Login/Login';
 import Logout from '../components/Logout';
 import Tournament from '../components/Tournament';
+import EditTournament from '../components/Tournament/Edit';
 import AuthLayout from '../layouts/Auth';
 import HorizontalLayout from '../layouts/Horizontal';
 import { Error404 } from './Error';
@@ -46,7 +47,7 @@ const Routes = () => {
         <Switch>
           <Route exact path="/" component={HomeRoute} />
           <Route exact path="/tournaments/:id" component={Tournament} />
-          {/* <Route exact path="/tournaments/:id/manage" component={EditTournament} /> */}
+          <Route exact path="/tournaments/:id/manage" component={EditTournament} />
           <Route exact path="/faq" component={FAQ} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
