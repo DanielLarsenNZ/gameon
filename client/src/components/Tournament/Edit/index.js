@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Card, CardBody, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from 'reactstrap';
 import classNames from 'classnames';
 import Details from './Details';
+import { ComingSoon } from '../../../routes/Error';
+import DangerArea from './DangerArea';
 
 const EditTournament = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -47,7 +49,7 @@ const EditTournament = () => {
                 </NavItem>
                 <NavItem>
                   <NavLink href="#" className={classNames({ active: activeTab === 5 })} onClick={() => setActiveTab(5)}>
-                    End Tournament
+                    Transfer &amp; End
                   </NavLink>
                 </NavItem>
               </Nav>
@@ -56,16 +58,16 @@ const EditTournament = () => {
                   <Details />
                 </TabPane>
                 <TabPane tabId={2}>
-                  <p>Welcome to tab 2</p>
+                  <ComingSoon isHorizonal />
                 </TabPane>
                 <TabPane tabId={3}>
-                  <p>Welcome to tab 3</p>
+                  <ComingSoon isHorizonal />
                 </TabPane>
                 <TabPane tabId={4}>
-                  <p>Welcome to tab 4</p>
+                  <ComingSoon isHorizonal />
                 </TabPane>
                 <TabPane tabId={5}>
-                  <p>Welcome to tab 5</p>
+                  <DangerArea />
                 </TabPane>
               </TabContent>
             </CardBody>

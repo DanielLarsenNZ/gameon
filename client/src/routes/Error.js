@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
 import imgNotFound from '../assets/images/not-found.png';
 
-const Error = ({ title, children }) => {
+const Error = ({ title, isHorizonal = false, children }) => {
   return (
     <div className="account-pages my-5">
       <Container>
@@ -15,18 +15,26 @@ const Error = ({ title, children }) => {
               </div>
             </div>
           </Col>
+          {isHorizonal && (
+            <Col className="text-center my-auto">
+              <h3 className="mt-3">{title}</h3>
+              <p className="text-muted mb-5">{children}</p>
+            </Col>
+          )}
         </Row>
 
-        <Row>
-          <Col className="text-center">
-            <h3 className="mt-3">{title}</h3>
-            <p className="text-muted mb-5">{children}</p>
+        {!isHorizonal && (
+          <Row>
+            <Col className="text-center">
+              <h3 className="mt-3">{title}</h3>
+              <p className="text-muted mb-5">{children}</p>
 
-            <Link to="/" className="btn btn-lg btn-primary mt-4">
-              Take me Home
-            </Link>
-          </Col>
-        </Row>
+              <Link to="/" className="btn btn-lg btn-primary mt-4">
+                Take me Home
+              </Link>
+            </Col>
+          </Row>
+        )}
       </Container>
     </div>
   );
@@ -45,8 +53,8 @@ const Error404 = () => (
   </Error>
 );
 
-const ComingSoon = () => (
-  <Error title="We're still building this thing!">
+const ComingSoon = ({ isHorizonal = false }) => (
+  <Error title="We're still building this thing!" isHorizonal={isHorizonal}>
     You've stumbled upon a gem; but we aren't ready for you yet.
     <br /> Please try again at a later stage.
   </Error>
