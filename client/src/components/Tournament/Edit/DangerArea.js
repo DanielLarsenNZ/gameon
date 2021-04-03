@@ -13,14 +13,13 @@ const DangerArea = () => {
   return (
     <>
       <h4 className="header-title mt-2">Transfer &amp; End Tournament</h4>
-      <p className="text-muted">
+      {/* <p className="text-muted">
         In this section, you can transfer this tournament's ownership to another player. When the tournament has ended,
         you should click "End Tournament" to close off the competition.
-      </p>
+      </p> */}
 
       <Form>
-        <div className="border-top mt-4 mb-4" />
-        <Row>
+        <Row className="mt-4">
           <Col md={6}>
             <FormGroup>
               <Label for="transfer">Transfer Ownership</Label>
