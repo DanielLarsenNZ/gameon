@@ -12,7 +12,7 @@ const DangerArea = () => {
 
   return (
     <>
-      <h4 className="header-title mt-0">Transfer &amp; End Tournament</h4>
+      <h4 className="header-title mt-2">Transfer &amp; End Tournament</h4>
       <p className="text-muted">
         In this section, you can transfer this tournament's ownership to another player. When the tournament has ended,
         you should click "End Tournament" to close off the competition.

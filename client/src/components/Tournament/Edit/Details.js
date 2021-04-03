@@ -4,7 +4,7 @@ import { Button, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 const Details = () => {
   return (
     <>
-      <h4 className="header-title mt-0">Update Details</h4>
+      <h4 className="header-title mt-2">Update Details</h4>
       <Form>
         <Row>
           <Col md={6}>
