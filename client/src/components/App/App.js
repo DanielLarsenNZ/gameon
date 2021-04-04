@@ -1,5 +1,6 @@
 import { NavigationClient } from '@azure/msal-browser';
 import { MsalProvider } from '@azure/msal-react';
+import { createInstance, OptimizelyProvider } from '@optimizely/react-sdk';
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import React from 'react';
@@ -9,9 +10,13 @@ import { useHistory } from 'react-router-dom';
 import '../../assets/scss/theme.scss';
 import Routes from '../../routes/Routes';
 import { config as i18nextConfig } from '../../translations';
-import { ProfileProvider } from './Profile';
+import { ProfileProvider, useProfile } from './Profile';
 
 i18n.use(LanguageDetector).use(initReactI18next).init(i18nextConfig);
+
+const optimizely = createInstance({
+  sdkKey: 'VXnx2ze7oXHwE3CEW49CW',
+});
 
 class CustomNavigationClient extends NavigationClient {
   constructor(history) {
@@ -45,7 +50,17 @@ const App = ({ pca }) => {
   return (
     <MsalProvider instance={pca}>
       <ProfileProvider>
-        <Routes />
+        <OptimizelyProvider
+          optimizely={optimizely}
+          user={{
+            id: '123456789',
+            attributes: {
+              customerId: 123,
+              isVip: true,
+            },
+          }}>
+          <Routes />
+        </OptimizelyProvider>
       </ProfileProvider>
       <Toaster />
     </MsalProvider>

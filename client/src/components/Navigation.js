@@ -1,7 +1,8 @@
+import { useFeature } from '@optimizely/react-sdk';
 import React from 'react';
 import { BarChart2, HelpCircle, LogOut, Menu, X } from 'react-feather';
 import { Link } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import { Badge, Container } from 'reactstrap';
 import logo from '../assets/images/logo.png';
 import { initialsAvatarURL } from '../helpers/Helpers';
 import { useProfile } from './App/Profile';
@@ -32,6 +33,9 @@ const Navigation = () => {
   const givenName = me?.givenName || '';
   const surname = me?.surname || '';
 
+  const [canToggleLanguage] = useFeature('language_toggle');
+  const [isBetaUser] = useFeature('is_beta_user');
+
   return (
     <div className="navbar navbar-expand flex-column flex-md-row navbar-custom">
       <Container fluid>
@@ -39,12 +43,13 @@ const Navigation = () => {
         <Link to="/" className="navbar-brand mr-0 mr-md-2 logo">
           <span className="logo-lg">
             <img src={logo} alt="Logo" height="24" />
-            {/* <span className="d-inline h5 ml-2 text-logo">GameOn</span> */}
-          </span>
-          <span className="logo-sm">
-            <img src={logo} alt="Logo" height="24" />
           </span>
         </Link>
+        {isBetaUser && (
+          <Link to="/">
+            <Badge>BETA</Badge>
+          </Link>
+        )}
 
         {/* Menu*/}
         <ul className="navbar-nav bd-navbar-nav flex-row list-unstyled menu-left mb-0">
@@ -59,7 +64,7 @@ const Navigation = () => {
         </ul>
 
         <ul className="navbar-nav flex-row ml-auto d-flex list-unstyled topnav-menu float-right mb-0">
-          <LanguageDropdown tag="li" />
+          {canToggleLanguage ? <LanguageDropdown tag="li" /> : <></>}
           <ProfileDropdown
             profilePic={initialsAvatarURL(givenName, surname)}
             menuItems={ProfileMenus}
