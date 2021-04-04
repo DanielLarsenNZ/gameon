@@ -1,12 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useHistory, useParams } from 'react-router';
 import { Card, CardBody, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from 'reactstrap';
-import classNames from 'classnames';
-import Details from './Details';
 import { ComingSoon } from '../../../routes/Error';
 import DangerArea from './DangerArea';
+import Details from './Details';
 
 const EditTournament = () => {
-  const [activeTab, setActiveTab] = useState(1);
+  const DEFAULT_ACTIVE_TAB = 'details';
+
+  const { active_tab } = useParams();
+  const history = useHistory();
+
+  const tabs = {
+    details: {
+      title: 'Details',
+      content: <Details />,
+    },
+    players: {
+      title: 'Players',
+      content: <ComingSoon isHorizonal />,
+    },
+    scores: {
+      title: 'Scores',
+      content: <ComingSoon isHorizonal />,
+    },
+    notifications: {
+      title: 'Notifications',
+      content: <ComingSoon isHorizonal />,
+    },
+    danger: {
+      title: 'Transfer & End',
+      content: <DangerArea />,
+    },
+  };
+
+  useEffect(() => {
+    if (!active_tab) {
+      history.push(`manage/${DEFAULT_ACTIVE_TAB}`);
+    }
+  }, [active_tab, history]);
+
+  const toggle = (tab) => {
+    if (active_tab !== tab) {
+      history.push(`${tab}`);
+    }
+  };
 
   return (
     <>
@@ -27,48 +65,25 @@ const EditTournament = () => {
           <Card>
             <CardBody>
               <Nav className="nav nav-pills navtab-bg nav-justified">
-                <NavItem>
-                  <NavLink href="#" className={classNames({ active: activeTab === 1 })} onClick={() => setActiveTab(1)}>
-                    Details
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#" className={classNames({ active: activeTab === 2 })} onClick={() => setActiveTab(2)}>
-                    Players
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#" className={classNames({ active: activeTab === 3 })} onClick={() => setActiveTab(3)}>
-                    Scores
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#" className={classNames({ active: activeTab === 4 })} onClick={() => setActiveTab(4)}>
-                    Notifications
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#" className={classNames({ active: activeTab === 5 })} onClick={() => setActiveTab(5)}>
-                    Transfer &amp; End
-                  </NavLink>
-                </NavItem>
+                {Object.entries(tabs).map((tab) => (
+                  <NavItem key={tab[0]}>
+                    <NavLink
+                      className={active_tab === tab[0] ? 'active' : ''}
+                      onClick={() => {
+                        toggle(tab[0]);
+                      }}
+                      role="button">
+                      {tab[1].title}
+                    </NavLink>
+                  </NavItem>
+                ))}
               </Nav>
-              <TabContent activeTab={activeTab}>
-                <TabPane tabId={1}>
-                  <Details />
-                </TabPane>
-                <TabPane tabId={2}>
-                  <ComingSoon isHorizonal />
-                </TabPane>
-                <TabPane tabId={3}>
-                  <ComingSoon isHorizonal />
-                </TabPane>
-                <TabPane tabId={4}>
-                  <ComingSoon isHorizonal />
-                </TabPane>
-                <TabPane tabId={5}>
-                  <DangerArea />
-                </TabPane>
+              <TabContent activeTab={active_tab}>
+                {Object.entries(tabs).map((tab) => (
+                  <TabPane key={tab[0]} tabId={tab[0]}>
+                    {tab[1].content}
+                  </TabPane>
+                ))}
               </TabContent>
             </CardBody>
           </Card>

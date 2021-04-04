@@ -47,7 +47,7 @@ const Routes = () => {
         <Switch>
           <Route exact path="/" component={HomeRoute} />
           <Route exact path="/tournaments/:id" component={Tournament} />
-          <Route exact path="/tournaments/:id/manage" component={EditTournament} />
+          <Route exact path="/tournaments/:id/manage/:active_tab?" component={EditTournament} />
           <Route exact path="/faq" component={FAQ} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/logout" component={Logout} />
