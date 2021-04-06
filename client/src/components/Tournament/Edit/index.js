@@ -18,14 +18,17 @@ const EditTournament = () => {
     },
     players: {
       title: 'Players',
+      isLocked: true,
       content: <ComingSoon isHorizonal />,
     },
     scores: {
       title: 'Scores',
+      isLocked: true,
       content: <ComingSoon isHorizonal />,
     },
     notifications: {
       title: 'Notifications',
+      isLocked: true,
       content: <ComingSoon isHorizonal />,
     },
     danger: {
@@ -73,6 +76,7 @@ const EditTournament = () => {
                         toggle(tab[0]);
                       }}
                       role="button">
+                      {tab[1].isLocked && <i className="uil uil-lock mr-1"></i>}
                       {tab[1].title}
                     </NavLink>
                   </NavItem>
