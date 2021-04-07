@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory, useParams } from 'react-router';
 import { Card, CardBody, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane } from 'reactstrap';
 import { ComingSoon } from '../../../routes/Error';
@@ -6,6 +7,8 @@ import DangerArea from './DangerArea';
 import Details from './Details';
 
 const EditTournament = () => {
+  const { t } = useTranslation('tournament');
+
   const DEFAULT_ACTIVE_TAB = 'details';
 
   const { active_tab } = useParams();
@@ -13,26 +16,26 @@ const EditTournament = () => {
 
   const tabs = {
     details: {
-      title: 'Details',
+      title: t('manage.tabs.details'),
       content: <Details />,
     },
     players: {
-      title: 'Players',
+      title: t('manage.tabs.players'),
       isLocked: true,
       content: <ComingSoon isHorizonal />,
     },
     scores: {
-      title: 'Scores',
+      title: t('manage.tabs.scores'),
       isLocked: true,
       content: <ComingSoon isHorizonal />,
     },
     notifications: {
-      title: 'Notifications',
+      title: t('manage.tabs.notifications'),
       isLocked: true,
       content: <ComingSoon isHorizonal />,
     },
     danger: {
-      title: 'Transfer & End',
+      title: t('manage.tabs.danger'),
       content: <DangerArea />,
     },
   };
@@ -53,7 +56,7 @@ const EditTournament = () => {
     <>
       <Row className="page-title">
         <Col md={12}>
-          <h4 className="mb-1 mt-0">Edit Tournament</h4>
+          <h4 className="mb-1 mt-0">{t('manage.title')}</h4>
         </Col>
       </Row>
 

@@ -40,6 +40,16 @@
     "timing": "When",
     "location": "Location"
   },
+  "manage": {
+    "title": "Manage Tournament",
+    "tabs": {
+      "details": "Details",
+      "players": "Players",
+      "scores": "Scores",
+      "notifications": "Notifications",
+      "danger": "Transfer & End"
+    }
+  },
   "tournament": {
     "name": "Tournament Name",
     "description": "Description",
