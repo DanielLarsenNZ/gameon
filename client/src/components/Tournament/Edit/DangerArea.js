@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import Select from 'react-select';
 import { Button, Col, Form, FormGroup, Label, Row } from 'reactstrap';
@@ -7,6 +7,8 @@ import { useAPI } from '../../../helpers/useApi';
 const DangerArea = () => {
   let { id } = useParams();
   const { data: players } = useAPI(`/tournaments/${id}/players`);
+
+  const [newOwner, setNewOwner] = useState(undefined);
 
   const handleTransferOwnership = () => {
     console.log('Owner wants to transfer ownership');
@@ -33,10 +35,15 @@ const DangerArea = () => {
                     classNamePrefix="react-select"
                     placeholder="Select new owner..."
                     options={players.map((p) => ({ value: p.id, label: p.name }))}
+                    onChange={(e) => setNewOwner(e.value)}
                   />
                 </Col>
                 <Col md={4}>
-                  <Button color="danger" className="btn-block" onClick={() => handleTransferOwnership()}>
+                  <Button
+                    color="danger"
+                    className="btn-block"
+                    onClick={() => handleTransferOwnership()}
+                    disabled={!newOwner}>
                     <i className="uil uil-user-check mr-1"></i>
                     Transfer
                   </Button>
