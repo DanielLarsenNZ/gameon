@@ -1,8 +1,13 @@
 import React from 'react';
+import { useParams } from 'react-router';
 import Select from 'react-select';
 import { Button, Col, Form, FormGroup, Label, Row } from 'reactstrap';
+import { useAPI } from '../../../helpers/useApi';
 
 const DangerArea = () => {
+  let { id } = useParams();
+  const { data: players } = useAPI(`/tournaments/${id}/players`);
+
   const handleTransferOwnership = () => {
     console.log('Owner wants to transfer ownership');
   };
@@ -27,11 +32,7 @@ const DangerArea = () => {
                     className="react-select"
                     classNamePrefix="react-select"
                     placeholder="Select new owner..."
-                    options={[
-                      { value: 'thomas', label: 'Thomas Tester' },
-                      { value: 'jane', label: 'Jane Doe' },
-                      { value: 'emily', label: 'Emily Employee' },
-                    ]}
+                    options={players.map((p) => ({ value: p.id, label: p.name }))}
                   />
                 </Col>
                 <Col md={4}>
