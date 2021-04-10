@@ -67,42 +67,46 @@ const Tournament = ({ match, location }) => {
                 </div>
               )}
 
+              {/* New users can join */}
+              {!hasUserJoined && (
+                <button type="button" className="btn btn-danger mb-3 mb-sm-0">
+                  <i className="uil-user-plus mr-1"></i> {t('actions.join')}
+                </button>
+              )}
+
+              <button
+                type="button"
+                className={`btn btn-info ml-2 mb-3 mb-sm-0 ${userIsOwner ? 'btn-sm' : null}`}
+                onClick={() => handleCopy(window.location.href.split('#')[0].split('?')[0])}>
+                <i className="uil-share-alt mr-1"></i> {t('actions.share')}
+              </button>
+
               {/* Owner Actions */}
               {userIsOwner && (
                 <UncontrolledButtonDropdown>
                   <DropdownToggle color="soft-danger" className="dropdown-toggle ml-2 btn-sm">
-                    <i className="uil uil-cog mr-1"></i>Admin
+                    <i className="uil uil-cog mr-1"></i>
+                    {t('actions.admin.button')}
                     <i className="icon ml-1">
                       <ChevronDown />
                     </i>
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem>
-                      <Edit className="icon-dual icon-xs mr-2"></Edit>
-                      <span>{t('tournament.edit_tournament')}</span>
-                    </DropdownItem>
+                    <Link to={`${id}/manage`} className="text-dark">
+                      <DropdownItem>
+                        <Edit className="icon-dual icon-xs mr-2"></Edit>
+                        <span>{t('actions.admin.edit')}</span>
+                      </DropdownItem>
+                    </Link>
                     <DropdownItem divider />
-                    <DropdownItem className="text-danger">
-                      <XOctagon className="icon-xs mr-2"></XOctagon>
-                      <span>End Tournament</span>
-                    </DropdownItem>
+                    <Link to={`${id}/manage/end`} className="text-dark">
+                      <DropdownItem className="text-danger">
+                        <XOctagon className="icon-xs mr-2"></XOctagon>
+                        <span>{t('actions.admin.end')}</span>
+                      </DropdownItem>
+                    </Link>
                   </DropdownMenu>
                 </UncontrolledButtonDropdown>
-              )}
-
-              {/* New users can join */}
-              {!hasUserJoined && (
-                <>
-                  <button type="button" className="btn btn-danger mb-3 mb-sm-0">
-                    <i className="uil-user-plus mr-1"></i> {t('actions.join')}
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-info ml-2 mb-3 mb-sm-0"
-                    onClick={() => handleCopy(window.location.href.split('#')[0].split('?')[0])}>
-                    <i className="uil-share-alt mr-1"></i> {t('actions.share')}
-                  </button>
-                </>
               )}
             </Col>
           </Row>

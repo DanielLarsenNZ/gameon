@@ -7,6 +7,7 @@ import { initialsAvatarURL, sanitiseName } from '../../helpers/Helpers';
 
 const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, location, hasReward, players = [] }) => {
   const { t } = useTranslation('common');
+  const descLimit = 250;
 
   return (
     <Card>
@@ -32,7 +33,9 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
           </Link>
         </h5>
 
-        <p className="text-muted mb-4">{description}</p>
+        <p className="text-muted mb-4">
+          {description.length > descLimit ? description.substring(0, descLimit) + '...' : description}
+        </p>
 
         <div>
           {/* NOTE: Tournament owner is the only member */}

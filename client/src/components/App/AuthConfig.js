@@ -43,10 +43,5 @@ export const msalConfig = {
 
 // Add here scopes for id token to be used at MS Identity Platform endpoints.
 export const loginRequest = {
-  scopes: [`${process.env.REACT_APP_AAD_CLIENT_ID}/Users`, 'GameOn.Users'],
-};
-
-// Add here the endpoints for MS Graph API services you would like to use.
-export const graphConfig = {
-  graphMeEndpoint: 'https://graph.microsoft.com/v1.0/me',
+  scopes: [`${process.env.REACT_APP_AAD_CLIENT_ID}/Users`],
 };

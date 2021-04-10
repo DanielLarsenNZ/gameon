@@ -1,9 +1,10 @@
 import React, { Suspense, useState } from 'react';
 import { Container } from 'reactstrap';
 import Footer from '../components/Footer';
+import Loader from '../components/Loader';
 
 const Navigation = React.lazy(() => import('../components/Navigation'));
-const loading = () => <div className="text-center"></div>;
+const loading = () => <Loader />;
 
 const HorizontalLayout = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
