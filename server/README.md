@@ -56,7 +56,7 @@ Use another service project as a template and:
 Before you run locally you will need to:
 
 1. Add new lines to `/deploy/run-dapr-local.ps1` to build and run the Service. Choose a new unused port for the new service.
-1. Update `Properties/launchSettings.json` to only startup on HTTP and to use the port you chose in the previous step.
+1. Update `Properties/launchSettings.json` to only startup on HTTP and to use the port you chose in the previous step. See [How to change the port number for Asp.Net core app?]
 
 ## Links & references
 
@@ -77,3 +77,9 @@ Before you run locally you will need to:
 [Azure-Samples/active-directory-dotnet-native-aspnetcore-v2](https://github.com/Azure-Samples/active-directory-dotnet-native-aspnetcore-v2)
 
 [Microsoft identity platform and OAuth 2.0 authorization code flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow#request-an-access-token)
+
+[How to change the port number for Asp.Net core app?]
+
+
+<!-- link refs -->
+[How to change the port number for Asp.Net core app?]:https://stackoverflow.com/a/49795443/610731

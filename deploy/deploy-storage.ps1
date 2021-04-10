@@ -34,7 +34,7 @@ $frontDoorId = ( az network front-door create -n $frontDoor -g $rg --tags $tags 
 # Create an Alias DNS recordset
 az network dns record-set a create -n "@" -g $rg --zone-name $domainName --if-none-match --target-resource $frontDoorId --ttl $ttl
 
-# Create the domain verifiy CNAME
+# Create the domain verify CNAME
 az network dns record-set cname set-record -g $rg --zone-name $domainName --if-none-match --record-set-name "afdverify.$domainName" --cname "afdverify.$frontDoor.azurefd.net" --ttl $ttl
 
 # Create a frontend for the custom domain
