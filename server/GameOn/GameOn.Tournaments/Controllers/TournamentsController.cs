@@ -68,7 +68,7 @@ namespace GameOn.Tournaments.Controllers
             User user = await _tournaments.GetUser(tenantId, userId);
 
             tournament.Owner = user;
-            tournament.Players = new[] { user };
+            tournament.Players = new[] { new Player(user) };
 
             try
             {

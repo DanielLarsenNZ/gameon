@@ -5,6 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("GameOn.Tournaments.Tests")]
 
 namespace GameOn.Tournaments
 {

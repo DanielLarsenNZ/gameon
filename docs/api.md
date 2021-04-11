@@ -16,7 +16,7 @@
         location: string,
         playingFor: string,
         playerCount: number,    # readonly, derived from players.length
-        players: User[],        # Ignored in POST model
+        players: Player[],        # Ignored in POST model
         startDate: Date (nullable),
         endDate: Date (nullable),
         TimeOfPlayDescription: String (default: 'Anytime', e.g: 'Mondays 9-10am')

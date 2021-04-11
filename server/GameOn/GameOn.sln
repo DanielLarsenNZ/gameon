@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOn.Users", "GameOn.User
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOn.CommonCore", "GameOn.CommonCore\GameOn.CommonCore.csproj", "{F622F924-513C-4FCF-B94B-10F4F433BC72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOn.Results", "GameOn.Results\GameOn.Results.csproj", "{BA8E7950-F569-4AF0-9354-32DF50392715}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOn.Results", "GameOn.Results\GameOn.Results.csproj", "{BA8E7950-F569-4AF0-9354-32DF50392715}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{002E8048-5651-4511-8E9F-3A22BBDA1C64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOn.Tournaments.Tests", "GameOn.Tournaments.Tests\GameOn.Tournaments.Tests.csproj", "{A797452C-122E-4AF3-B21D-BCC98ECC3516}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +49,16 @@ Global
 		{BA8E7950-F569-4AF0-9354-32DF50392715}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA8E7950-F569-4AF0-9354-32DF50392715}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA8E7950-F569-4AF0-9354-32DF50392715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A797452C-122E-4AF3-B21D-BCC98ECC3516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A797452C-122E-4AF3-B21D-BCC98ECC3516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A797452C-122E-4AF3-B21D-BCC98ECC3516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A797452C-122E-4AF3-B21D-BCC98ECC3516}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A797452C-122E-4AF3-B21D-BCC98ECC3516} = {002E8048-5651-4511-8E9F-3A22BBDA1C64}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68F3ECC4-8EFF-48F5-A88D-6E4DBB5894B8}
