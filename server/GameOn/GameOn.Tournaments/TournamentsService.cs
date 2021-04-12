@@ -53,6 +53,13 @@ namespace GameOn.Tournaments
             return userResponse.Body;
         }
 
+        internal async Task<Ranking[]> GetRankings(string tenantId, string tournamentId)
+        {
+            var rankingResponce = await _dapr.InvokeMethodWithResponseAsync<>;
+            return rankingResponce.Body;
+            // TODO dapr get the results
+        }
+
         public async Task<User> GetUser(string tenantId, string userId)
             => (await GetUsers(tenantId, new[] { userId })).FirstOrDefault();
     }

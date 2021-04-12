@@ -33,7 +33,14 @@ namespace GameOn.Results.Controllers
         {
             string tenantId = User.GetTenantId();
 
+            result.EnforceInvariants();
+
+            // how to implement score calculation
+
+
             return new OkObjectResult(tenantId);
+
+
             // (1 check tournament exists) (
             // 2 enforce invariance
             // 3 call tournament/rankings to get score
@@ -47,10 +54,18 @@ namespace GameOn.Results.Controllers
             // 6 message to results topic
         }
 
-        //[HttpGet("{tournament_id}")]
-        //public async Task<ActionResult<IEnumerable<Result>>> Get()
-        //{
+        [HttpGet("{tournament_id}")]
+        public async Task<ActionResult<IEnumerable<Result>>> Get()
+        {
             
-        //}
+        }
+
+        // same controller due to similarity??
+        [HttpGet("{tournament_id}/results/{result_id}")]
+        public async Task<ActionResult<IEnumerable<Result>>> Get()
+        {
+
+        }
+
     }
 }
