@@ -123,7 +123,8 @@ namespace GameOn.Tournaments
             var orderedPlayers = players.OrderByDescending(p => p.RankingScore).ToArray();
 
             int rankCount = 1;
-            orderedPlayers[0].Rank = 1;
+            orderedPlayers[0].Rank = rankCount;
+            rankCount++;
 
             for (int i = 1; i < orderedPlayers.Length; i++)
             {
