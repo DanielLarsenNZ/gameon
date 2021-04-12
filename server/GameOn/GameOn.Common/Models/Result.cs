@@ -1,8 +1,5 @@
 ﻿using GameOn.Common.Exceptions;
-using GameOn.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GameOn.Models
 {

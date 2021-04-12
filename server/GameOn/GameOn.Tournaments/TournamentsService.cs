@@ -102,7 +102,7 @@ namespace GameOn.Tournaments
 
         internal static Player[] RecalculateRankings(Player[] players)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
