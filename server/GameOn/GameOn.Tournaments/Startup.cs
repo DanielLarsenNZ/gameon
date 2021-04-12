@@ -1,4 +1,5 @@
 using GameOn.Extensions;
+using GameOn.Tournaments.Calculators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,7 @@ namespace GameOn.Tournaments
 
             // Services
             services.AddTransient<TournamentsService>();
+            services.AddTransient<IScoreCalculator, EloScoreCalculator>();
 
             services
                 .AddControllers()

@@ -2,7 +2,9 @@
 using GameOn.Common;
 using GameOn.Common.Exceptions;
 using GameOn.Models;
+using GameOn.Tournaments.Calculators;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,8 +12,11 @@ namespace GameOn.Tournaments
 {
     public class TournamentsService : GameOnService<Tournament>
     {
-        public TournamentsService(DaprClient daprClient, ILogger<TournamentsService> logger) : base(daprClient, logger)
+        private readonly IScoreCalculator _scoreCalculator;
+
+        public TournamentsService(DaprClient daprClient, ILogger<TournamentsService> logger, IScoreCalculator scoreCalculator) : base(daprClient, logger)
         {
+            _scoreCalculator = scoreCalculator;
         }
 
         internal async Task<Tournament> AddPlayers(string tenantId, string tournamentId, string[] userIds)
@@ -39,6 +44,17 @@ namespace GameOn.Tournaments
             await AddAndSaveStateEntry(entry, tournament);
 
             return tournament;
+        }
+
+        internal ScoreResult[] CalculatePlayerScores(Result result)
+        {
+            // 1. Get Players
+
+            // 2. For each player in result, Calculate score
+
+            // 3. Return score results
+
+            throw new NotImplementedException();
         }
 
         internal async Task<User> GetUser(string tenantId, string userId)
