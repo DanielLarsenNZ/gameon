@@ -22,9 +22,10 @@ namespace GameOn.Tournaments.Controllers
         private readonly ILogger<TournamentsResultsController> _log;
         private readonly TournamentsService _tournaments;
 
-        public TournamentsResultsController(ILogger<TournamentsResultsController> log)
+        public TournamentsResultsController(ILogger<TournamentsResultsController> log, TournamentsService tournamentsService)
         {
             _log = log;
+            _tournaments = tournamentsService;
         }
         
         // Create Result
@@ -40,7 +41,7 @@ namespace GameOn.Tournaments.Controllers
             // v2
 
             // 1. Recalculate Scores for each player in the Result
-            var newScores = _tournaments.CalculatePlayerScores(result);
+            var newScores = await _tournaments.CalculatePlayerScores(tenantId, tournamentId, result);
 
             // 2. Recalulate Rankings for all players in the Tournament
             var tournament = await _tournaments.UpdatePlayerRankScores(tenantId, tournamentId, newScores);

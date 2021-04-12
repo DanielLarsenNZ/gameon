@@ -46,15 +46,33 @@ namespace GameOn.Tournaments
             return tournament;
         }
 
-        internal ScoreResult[] CalculatePlayerScores(Result result)
+        internal async Task<ScoreResult[]> CalculatePlayerScores(string tenantId, string tournamentId, Result result)
         {
             // 1. Get Players from tournament
-            
+            // 1.1 Get Tournament Entry
+            var entry = await GetStateEntry(tenantId);
+
+            // 1.2 Convert into List
+            var tournaments = ToList(entry);
+
+            // 1.3 Try get Tournament 
+            if (!tournaments.Any(t => t.Id == tournamentId))
+                throw new NotFoundException($"Tournament Id {tournamentId} is not found");
+            var tournament = tournaments.First(t => t.Id == tournamentId);
+
+            var players = tournament.Players.ToDictionary(p => p.Id);
+
+            // 1.4 Get each player's current score and parse to ScoreResult
+            ScoreResult playerOne = new ScoreResult(result.Player1Id, (int) players[result.Player1Id].RankingScore);
+            ScoreResult playerTwo = new ScoreResult(result.Player2Id, (int)players[result.Player2Id].RankingScore);
+
+            ScoreResult[] scores = { playerOne, playerTwo };
+
             // 2. Calculate score
+            ScoreResult[] newScores = _scoreCalculator.Calculate(scores, result.WinnerId);
 
             // 3. Return score results
-
-            throw new NotImplementedException();
+            return newScores;
         }
 
         internal async Task<User> GetUser(string tenantId, string userId)
@@ -102,7 +120,25 @@ namespace GameOn.Tournaments
 
         internal static Player[] RecalculateRankings(Player[] players)
         {
-            throw new System.NotImplementedException();
+            var orderedPlayers = players.OrderByDescending(p => p.RankingScore).ToArray();
+
+            int rankCount = 1;
+            orderedPlayers[0].Rank = 1;
+
+            for (int i = 1; i < orderedPlayers.Length; i++)
+            {
+                if (orderedPlayers[i].RankingScore == orderedPlayers[i - 1].RankingScore)
+                {
+                    orderedPlayers[i].Rank = orderedPlayers[i - 1].Rank;
+                    rankCount++;
+                } else
+                {
+                    orderedPlayers[i].Rank = rankCount;
+                    rankCount++;
+                }
+            }
+
+            return (Player[])orderedPlayers;
         }
     }
 }
