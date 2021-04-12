@@ -48,9 +48,9 @@ namespace GameOn.Tournaments
 
         internal ScoreResult[] CalculatePlayerScores(Result result)
         {
-            // 1. Get Players
-
-            // 2. For each player in result, Calculate score
+            // 1. Get Players from tournament
+            
+            // 2. Calculate score
 
             // 3. Return score results
 
