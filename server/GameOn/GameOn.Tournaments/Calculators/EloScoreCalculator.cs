@@ -13,17 +13,17 @@ namespace GameOn.Tournaments.Calculators
             ScoreResult playerOne = scores[0];
             ScoreResult playerTwo = scores[1];
 
-            int outcome = 0;
+            int outcome = 1;
 
             if (winnerId == playerOne.PlayerId)
-                outcome = 1;
+                outcome = 0;
 
             int eloK = 32;
 
             int delta = (int)(eloK * (outcome - ExpectationToWin(playerOne.Score, playerTwo.Score)));
 
-            ScoreResult playerOneNew = new ScoreResult(playerOne.PlayerId, playerOne.Score + delta);
-            ScoreResult playerTwoNew = new ScoreResult(playerTwo.PlayerId, playerTwo.Score - delta);
+            ScoreResult playerOneNew = new ScoreResult(playerOne.PlayerId, playerOne.Score - delta);
+            ScoreResult playerTwoNew = new ScoreResult(playerTwo.PlayerId, playerTwo.Score + delta);
 
             ScoreResult[] newScores = { playerOneNew, playerTwoNew };
 

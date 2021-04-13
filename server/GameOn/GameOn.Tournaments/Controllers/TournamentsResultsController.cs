@@ -36,7 +36,7 @@ namespace GameOn.Tournaments.Controllers
         {
             string tenantId = User.GetTenantId();
 
-            return new OkObjectResult(tenantId);
+
 
             // v2
 
@@ -48,7 +48,7 @@ namespace GameOn.Tournaments.Controllers
 
             // 3. Message results topic
 
-
+            return new OkObjectResult(tenantId);
 
 
             //v1
