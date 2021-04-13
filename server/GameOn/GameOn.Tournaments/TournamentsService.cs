@@ -139,7 +139,7 @@ namespace GameOn.Tournaments
                 }
             }
 
-            return (Player[])orderedPlayers;
+            return orderedPlayers;
         }
     }
 }

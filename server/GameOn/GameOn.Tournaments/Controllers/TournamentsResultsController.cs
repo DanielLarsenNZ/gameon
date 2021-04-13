@@ -1,15 +1,8 @@
-﻿using Dapr.Client;
-using GameOn.Common;
-using GameOn.Models;
-using GameOn.Tournaments.Calculators;
+﻿using GameOn.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GameOn.Tournaments.Controllers
@@ -22,21 +15,20 @@ namespace GameOn.Tournaments.Controllers
         private readonly ILogger<TournamentsResultsController> _log;
         private readonly TournamentsService _tournaments;
 
-        public TournamentsResultsController(ILogger<TournamentsResultsController> log, TournamentsService tournamentsService)
+
+        public TournamentsResultsController(ILogger<TournamentsResultsController> log, TournamentsService tournaments)
         {
             _log = log;
-            _tournaments = tournamentsService;
+            _tournaments = tournaments;
         }
-        
+
         // Create Result
         [HttpPost("{tournamentId}")]
-        public async Task<ActionResult<Result>> Post(
-            [FromRoute] string tournamentId, 
+        public async Task<ActionResult<Tournament>> Post(
+            [FromRoute] string tournamentId,
             [FromBody] Result result)
         {
             string tenantId = User.GetTenantId();
-
-
 
             // v2
 
@@ -47,22 +39,9 @@ namespace GameOn.Tournaments.Controllers
             var tournament = await _tournaments.UpdatePlayerRankScores(tenantId, tournamentId, newScores);
 
             // 3. Message results topic
+            // TODO
 
-            return new OkObjectResult(tenantId);
-
-
-            //v1
-            // (1 check tournament exists) (
-            // 2 enforce invariance
-            // 3 call tournament/rankings to get score
-            //var currentScores = await _dapr.InvokeMethodWithResponseAsync<GetUsersParams, User[]>(
-            //    GameOnNames.UsersAppName, 
-            //    GameOnUsersMethodNames.GetUsers, // change
-            //    new GetUsersParams { TenantId = tenantId, UserIds = userIds },
-            //    httpOptions: new HttpInvocationOptions { Method = System.Net.Http.HttpMethod.Get });
-            // 4 calculate ELO score for both players
-            // 5 post ELO score for both players to tournament/rankings endpoint
-            // 6 message to results topic
+            return tournament;
         }
     }
 }
