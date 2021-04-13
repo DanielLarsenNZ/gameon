@@ -30,7 +30,7 @@ namespace GameOn.Tournaments.Tests
 
             var newScores = scoreCalculator.Calculate(scores, "p1");
 
-            Assert.IsTrue(newScores[0].Score == 1702 && newScores[1].Score == 1298, "Player One's score should correctly increase proportional to eloK.");
+            Assert.IsTrue(newScores[0].Score == 1703 && newScores[1].Score == 1297, $"Player One's score should correctly increase proportional to eloK.");
         }
 
         [TestMethod]
