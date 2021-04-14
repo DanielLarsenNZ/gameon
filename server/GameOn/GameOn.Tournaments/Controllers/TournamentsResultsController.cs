@@ -52,7 +52,7 @@ namespace GameOn.Tournaments.Controllers
                 _log.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
-            catch (Exception ex)
+            catch (BadRequestException ex)
             {
                 _log.LogError(ex, ex.Message);
                 return BadRequest(ex.Message);
