@@ -59,5 +59,19 @@ namespace GameOn.Tournaments.Tests
             // Assert
             Assert.IsFalse(rankedPlayers.Any(p => p.Rank < 1), "Ranks should start at 1");
         }
+
+        [TestMethod]
+        public void RecalculateRankings_TwoPlayersSameRankingScore_HaveSameRank()
+        {
+            // arrange
+
+
+            // act
+
+
+            // assert
+
+        }
+    
     }
 }
