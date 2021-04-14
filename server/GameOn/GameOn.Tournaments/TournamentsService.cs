@@ -1,10 +1,10 @@
 ﻿using Dapr.Client;
 using GameOn.Common;
-using GameOn.Common.Exceptions;
+using GameOn.Exceptions;
 using GameOn.Models;
 using GameOn.Tournaments.Calculators;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +14,7 @@ namespace GameOn.Tournaments
     {
         private readonly IScoreCalculator _scoreCalculator;
 
-        public TournamentsService(DaprClient daprClient, ILogger<TournamentsService> logger, IScoreCalculator scoreCalculator) : base(daprClient, logger)
+        public TournamentsService(DaprClient daprClient, ILogger<TournamentsService> logger, IScoreCalculator scoreCalculator, IConfiguration configuration) : base(daprClient, logger, configuration)
         {
             _scoreCalculator = scoreCalculator;
         }
@@ -32,7 +32,7 @@ namespace GameOn.Tournaments
                 throw new NotFoundException($"Tournament Id {tournamentId} is not found");
 
             var tournament = tournaments.First(t => t.Id == tournamentId);
-            
+
             // get Users from User service 
             User[] users = await GetUsers(tenantId, userIds);
 
@@ -60,11 +60,22 @@ namespace GameOn.Tournaments
                 throw new NotFoundException($"Tournament Id {tournamentId} is not found");
             var tournament = tournaments.First(t => t.Id == tournamentId);
 
+            // 1.4 Players must exist in Tournament
+            if (!tournament.Players.Any(p=>p.Id==result.Player1Id))
+            {
+                throw new BadRequestException($"Player Id \"{result.Player1Id}\" does not exist in this Tournament.");
+            }
+
+            if (!tournament.Players.Any(p => p.Id == result.Player2Id))
+            {
+                throw new BadRequestException($"Player Id \"{result.Player2Id}\" does not exist in this Tournament.");
+            }
+
             var players = tournament.Players.ToDictionary(p => p.Id);
 
-            // 1.4 Get each player's current score and parse to ScoreResult
-            ScoreResult playerOne = new ScoreResult(result.Player1Id, (int) players[result.Player1Id].RankingScore);
-            ScoreResult playerTwo = new ScoreResult(result.Player2Id, (int)players[result.Player2Id].RankingScore);
+            // 1.5 Get each player's current score and parse to ScoreResult
+            ScoreResult playerOne = new ScoreResult(result.Player1Id, players[result.Player1Id].RankingScore);
+            ScoreResult playerTwo = new ScoreResult(result.Player2Id, players[result.Player2Id].RankingScore);
 
             ScoreResult[] scores = { playerOne, playerTwo };
 
@@ -82,7 +93,7 @@ namespace GameOn.Tournaments
         {
             // Get Users from User Service
             var userResponse = await _dapr.InvokeMethodWithResponseAsync<GetUsersParams, User[]>(
-                GameOnNames.UsersAppName,
+                _config.UsersAppName(),
                 GameOnUsersMethodNames.GetUsers,
                 new GetUsersParams { TenantId = tenantId, UserIds = userIds },
                 httpOptions: new HttpInvocationOptions { Method = System.Net.Http.HttpMethod.Get });
@@ -132,7 +143,8 @@ namespace GameOn.Tournaments
                 {
                     orderedPlayers[i].Rank = orderedPlayers[i - 1].Rank;
                     rankCount++;
-                } else
+                }
+                else
                 {
                     orderedPlayers[i].Rank = rankCount;
                     rankCount++;

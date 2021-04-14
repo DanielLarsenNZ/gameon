@@ -9,3 +9,4 @@ PublishProfiles
 appsettings.Development.json
 prod.http
 local.http
+_work

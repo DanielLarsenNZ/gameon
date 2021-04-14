@@ -4,7 +4,7 @@ namespace GameOn.Models
 {
     public abstract class GameOnModel
     {
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
         public virtual void EnforceInvariants()
         {

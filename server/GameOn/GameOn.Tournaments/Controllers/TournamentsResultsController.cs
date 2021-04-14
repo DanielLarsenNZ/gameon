@@ -1,8 +1,10 @@
-﻿using GameOn.Models;
+﻿using GameOn.Exceptions;
+using GameOn.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
+using System;
 using System.Threading.Tasks;
 
 namespace GameOn.Tournaments.Controllers
@@ -23,7 +25,7 @@ namespace GameOn.Tournaments.Controllers
         }
 
         // Create Result
-        [HttpPost("{tournamentId}")]
+        [HttpPost]
         public async Task<ActionResult<Tournament>> Post(
             [FromRoute] string tournamentId,
             [FromBody] Result result)
@@ -32,16 +34,29 @@ namespace GameOn.Tournaments.Controllers
 
             // v2
 
-            // 1. Recalculate Scores for each player in the Result
-            var newScores = await _tournaments.CalculatePlayerScores(tenantId, tournamentId, result);
+            try
+            {
+                // 1. Recalculate Scores for each player in the Result
+                var newScores = await _tournaments.CalculatePlayerScores(tenantId, tournamentId, result);
 
-            // 2. Recalulate Rankings for all players in the Tournament
-            var tournament = await _tournaments.UpdatePlayerRankScores(tenantId, tournamentId, newScores);
+                // 2. Recalulate Rankings for all players in the Tournament
+                var tournament = await _tournaments.UpdatePlayerRankScores(tenantId, tournamentId, newScores);
 
-            // 3. Message results topic
-            // TODO
-
-            return tournament;
+                // 3. Message results topic
+                // TODO
+                
+                return tournament;
+            }
+            catch (NotFoundException ex)
+            {
+                _log.LogError(ex, ex.Message);
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _log.LogError(ex, ex.Message);
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
