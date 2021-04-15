@@ -3,6 +3,7 @@ using GameOn.Common;
 using GameOn.Models;
 using GameOn.Users.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -13,8 +14,8 @@ namespace GameOn.Users
     {
         private readonly GraphService _graph;
 
-        public UsersService(DaprClient daprClient, ILogger<UsersService> logger, GraphService graph)
-            : base(daprClient, logger)
+        public UsersService(DaprClient daprClient, ILogger<UsersService> logger, GraphService graph, IConfiguration configuration)
+            : base(daprClient, logger, configuration)
         {
             _graph = graph;
         }

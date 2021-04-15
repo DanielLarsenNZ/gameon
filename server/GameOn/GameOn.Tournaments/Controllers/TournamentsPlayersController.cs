@@ -1,4 +1,5 @@
-﻿using GameOn.Extensions;
+﻿using GameOn.Exceptions;
+using GameOn.Extensions;
 using GameOn.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -65,8 +66,15 @@ namespace GameOn.Tournaments.Controllers
             if (addPlayers.PlayerIds != null) playerIds.AddRange(addPlayers.PlayerIds);
 
             if (!playerIds.Any()) return new BadRequestObjectResult("Provide either playerId or playerIds or addMe: true");
-
-            return await _tournaments.AddPlayers(User.GetTenantId(), tournamentId, playerIds.ToArray());
+            
+            try
+            {
+                return await _tournaments.AddPlayers(User.GetTenantId(), tournamentId, playerIds.ToArray());
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

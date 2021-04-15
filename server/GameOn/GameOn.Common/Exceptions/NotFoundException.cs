@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameOn.Common.Exceptions
+namespace GameOn.Exceptions
 {
     public class NotFoundException : Exception
     {

@@ -2,6 +2,7 @@
 using Dapr.Client;
 using GameOn.Exceptions;
 using GameOn.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace GameOn.Common
     public class GameOnService<T> where T : GameOnModel
     {
         protected readonly ILogger<GameOnService<T>> _log;
+        protected readonly IConfiguration _config;
         protected readonly DaprClient _dapr;
         protected static JsonSerializerOptions _jsonOptions
             = new JsonSerializerOptions
@@ -22,15 +24,11 @@ namespace GameOn.Common
                 PropertyNameCaseInsensitive = true
             };
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="daprClient"></param>
-        /// <param name="logger"></param>
-        public GameOnService(DaprClient daprClient, ILogger<GameOnService<T>> logger)
+        public GameOnService(DaprClient daprClient, ILogger<GameOnService<T>> logger, IConfiguration configuration)
         {
             _dapr = daprClient;
             _log = logger;
+            _config = configuration;
         }
 
         public virtual async Task<T> Create(string tenantId, T entity)
