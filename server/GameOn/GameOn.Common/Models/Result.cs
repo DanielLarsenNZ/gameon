@@ -23,7 +23,7 @@ namespace GameOn.Models
             EnforcePropertyNotSetInvariant(Player2Id, nameof(Player2Id));
             EnforcePropertyNotSetInvariant(WinnerId, nameof(WinnerId));
 
-            if (WinnerId != Player1Id || WinnerId != Player2Id)
+            if (WinnerId != Player1Id && WinnerId != Player2Id)
                 throw new InvariantException("WinnerId must be either Player1Id or Player2Id");
 
             if (Player1Id == Player2Id) throw new InvariantException("Player1Id and Player2Id cannot be the same Player");
