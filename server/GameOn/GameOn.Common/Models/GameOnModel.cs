@@ -13,7 +13,7 @@ namespace GameOn.Models
 
         protected void EnforcePropertyNotSetInvariant(string property, string nameofProperty)
         {
-            if (string.IsNullOrEmpty(property)) throw new PropertyNotSetInvariantException(nameof(nameofProperty));
+            if (string.IsNullOrEmpty(property)) throw new PropertyNotSetInvariantException(nameofProperty);
         }
     }
 }

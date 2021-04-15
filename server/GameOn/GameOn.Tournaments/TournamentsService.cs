@@ -37,9 +37,13 @@ namespace GameOn.Tournaments
             // get Users from User service 
             User[] users = await GetUsers(tenantId, userIds);
 
-            // Add Users to Players. Players that already exist will be replaced.
+            // Add Users to Players. Players that already exist will be skipped.
             var players = tournament.Players.ToDictionary(p => p.Id);
-            foreach (var user in users) players[user.Id] = new Player(user);
+            foreach (var user in users)
+            {
+                if (!players.ContainsKey(user.Id)) players[user.Id] = new Player(user);
+            }
+
             tournament.Players = players.Select(p => p.Value).ToArray();
 
             await AddAndSaveStateEntry(entry, tournament);

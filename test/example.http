@@ -64,6 +64,7 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
+    "id": "dc5991...",
     "player1Id": "E4B9CC...",
     "player2Id": "6411AC...",
     "winnerId": "6411AC..."
