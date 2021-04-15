@@ -1,4 +1,4 @@
-﻿using GameOn.Common.Exceptions;
+﻿using GameOn.Exceptions;
 
 namespace GameOn.Models
 {

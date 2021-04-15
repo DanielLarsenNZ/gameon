@@ -91,11 +91,16 @@ namespace GameOn.Tournaments
             => (await GetUsers(tenantId, new[] { userId })).FirstOrDefault();
 
         internal async Task<User[]> GetUsers(string tenantId, string[] userIds) =>
-            // Get Users from User Service
+            // Get Player from Player Service
             await _dapr.InvokeMethodAsync<GetUsersParams, User[]>(
+                HttpMethod.Get,
                 _config.UsersAppName(),
                 GameOnUsersMethodNames.GetUsers,
-                new GetUsersParams { TenantId = tenantId, UserIds = userIds });
+                new GetUsersParams
+                {
+                    TenantId = tenantId,
+                    UserIds = userIds
+                });
 
         internal async Task<Tournament> UpdatePlayerRankScores(string tenantId, string tournamentId, ScoreResult[] scores)
         {

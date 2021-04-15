@@ -36,6 +36,9 @@ namespace GameOn.Tournaments.Controllers
 
             try
             {
+                // Check that the results model is valid
+                result.EnforceInvariants();
+
                 // 1. Recalculate Scores for each player in the Result
                 var newScores = await _tournaments.CalculatePlayerScores(tenantId, tournamentId, result);
 
@@ -52,7 +55,7 @@ namespace GameOn.Tournaments.Controllers
                 _log.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
-            catch (BadRequestException ex)
+            catch (GameOnException ex) when (ex.GetType() == typeof(BadRequestException) || ex.GetType() == typeof(InvariantException))
             {
                 _log.LogError(ex, ex.Message);
                 return BadRequest(ex.Message);

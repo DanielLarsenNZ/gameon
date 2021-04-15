@@ -1,8 +1,7 @@
-﻿namespace GameOn.Common.Exceptions
+﻿namespace GameOn.Exceptions
 {
     public class PropertyNotSetInvariantException : InvariantException
     {
-        public PropertyNotSetInvariantException(string propertyName) : base($"{propertyName} must be set.")
-        { }
+        public PropertyNotSetInvariantException(string propertyName) : base($"{propertyName} must be set.") { }
     }
 }
