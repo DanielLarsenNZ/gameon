@@ -1,3 +1,15 @@
+# API Documentation
+
+Welcome to the Game On! API documentation. This page lists endpoints (including their request and response schema) available for use by client applications
+
+Production Base URL: https://api.gameon.nz
+
+**NOTE: All Endpoints Require a Bearer Token Authorization Header**
+
+### Access Tokens
+Your access token can be retrieved from https://gameon.nz/developer and must be supplied as Bearer Token with each API call. Please note that requests made against this API are not sandboxed and thus affect your personal rankings and public Game On! profile.
+
+    Authorization: Bearer {{accessToken}}
 
 ## Tournaments
 
