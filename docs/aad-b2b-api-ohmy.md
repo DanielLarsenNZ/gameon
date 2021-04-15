@@ -120,3 +120,5 @@ If you get a CORS error from the authentication endpoint, check that you have cr
 <https://joonasw.net/view/azure-ad-v2-and-msal-from-dev-pov>
 
 <https://massivescale.com/microsoft-v2-endpoint-admin-consent/>
+
+MSAL.js reference: <https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/initialization.md>

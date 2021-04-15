@@ -10,17 +10,17 @@ import ProfileDropdown from './ProfileDropdown';
 
 const ProfileMenus = [
   {
-    label: 'All Tournaments',
+    label: 'profile_dropdown.tournaments',
     icon: BarChart2,
     redirectTo: '/',
   },
   {
-    label: 'FAQs',
+    label: 'profile_dropdown.faq',
     icon: HelpCircle,
     redirectTo: '/faq',
   },
   {
-    label: 'Logout',
+    label: 'profile_dropdown.logout',
     icon: LogOut,
     redirectTo: '/logout',
     hasDivider: true,

@@ -6,6 +6,7 @@ using GameOn.Tournaments.Calculators;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GameOn.Tournaments
@@ -89,17 +90,12 @@ namespace GameOn.Tournaments
         internal async Task<User> GetUser(string tenantId, string userId)
             => (await GetUsers(tenantId, new[] { userId })).FirstOrDefault();
 
-        internal async Task<User[]> GetUsers(string tenantId, string[] userIds)
-        {
+        internal async Task<User[]> GetUsers(string tenantId, string[] userIds) =>
             // Get Users from User Service
-            var userResponse = await _dapr.InvokeMethodWithResponseAsync<GetUsersParams, User[]>(
+            await _dapr.InvokeMethodAsync<GetUsersParams, User[]>(
                 _config.UsersAppName(),
                 GameOnUsersMethodNames.GetUsers,
-                new GetUsersParams { TenantId = tenantId, UserIds = userIds },
-                httpOptions: new HttpInvocationOptions { Method = System.Net.Http.HttpMethod.Get });
-
-            return userResponse.Body;
-        }
+                new GetUsersParams { TenantId = tenantId, UserIds = userIds });
 
         internal async Task<Tournament> UpdatePlayerRankScores(string tenantId, string tournamentId, ScoreResult[] scores)
         {

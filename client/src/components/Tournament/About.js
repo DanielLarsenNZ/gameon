@@ -13,51 +13,52 @@ const About = ({
   maxPlayers,
   playerCount,
 }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('tournament');
   const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 
   return (
     <Card>
       <CardBody>
-        <h6 className="mt-0 header-title">{t('tournament.about_this_tournament')}</h6>
+        <h6 className="mt-0 header-title">{t('about.title')}</h6>
 
         <div className="text-muted mt-3">
           {/* Description */}
-          <Section title="Description">
-            {description || 'No description was provided. Please ask the tournament owner to add a description.'}
-          </Section>
+          <Section title={t('about.description.title')}>{description || t('about.description.default_msg')}</Section>
 
           {/* Rules */}
-          <Section title={t('tournament.rules')}>
+          <Section title={t('about.rules.title')}>
             <a href={rulesURL} target="_blank" rel="noreferrer">
-              {rulesURL || 'Regular sport rules apply.'}
+              {rulesURL || t('about.rules.default_msg')}
             </a>
           </Section>
 
           {/* Reward */}
-          {reward && <Section title="Reward">{reward}</Section>}
+          {reward && <Section title={t('about.reward')}>{reward}</Section>}
 
           {/* Maximum Players */}
           {maxPlayers && (
-            <Section title="Maximum Players">
-              This tournament is limited to {maxPlayers} players. There are {maxPlayers - playerCount} spots left.
-              Please contact the tournament owner for more information.
+            <Section title={t('about.max_players.title')}>
+              {t('about.max_players.limit_info', {
+                count: maxPlayers - playerCount,
+                spotsLeft: maxPlayers - playerCount,
+                maxPlayers,
+              })}
             </Section>
           )}
 
           {/* Key Details */}
           <div className="row">
-            <Detail title="Start Date" iconClass="uil-calender">
+            <Detail title={t('about.start_date')} iconClass="uil-calender">
               {/* TODO: Start Date should default to date of tournament creation unless defined in the future. */}
               {startDate ? startDate.toLocaleDateString(startDate, dateOptions) : 'Recently'}
             </Detail>
-            <Detail title="End Date" iconClass="uil-calendar-slash">
+            <Detail title={t('about.end_date')} iconClass="uil-calendar-slash">
               {endDate ? endDate.toLocaleDateString(endDate, dateOptions) : 'Ongoing'}
             </Detail>
-            <Detail title="When" iconClass="uil-clock">
+            <Detail title={t('about.timing')} iconClass="uil-clock">
               {timeOfPlay || 'Anytime'}
             </Detail>
-            <Detail title="Location" iconClass="uil-location-pin-alt">
+            <Detail title={t('about.location')} iconClass="uil-location-pin-alt">
               {location || 'Anywhere'}
             </Detail>
           </div>

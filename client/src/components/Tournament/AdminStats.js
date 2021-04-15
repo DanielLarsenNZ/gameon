@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardBody, Col, Media, Row } from 'reactstrap';
 
 const AdminStats = ({ players, games, last7, last30 }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('tournament');
 
   return (
     <Row>
@@ -17,7 +17,7 @@ const AdminStats = ({ players, games, last7, last30 }) => {
                   <Users className="align-self-center icon-lg mr-4"></Users>
                   <Media body>
                     <h4 className="mt-0 mb-0">{players || '-'}</h4>
-                    <span className="text-muted font-size-13">{t('tournament.total_players')}</span>
+                    <span className="text-muted font-size-13">{t('stats.total_players')}</span>
                   </Media>
                 </Media>
               </Col>
@@ -26,7 +26,7 @@ const AdminStats = ({ players, games, last7, last30 }) => {
                   <Award className="align-self-center icon-lg mr-4"></Award>
                   <Media body>
                     <h4 className="mt-0 mb-0">{games}</h4>
-                    <span className="text-muted font-size-13">{t('tournament.total_games')}</span>
+                    <span className="text-muted font-size-13">{t('stats.total_games')}</span>
                   </Media>
                 </Media>
               </Col>
@@ -35,7 +35,7 @@ const AdminStats = ({ players, games, last7, last30 }) => {
                   <Clock className="align-self-center icon-lg mr-4"></Clock>
                   <Media body>
                     <h4 className="mt-0 mb-0">{last7}</h4>
-                    <span className="text-muted font-size-13">{t('tournament.games_over_last_seven_days')}</span>
+                    <span className="text-muted font-size-13">{t('stats.games_over_last_seven_days')}</span>
                   </Media>
                 </Media>
               </Col>
@@ -44,7 +44,7 @@ const AdminStats = ({ players, games, last7, last30 }) => {
                   <Calendar className="align-self-center icon-lg mr-4"></Calendar>
                   <Media body>
                     <h4 className="mt-0 mb-0">{last30}</h4>
-                    <span className="text-muted font-size-13">{t('tournament.games_over_last_month')}</span>
+                    <span className="text-muted font-size-13">{t('stats.games_over_last_month')}</span>
                   </Media>
                 </Media>
               </Col>

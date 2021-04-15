@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { AvField, AvForm, AvInput, AvRadio, AvRadioGroup } from 'availity-reactstrap-validation';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Col, CustomInput, FormGroup, Label, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 
 const NewScoreModal = ({ players = [], isOpen, toggle }) => {
+  const { t } = useTranslation('tournament');
   const [opponent, setOpponent] = useState('');
   const [didPlayerWin, setDidPlayerWin] = useState(false);
   const [didConsent, setDidConsent] = useState(false);
@@ -15,7 +17,7 @@ const NewScoreModal = ({ players = [], isOpen, toggle }) => {
 
   return (
     <Modal isOpen={isOpen} toggle={toggle} size="lg" centered>
-      <ModalHeader toggle={toggle}>New Score</ModalHeader>
+      <ModalHeader toggle={toggle}>{t('actions.submit_score')}</ModalHeader>
       <ModalBody>
         <AvForm
           onValidSubmit={(event, values) => {

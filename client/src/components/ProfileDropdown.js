@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
 import { ChevronDown } from 'react-feather';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 
 const ProfileDropdown = ({ profilePic, menuItems, username, tag }) => {
+  const { t } = useTranslation('common');
+
   profilePic = profilePic || null;
   tag = tag || 'div';
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +42,7 @@ const ProfileDropdown = ({ profilePic, menuItems, username, tag }) => {
                 {item.hasDivider ? <DropdownItem divider /> : null}
                 <Link to={item.redirectTo} className="dropdown-item notify-item">
                   <Icon className="icon-dual icon-xs mr-2"></Icon>
-                  <span>{item.label}</span>
+                  <span>{t(item.label)}</span>
                 </Link>
               </React.Fragment>
             );

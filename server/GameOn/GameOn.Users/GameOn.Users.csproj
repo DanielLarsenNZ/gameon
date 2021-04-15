@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapr.AspNetCore" Version="1.0.0-rc02" />
+    <PackageReference Include="Dapr.AspNetCore" Version="1.0.0" />
     <PackageReference Include="Microsoft.Graph" Version="3.21.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Google.Api.CommonProtos" Version="2.2.0" />

@@ -1,0 +1,61 @@
+{
+  "page_title": "Frequently Asked Questions",
+  "banner": {
+    "title": "Don't find what you're looking for?",
+    "description": "Our aim is to provide you with answers to the most common questions. If you see something that isn't covered here and would like to suggest a feature, or review our backlog, you are most welcome to do so below.",
+    "suggest_feature": "Suggest Feature",
+    "view_backlog": "View Backlog"
+  },
+  "tournament": {
+    "header": "Tournament Administration",
+    "sub_heading": "Related to: Creating, facilitating, and closing tournaments.",
+    "how_to_create": {
+      "question": "How do I create a new tournament?",
+      "answer": "It's as simple as selecting the 'Create Tournament' option on the home page. Then just follow the wizard and enter your tournament information."
+    },
+    "how_to_limit_players": {
+      "question": "How do I limit the number of players?",
+      "answer": "Upon creating a tournament, you will see an option to limit the number of players allowed in a tournament. Once this number is reached, registrations will be closed."
+    },
+    "how_to_invite_players": {
+      "question": "How do I invite others to my tournament?",
+      "answer": "We'd like to make this experience as simple as possible, for now though, you'll need to make sure that these people are inside your organisation. If they are, simply share the link to the given tournament page as it appears in the browser's search bar."
+    },
+    "how_to_update_details": {
+      "question": "How do I update the details of my tournament?",
+      "answer": "For now, you are unable to update details of a tournament after it has been created. We will be shipping this in the next iteration of the app."
+    },
+    "how_to_transfer_ownership": {
+      "question": "How can I transfer ownership of a tournament to someone else?",
+      "answer": "Right now this is not possible, however we are working on it!"
+    },
+    "how_to_end_tournament": {
+      "question": "How do I end a tournament I created?",
+      "answer": "For now, you are unable to end a tournament you have created. Stay tuned for updates soon!"
+    }
+  },
+  "playing": {
+    "header": "Playing & Scoring Matches",
+    "sub_heading": "Related to: Scoring games and challenging opponents.",
+    "how_is_my_rank_calculated": {
+      "question": "How is my rank calculated?",
+      "answer": "That's a little difficult... we use the ELO Ranking Algorithm to determine your ranking. This ensures any player cannot continually play someone of a lower rank to climb up over time."
+    },
+    "how_to_submit_score": {
+      "question": "How do I submit my score after a match?",
+      "answer": "It's simple! Navigate to the tournament under which you would like to submit scores, then click the 'New Score' button on the leaderboard. Your submission is made in good faith, so no cheating!"
+    },
+    "how_to_challenge_players": {
+      "question": "Can I challenge another player to a match?",
+      "answer": "No. At this time it is not possible, however, we are working on shipping this feature very soon!"
+    },
+    "why_only_submit_an_outcome": {
+      "question": "Why can I only enter who won the match (and not my score)?",
+      "answer": "The ranking algorithm does not take scores into consideration, instead it is based on the old ranking of you and your opponent. Therefore, exact scores aren't required but you are most welcome to include them in the optional comment when submitting your results."
+    },
+    "how_to_play_against_external_players": {
+      "question": "Can I play against someone from another organisation?",
+      "answer": "No. At this time it is not possible, however, we are working on shipping multi-tenancy in a future iteration of Game On!"
+    }
+  }
+}

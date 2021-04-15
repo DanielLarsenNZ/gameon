@@ -50,6 +50,12 @@ Grant KV permission to AFD: <https://docs.microsoft.com/en-us/azure/frontdoor/fr
 
 Now you are ready to run `deploy-storage.ps1`
 
+## Testing
+
+See `test/example.http` for requests you can use for testing with [VSCode REST Extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client).
+
+If you need a bearer token, visit <https://gameon.nz/developer>. Or <https://mobilefirstcloudfirst.net/2019/09/use-vscode-rest-client-plugin-oauth-azure-active-directory/>.
+
 ## References & links
 
 [Troubleshooting Issuing ACME Certificates](https://cert-manager.io/docs/faq/acme/)

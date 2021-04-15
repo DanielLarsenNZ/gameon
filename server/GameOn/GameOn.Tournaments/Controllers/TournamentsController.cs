@@ -63,6 +63,15 @@ namespace GameOn.Tournaments.Controllers
             if (tournament.Owner != null)
                 throw new ArgumentException("Owner must not be included in Tournaments Post model.");
 
+            // #52 default start date to be set to today if no start date is defined
+            if (!tournament.StartDate.HasValue) tournament.StartDate = DateTimeOffset.Now;
+
+            // #52 End date must be in the future
+            if (tournament.EndDate.HasValue && tournament.EndDate.Value < DateTimeOffset.Now)
+            {
+                return new BadRequestObjectResult("If endDate is set, it must be a future date and time");
+            }
+
             string userId = User.GameOnUserId();
 
             User user = await _tournaments.GetUser(tenantId, userId);

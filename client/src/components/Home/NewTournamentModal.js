@@ -60,7 +60,7 @@ const NewTournamentModal = ({ isOpen, toggle }) => {
 
   return (
     <Modal isOpen={isOpen} toggle={toggle} size="lg" centered>
-      <ModalHeader toggle={toggle}>{t('tournament.new_tournament')}</ModalHeader>
+      <ModalHeader toggle={toggle}>{t('tournament.create')}</ModalHeader>
       <ModalBody>
         <Wizard
           render={({ step, steps }) => (

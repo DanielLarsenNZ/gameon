@@ -1,12 +1,13 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Button, Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
-import { initialsAvatarURL } from '../../helpers/Helpers';
+import { Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
+import { initialsAvatarURL, sanitiseName } from '../../helpers/Helpers';
 
 const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, location, hasReward, players = [] }) => {
   const { t } = useTranslation('common');
+  const descLimit = 250;
 
   return (
     <Card>
@@ -32,7 +33,9 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
           </Link>
         </h5>
 
-        <p className="text-muted mb-4">{description}</p>
+        <p className="text-muted mb-4">
+          {description.length > descLimit ? description.substring(0, descLimit) + '...' : description}
+        </p>
 
         <div>
           {/* NOTE: Tournament owner is the only member */}
@@ -41,18 +44,22 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
           ) : (
             <>
               {/* Show 7 members max */}
-              {players.slice(0, 7).map((player) => {
+              {players.slice(0, 7).map((player, i) => {
                 const { givenName = '', surname = '' } = player;
                 const avatarURL = initialsAvatarURL(givenName, surname);
 
                 return (
-                  <a key={player.id} href="/" className="d-inline-block mr-1">
+                  <Fragment key={`avatar-${i}-${id}`}>
                     <img
                       src={player?.imageUrl || avatarURL}
-                      className="avatar-sm m-1 rounded-circle"
+                      className="d-inline-block avatar-sm m-1 rounded-circle"
                       alt="Player Avatar"
+                      id={`avatar-${i}-${id}`}
                     />
-                  </a>
+                    <UncontrolledTooltip placement="top" id={`tooltip-${i}-${id}`} target={`avatar-${i}-${id}`}>
+                      {sanitiseName(givenName, surname)}
+                    </UncontrolledTooltip>
+                  </Fragment>
                 );
               })}
             </>
@@ -74,10 +81,11 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
               <ul className="list-inline mb-0">
                 <li className="list-inline-item pr-2">
                   <div className="text-muted d-inline-block" id={`reward-${id}`}>
-                    <i className={`uil uil-trophy mr-1 ${isOpenToJoin && 'text-warning'}`}></i> Prizes
+                    <i className={`uil uil-trophy mr-2 ${isOpenToJoin && 'text-warning'}`}></i>
+                    {t('tournament.prizes.text')}
                   </div>
                   <UncontrolledTooltip placement="top" target={`reward-${id}`}>
-                    {t('tournament.reward_offered')}
+                    {t('tournament.prizes.tool_tip')}
                   </UncontrolledTooltip>
                 </li>
               </ul>
@@ -86,25 +94,9 @@ const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, locatio
           <Col className="ml-auto">
             <ul className="list-inline mb-0 text-right">
               <li className="list-inline-item pr-2">
-                {isOpenToJoin ? (
-                  <>
-                    <Link to={`tournaments/${id}`} className="btn btn-primary d-inline-block" id={`join-${id}`}>
-                      {t('tournament.join_tournament')}
-                    </Link>
-                    <UncontrolledTooltip placement="top" target={`join-${id}`}>
-                      {t('tournament.join_tooltip')}
-                    </UncontrolledTooltip>
-                  </>
-                ) : (
-                  <>
-                    <Button color="light" className="d-inline-block" id={`contact-${id}`} disabled={!id}>
-                      {t('tournament.registrations_closed')}
-                    </Button>
-                    <UncontrolledTooltip placement="top" target={`contact-${id}`}>
-                      {t('tournament.registrations_closed_tooltip')}
-                    </UncontrolledTooltip>
-                  </>
-                )}
+                <Link to={`tournaments/${id}`} className="btn btn-primary d-inline-block" id={`join-${id}`}>
+                  {t('tournament.view')}
+                </Link>
               </li>
             </ul>
           </Col>

@@ -86,7 +86,7 @@ Example:
 
 ## Rankings
 
-    GET /rankings/{tournament_id}
+    GET /tournaments/{tournament_id}/rankings
 
     // Response Model
     [
