@@ -1,4 +1,4 @@
-﻿using GameOn.Common.Exceptions;
+﻿using GameOn.Exceptions;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace GameOn.Models
 
         public string PlayingFor { get; set; }
 
-        public User[] Players { get; set; }
+        public Player[] Players { get; set; }
 
         /// <summary>
         /// A link to the rules for this Tournament

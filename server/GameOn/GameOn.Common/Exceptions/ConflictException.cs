@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace GameOn.Exceptions
+﻿namespace GameOn.Exceptions
 {
-    public class ConflictException : Exception
+    public class ConflictException : GameOnException
     {
         public ConflictException(string message) : base(message)
         {

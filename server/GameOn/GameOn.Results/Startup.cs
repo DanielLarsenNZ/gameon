@@ -1,17 +1,12 @@
 using GameOn.Extensions;
-using GameOn.Tournaments.Calculators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("GameOn.Tournaments.Tests")]
-
-namespace GameOn.Tournaments
+namespace GameOn.Results
 {
     public class Startup
     {
@@ -30,14 +25,11 @@ namespace GameOn.Tournaments
             services.AddGameOnAuthentication(Configuration);
             services.AddGameOnCors(Configuration);
 
-            // Services
-            services.AddTransient<TournamentsService>();
-            services.AddTransient<IScoreCalculator, EloScoreCalculator>();
-
             services
                 .AddControllers()
                 .AddDapr()
                 .AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +39,7 @@ namespace GameOn.Tournaments
             {
                 app.UseDeveloperExceptionPage();
                 Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
+
             }
 
             // Middleware order is crucial! https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-3.1

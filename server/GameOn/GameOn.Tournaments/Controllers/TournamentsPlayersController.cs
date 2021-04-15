@@ -1,6 +1,6 @@
-﻿using GameOn.Extensions;
+﻿using GameOn.Exceptions;
+using GameOn.Extensions;
 using GameOn.Models;
-using GameOn.Tournaments.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,7 +27,7 @@ namespace GameOn.Tournaments.Controllers
 
         // GET all Players
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get(string tournamentId)
+        public async Task<ActionResult<IEnumerable<Player>>> Get(string tournamentId)
         {
             // Get Tournament
             var tournament = await _tournaments.Get(User.GetTenantId(), tournamentId);
@@ -36,7 +36,7 @@ namespace GameOn.Tournaments.Controllers
 
         // Get Player
         [HttpGet("{userId}")]
-        public async Task<ActionResult<User>> Get(
+        public async Task<ActionResult<Player>> Get(
             string tournamentId,
             string userId)
         {
@@ -66,8 +66,15 @@ namespace GameOn.Tournaments.Controllers
             if (addPlayers.PlayerIds != null) playerIds.AddRange(addPlayers.PlayerIds);
 
             if (!playerIds.Any()) return new BadRequestObjectResult("Provide either playerId or playerIds or addMe: true");
-
-            return await _tournaments.AddPlayers(User.GetTenantId(), tournamentId, playerIds.ToArray());
+            
+            try
+            {
+                return await _tournaments.AddPlayers(User.GetTenantId(), tournamentId, playerIds.ToArray());
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

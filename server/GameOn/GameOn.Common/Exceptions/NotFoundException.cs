@@ -1,10 +1,7 @@
-﻿using System;
-
-namespace GameOn.Common.Exceptions
+﻿namespace GameOn.Exceptions
 {
-    public class NotFoundException : Exception
+    public class NotFoundException : GameOnException
     {
-        public NotFoundException(string message) : base(message)
-        { }
+        public NotFoundException(string message) : base(message) { }
     }
 }

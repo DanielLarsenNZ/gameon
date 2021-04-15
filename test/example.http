@@ -1,29 +1,28 @@
 // Get an access token from: https://gameon.nz/developer
-@accessToken = eyJ0eXAiOiJK...
 
-### POST Tournament PROD
-POST https://api.gameon.nz/tournaments/tenant1
+@accessToken=eyJ0eX...
+@tournamentId=f0f77...
+
+### GET User
+GET http://localhost:5001/me
+Authorization: Bearer {{accessToken}}
+
+### GET User Photo
+GET http://localhost:5001/me/photos?size=120x120
+Authorization: Bearer {{accessToken}}
+
+### POST User
+POST http://localhost:5001/me
+Authorization: Bearer {{accessToken}}
+
+
+
+
+### POST Tournaments
+POST http://localhost:5000/tournaments
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
-{
-    "name": "Auckland Office - Table Tennis - Singles",
-    "description": "Singles tournament 2020",
-    "location": "The Hub on L6 Auckland",
-    "playingFor": "Beers 🍻"
-} 
-
-### GET Tournament PROD
-GET http://api.gameon.nz/tournaments/tenant1/849468128dd84962a2d4dd3b637367d7
-
-### GET Tournaments PROD
-GET https://api.gameon.nz/tournaments/tenant1
-Authorization: Bearer {{accessToken}}
-
-### POST Tournaments LOCAL DEV
-POST http://localhost:5000/tournaments/abcd1234
-Content-Type: application/json
-Authorization: Bearer {{accessToken}}
 {
     "name": "Name1",
     "description": "Description1",
@@ -32,23 +31,41 @@ Authorization: Bearer {{accessToken}}
 } 
 
 ### GET Tournaments LOCAL
-GET http://localhost:5000/tournaments/abcd1234
+GET http://localhost:5000/tournaments
 Authorization: Bearer {{accessToken}}
 
 
 ### GET Tournament LOCAL
- GET http://localhost:5000/tournaments/abcd1234/abc1046
-
-
-### GET Health ASP.NET
-GET https://localhost:44318/health
+GET http://localhost:5000/tournaments/{{tournamentId}}
 Authorization: Bearer {{accessToken}}
 
-### Save Store
-POST http://localhost:57766/v1.0/state/statestore
+
+### Add Players to Tournament
+POST http://localhost:5000/tournaments/{{tournamentId}}/players
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
-[{ "key": "key1", "value": "value1"}, { "key": "key2", "value": "value2"}]
+{
+    "playerIds": ["E4B9CCA...", "6411ACC8..."],
+    "addMe": true
+}
 
-### Get Store
-GET http://localhost:57766/v1.0/state/statestore/abcd1234
+### GET Tournament Players 
+GET http://localhost:5000/tournaments/{{tournamentId}}/players
+Authorization: Bearer {{accessToken}}
+
+### GET Tournament Player
+GET http://localhost:5000/tournaments/{{tournamentId}}/players/E4B9CCAB54357895680E535E7DCB431EE73613FA91A10B5A8D87DE10A2588B86
+Authorization: Bearer {{accessToken}}
+
+### POST Tournament Results
+POST http://localhost:5000/tournaments/{{tournamentId}}/results
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "id": "dc5991...",
+    "player1Id": "E4B9CC...",
+    "player2Id": "6411AC...",
+    "winnerId": "6411AC..."
+}

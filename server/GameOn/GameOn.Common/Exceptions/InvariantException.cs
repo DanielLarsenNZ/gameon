@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace GameOn.Common.Exceptions
+﻿namespace GameOn.Exceptions
 {
-    public class InvariantException : Exception
+    public class InvariantException : GameOnException
     {
         public InvariantException(string message) : base(message) { }
     }

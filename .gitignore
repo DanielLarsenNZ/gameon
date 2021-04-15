@@ -5,7 +5,8 @@ obj
 .vs
 _work
 _k8s
-Properties
+PublishProfiles
 appsettings.Development.json
 prod.http
 local.http
+_work

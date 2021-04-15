@@ -1,10 +1,10 @@
-﻿using GameOn.Common.Exceptions;
+﻿using GameOn.Exceptions;
 
 namespace GameOn.Models
 {
     public abstract class GameOnModel
     {
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
         public virtual void EnforceInvariants()
         {
@@ -13,7 +13,7 @@ namespace GameOn.Models
 
         protected void EnforcePropertyNotSetInvariant(string property, string nameofProperty)
         {
-            if (string.IsNullOrEmpty(property)) throw new PropertyNotSetInvariantException(nameof(nameofProperty));
+            if (string.IsNullOrEmpty(property)) throw new PropertyNotSetInvariantException(nameofProperty);
         }
     }
 }
