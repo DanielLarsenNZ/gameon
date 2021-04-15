@@ -23,12 +23,16 @@ namespace GameOn.Models
             ObjectId = user.ObjectId;
             Surname = user.Surname;
             TenantId = user.TenantId;
+            
+            // Initial Ranking score is 1500 by convention.
+            // TODO: Make the starting Elo score configurable by Tournament
+            RankingScore = 1500;
         }
 
         /// <summary>
-        /// The ranking score for this player as calculated by the ranking algorithm. Null is no rank.
+        /// The ranking score for this player as calculated by the ranking algorithm.
         /// </summary>
-        public int? RankingScore { get; set; }
+        public int RankingScore { get; set; }
 
         /// <summary>
         /// The current rank of this player among all players in this Tournament. 1 is first place , 2 is second place and so on. Null is no rank.

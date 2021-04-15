@@ -21,6 +21,15 @@ namespace GameOn.Tournaments.Tests
         }
 
         [TestMethod]
+        public void UpdatePlayerRankScores_ThreePlayers_SkipOnEqualRanking()
+        {
+            var scoredPlayers = new[] { new Player { RankingScore = 1000 }, new Player { RankingScore = 1000 }, new Player { RankingScore = 900 } };
+
+            var rankedPlayers = TournamentsService.RecalculateRankings(scoredPlayers);
+
+            Assert.IsTrue(rankedPlayers[0].Rank == 1 && rankedPlayers[1].Rank == 1 && rankedPlayers[2].Rank == 3, "Ranking should reflect the influence of previously equal rankings.");
+        }
+      
         public void UpdatePlayerRankScores_TwoPlayersSameScore_RankIsNotNull()
         {
             // Arrange
