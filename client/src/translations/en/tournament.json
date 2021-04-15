@@ -38,7 +38,8 @@
     "start_date": "Start Date",
     "end_date": "End Date",
     "timing": "When",
-    "location": "Location"
+    "location": "Location",
+    "isFull": "Full Capacity"
   },
   "tournament": {
     "name": "Tournament Name",

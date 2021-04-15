@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowLeft, ChevronDown, Edit, XOctagon } from 'react-feather';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from 'reactstrap';
+import { Badge, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from 'reactstrap';
 import { useAPI } from '../../helpers/useApi';
 import useCopyToClipboard from '../../helpers/useCopyToClipboard';
 import { useProfile } from '../App/Profile';
@@ -27,7 +27,7 @@ const Tournament = ({ match, location }) => {
   const { me } = useProfile();
   const hasUserJoined = tournament?.players?.some((player) => player.id === me?.id);
   const userIsOwner = tournament?.owner?.id !== undefined && tournament?.owner?.id === me?.id; // TODO: Without 'undefined' check it be true for a brief second as both are fetching so: null === null
-
+  const isFull = tournament.maxPlayers ? tournament.maxPlayers <= tournament.players.length : false;
   /* TODO: Implement Joining
   if (action === 'join') {
     console.log('User wants to join this tournament.');
@@ -53,7 +53,13 @@ const Tournament = ({ match, location }) => {
                     <ArrowLeft />
                   </Link>
                 </span>
-                {tournament.name}
+                {tournament.name}{' '}
+                {isFull && (
+                  <Badge color="soft-primary" className="ml-2">
+                    <i className="uil uil-lock-alt mr-1"></i>
+                    {t('about.isFull')}
+                  </Badge>
+                )}
               </h4>
             </Col>
             <Col sm={4} xl={6} className="text-md-right">
@@ -68,7 +74,7 @@ const Tournament = ({ match, location }) => {
               )}
 
               {/* New users can join */}
-              {!hasUserJoined && (
+              {!hasUserJoined && !isFull && (
                 <button type="button" className="btn btn-danger mb-3 mb-sm-0">
                   <i className="uil-user-plus mr-1"></i> {t('actions.join')}
                 </button>
