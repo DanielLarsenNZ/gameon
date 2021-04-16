@@ -25,8 +25,8 @@ Your access token can be retrieved from the Game On! [developer portal](https://
 
 | Status | Method | Endpoint | Description  |
 |:----:|:----:|:-----|:--------|
-| ✔️ | `POST` | `/me`   | Registers a new user. |
-| ✔️ | `GET` |`/me`   | Returns the currently authenticated user.  |
+| ✅ | `POST` | `/me`   | Registers a new user. |
+| ✅ | `GET` |`/me`   | Returns the currently authenticated user.  |
 | 🔴 | `GET` |`/me/photos[?size=120x120]`   | Returns the avatar of the current user.  |
 | 🔴 | `PUT` |`/me`   | Updates the currently authenticated user's details.  |
 
@@ -51,9 +51,9 @@ Old Docs on `Users`
 
 | Status | Method | Endpoint | Description  |
 |:----:|:----:|:-----|:--------|
-| ✔️ | `POST` |`/tournaments`   | Creates a new tournament. |
-| ✔️ | `GET` |`/tournaments`   | Retrieves all tournaments in the user's tenant. |
-| ✔️ | `GET` |`/tournaments/{id}`   | Retrieves a specific tournament in the user's tenant by ID. |
+| ✅ | `POST` |`/tournaments`   | Creates a new tournament. |
+| ✅ | `GET` |`/tournaments`   | Retrieves all tournaments in the user's tenant. |
+| ✅ | `GET` |`/tournaments/{id}`   | Retrieves a specific tournament in the user's tenant by ID. |
 | 🔴 | `PUT` |`/tournaments/{id}`   | Updates a specific tournament in the user's tenant by ID. |
 | 🔴 | `DELETE` |`/tournaments/{id}`   | Ends or deletes a specific tournament in the user's tenant by ID. |
 
@@ -84,9 +84,9 @@ Old Docs on `Users`
 
 | Status | Method | Endpoint | Description  |
 |:----:|:----:|:-----|:--------|
-| ✔️ |`POST` |`/tournaments/{id}/players`   | Adds one or more players to the given tournament. |
-| ✔️ | `GET`|`/tournaments/{id}/players`   | Retrieves all players in the given tournament (by rank). |
-| ✔️ | `GET`|`/tournaments/{id}/players/{id}`   | Retrieves a specific player in the given tournament. |
+| ✅ |`POST` |`/tournaments/{id}/players`   | Adds one or more players to the given tournament. |
+| ✅ | `GET`|`/tournaments/{id}/players`   | Retrieves all players in the given tournament (by rank). |
+| ✅ | `GET`|`/tournaments/{id}/players/{id}`   | Retrieves a specific player in the given tournament. |
 
 ### Add Player(s) to a Tournament
 
