@@ -1,6 +1,6 @@
 {
   "landing": {
-    "title": "Welcome",
+    "title": "Explore Tournaments",
     "filter_all": "All",
     "filter_joined": "Joined",
     "filter_ongoing": "Ongoing",
@@ -17,7 +17,7 @@
   },
   "tournament": {
     "create": "Create Tournament",
-    "view": "View Tournament",
+    "view": "Show Details",
     "be_first_to_join": "Be the first to join!",
     "ongoing": "Ongoing",
     "finished": "Finished",
