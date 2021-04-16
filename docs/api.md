@@ -4,12 +4,56 @@ Welcome to the Game On! API documentation. This page lists endpoints (including 
 
 Production Base URL: https://api.gameon.nz
 
-**NOTE: All Endpoints Require a Bearer Token Authorization Header**
+> ❗ Important
+>
+> **All Endpoints Require a Bearer Token Authorization Header**
 
-### Access Tokens
-Your access token can be retrieved from https://gameon.nz/developer and must be supplied as Bearer Token with each API call. Please note that requests made against this API are not sandboxed and thus affect your personal rankings and public Game On! profile.
+## Table of Contents
+
+- [Obtaining an Access Token](#obtaining-an-access-token)
+- [Auth / User Endpoints](#me-/-user-endpoints)
+- [Tournament Endpoints](#tournament-endpoints)
+- [Player Endpoints](#player-endpoints)
+- [Result Endpoints](#result-endpoints)
+
+## Obtaining an Access Token
+Your access token can be retrieved from the Game On! [developer portal](https://gameon.nz/developer) and must be supplied as a Bearer Token with each API call. Please note that requests made against this API are not sandboxed and thus may affect your personal rankings and public Game On! profile.
 
     Authorization: Bearer {{accessToken}}
+
+## Me / User Endpoints
+
+| Status | Method | Endpoint | Description  |
+|:----:|:----:|:-----|:--------|
+| ✔️ | `POST` | `/me`   | Registers a new user. |
+| ✔️ | `GET` |`/me`   | Returns the currently authenticated user.  |
+| 🔴 | `GET` |`/me/photos[?size=120x120]`   | Returns the avatar of the current user.  |
+| 🔴 | `PUT` |`/me`   | Updates the currently authenticated user's details.  |
+
+## Tournament Endpoints
+
+| Status | Method | Endpoint | Description  |
+|:----:|:----:|:-----|:--------|
+| ✔️ | `POST` |`/tournaments`   | Creates a new tournament. |
+| ✔️ | `GET` |`/tournaments`   | Retrieves all tournaments in the user's tenant. |
+| ✔️ | `GET` |`/tournaments/{id}`   | Retrieves a specific tournament in the user's tenant by ID. |
+| 🔴 | `PUT` |`/tournaments/{id}`   | Updates a specific tournament in the user's tenant by ID. |
+| 🔴 | `DELETE` |`/tournaments/{id}`   | Ends or deletes a specific tournament in the user's tenant by ID. |
+
+## Player Endpoints
+
+| Status | Method | Endpoint | Description  |
+|:----:|:----:|:-----|:--------|
+| ✔️ |`POST` |`/tournaments/{id}/players`   | Adds one or more players to the given tournament. |
+| ✔️ | `GET`|`/tournaments/{id}/players`   | Retrieves all players in the given tournament (by rank). |
+| ✔️ | `GET`|`/tournaments/{id}/players/{id}`   | Retrieves a specific player in the given tournament. |
+
+## Result Endpoints
+
+| Status | Method | Endpoint | Description  |
+|:----:|:----:|:-----|:--------|
+| 🔴 |`POST` |`/results/{tournament_id}`   | Submits a new score for a given tournament ID. |
+| 🔴 |`GET` |`/results/{tournament_id}`   | Retrieves all scores for a given tournament ID. |
 
 ## Tournaments
 
