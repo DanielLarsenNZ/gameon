@@ -6,22 +6,22 @@ Production Base URL: https://api.gameon.nz
 
 > ❗ Important
 >
-> **All Endpoints Require a Bearer Token Authorization Header**
+> All Endpoints Require a Bearer Token Authorization Header
 
 ## Table of Contents
 
 - [Obtaining an Access Token](#obtaining-an-access-token)
-- [Auth / User Endpoints](#me-/-user-endpoints)
-- [Tournament Endpoints](#tournament-endpoints)
-- [Player Endpoints](#player-endpoints)
-- [Result Endpoints](#result-endpoints)
+- [Auth / Users](#me-users)
+- [Tournaments](#tournaments)
+- [Players](#players)
+- [Results](#resuls)
 
 ## Obtaining an Access Token
 Your access token can be retrieved from the Game On! [developer portal](https://gameon.nz/developer) and must be supplied as a Bearer Token with each API call. Please note that requests made against this API are not sandboxed and thus may affect your personal rankings and public Game On! profile.
 
     Authorization: Bearer {{accessToken}}
 
-## Me / User Endpoints
+## Me / Users
 
 | Status | Method | Endpoint | Description  |
 |:----:|:----:|:-----|:--------|
@@ -30,7 +30,24 @@ Your access token can be retrieved from the Game On! [developer portal](https://
 | 🔴 | `GET` |`/me/photos[?size=120x120]`   | Returns the avatar of the current user.  |
 | 🔴 | `PUT` |`/me`   | Updates the currently authenticated user's details.  |
 
-## Tournament Endpoints
+### Me Model
+```javascript
+{
+  "id": String
+  "name": String,
+  "givenName": String,
+  "surname": String,
+}
+```
+
+Old Docs on `Users`
+
+    GET /users
+    GET /users/{user_id}/photos[?size=120x120]
+    POST /users
+    PUT /users
+
+## Tournaments
 
 | Status | Method | Endpoint | Description  |
 |:----:|:----:|:-----|:--------|
@@ -40,7 +57,30 @@ Your access token can be retrieved from the Game On! [developer portal](https://
 | 🔴 | `PUT` |`/tournaments/{id}`   | Updates a specific tournament in the user's tenant by ID. |
 | 🔴 | `DELETE` |`/tournaments/{id}`   | Ends or deletes a specific tournament in the user's tenant by ID. |
 
-## Player Endpoints
+> ⚠️ Query Parameters Are Not Yet Implemented
+> `GET /tournaments?skip=0&limit=20`
+> `GET /tournaments?playerId={player_id}`
+
+### Tournament Model
+```javascript
+{
+  "id": Id,                     // required
+  "name": String,               // required
+  "description": String,
+  "location": String,
+  "playingFor": String,
+  "playerCount": Integer,       // readonly, derived from players.length
+  "players": Player[],          // ignored in POST model
+  "startDate": Date (nullable),
+  "endDate": Date (nullable),
+  "TimeOfPlayDescription": String (default: 'Anytime', eg: 'Mondays 9-10am'),
+  "maxPlayers": Integer (nullable) (default: null = no limit), greater than 1 is valid
+  "owner": User
+  "rulesLink": string
+}
+```
+
+## Players
 
 | Status | Method | Endpoint | Description  |
 |:----:|:----:|:-----|:--------|
@@ -48,54 +88,19 @@ Your access token can be retrieved from the Game On! [developer portal](https://
 | ✔️ | `GET`|`/tournaments/{id}/players`   | Retrieves all players in the given tournament (by rank). |
 | ✔️ | `GET`|`/tournaments/{id}/players/{id}`   | Retrieves a specific player in the given tournament. |
 
-## Result Endpoints
-
-| Status | Method | Endpoint | Description  |
-|:----:|:----:|:-----|:--------|
-| 🔴 |`POST` |`/results/{tournament_id}`   | Submits a new score for a given tournament ID. |
-| 🔴 |`GET` |`/results/{tournament_id}`   | Retrieves all scores for a given tournament ID. |
-
-## Tournaments
-
-    ✅ POST /tournaments
-    ✅ GET /tournaments
-    GET /tournaments?skip=0&limit=20
-    GET /tournaments?playerId={player_id}
-    ✅ GET /tournaments/{tournament_id}
-    PUT /tournaments/{tournament_id}
-    
-    // Tournaments model
-    [{
-        id: Id,                 # required
-        name: string,           # required
-        description: string,
-        location: string,
-        playingFor: string,
-        playerCount: number,    # readonly, derived from players.length
-        players: Player[],        # Ignored in POST model
-        startDate: Date (nullable),
-        endDate: Date (nullable),
-        TimeOfPlayDescription: String (default: 'Anytime', e.g: 'Mondays 9-10am')
-        maxPlayers: Integer (nullable) (default: null = no limit), only a number greater than 1 is valid
-        owner: User
-        rulesLink: string
-    }]
-
-## Tournaments / Players
-
-### ✅ Add Player(s) to a Tournament
+### Add Player(s) to a Tournament
 
 Accepts an `AddPlayersModel` with three optional properties: `playerId` (a string), `playerIds` (an array of strings) or `addMe` (a boolean, defaults to `false`). At least one of these properties must be set. Any combination is accepted. Returns the `Tournament` after any players have been added.
 
-    POST /tournaments/{tournament_id}/players
-    Content-Type: application/json
-    Authorization: Bearer {{accessToken}}
+Endpoint: `POST /tournaments/{tournament_id}/players`
 
-    {
-        "playerId": String?,
-        "playerIds": String[]?,
-        "addMe": Bool?
-    }
+```javascript
+{
+  "playerId": String?,
+  "playerIds": String[]?,
+  "addMe": Bool?
+}
+```
 
 Example:
 
@@ -109,6 +114,11 @@ Example:
     }
 
 ## Results
+
+| Status | Method | Endpoint | Description  |
+|:----:|:----:|:-----|:--------|
+| 🔴 |`POST` |`/results/{tournament_id}`   | Submits a new score for a given tournament ID. |
+| 🔴 |`GET` |`/results/{tournament_id}`   | Retrieves all scores for a given tournament ID. |
 
     POST /results/{tournament_id}
     GET /results/{tournament_id}
@@ -164,17 +174,3 @@ Example:
             // etc...
         }
     ]
-
-## Me (Users)
-
-    GET /me
-    GET /me/photos[?size=120x120]
-    POST /me
-    PUT /me
-
-# Users
-
-    GET /users
-    GET /users/{user_id}/photos[?size=120x120]
-    POST /users
-    PUT /users
