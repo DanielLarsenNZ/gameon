@@ -120,7 +120,7 @@ const Tournament = ({ match, location }) => {
           <Row>
             <Col xl={4}>
               {/* <ChallengeWidget name="Erik Employee" endDate="02 February" /> */}
-              <Leaderboard tid={tournament?.id} canSubmitScore={hasUserJoined} />
+              <Leaderboard players={tournament?.player} canSubmitScore={hasUserJoined} />
             </Col>
             <Col xl={8}>
               <About

@@ -64,15 +64,9 @@ const Player = ({ name, imageUrl, rank, points }) => {
   );
 };
 
-const Leaderboard = ({ tid, canSubmitScore }) => {
+const Leaderboard = ({ players = [], canSubmitScore }) => {
   const { t } = useTranslation('tournament');
   const { isOpen, onToggle } = useModalState();
-
-  // TODO: Implement endpoint in hook
-  const scoreboard = [];
-  const status = 'fetched';
-  const error = 'Endpoint /rankings/{t_id} is not implemented.';
-  // const { data: scoreboard, status, error } = useAPI(`/rankings/${tid}`);
 
   return (
     <>
@@ -85,24 +79,22 @@ const Leaderboard = ({ tid, canSubmitScore }) => {
             </Button>
           )}
           <h6 className="header-title mb-4">{t('leaderboard.title')}</h6>
-          {status === 'fetching' && <p>Building Leaderboard</p>}
-
-          {error && <p>Unable to load the leaderboard.</p>}
-          {scoreboard.map((ranking) => {
-            const { player } = ranking;
-            return (
+          {!players && players === [] ? (
+            <p>Unable to load the leaderboard.</p>
+          ) : (
+            players.map((player) => (
               <Player
                 key={player.id}
                 imageUrl={initialsAvatarURL(player.givenName, player.surname)}
                 name={player.name}
-                rank={ranking.rank}
-                points={ranking.score}
+                rank={player.rank}
+                points={player.rankingScore}
               />
-            );
-          })}
+            ))
+          )}
         </CardBody>
       </Card>
-      <NewScoreModal players={[]} isOpen={isOpen} toggle={onToggle} />
+      <NewScoreModal players={players} isOpen={isOpen} toggle={onToggle} />
     </>
   );
 };
