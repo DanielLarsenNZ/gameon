@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowLeft, ChevronDown, Edit, XOctagon } from 'react-feather';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Badge, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from 'reactstrap';
 import { useAPI } from '../../helpers/useApi';
 import useCopyToClipboard from '../../helpers/useCopyToClipboard';
@@ -11,11 +11,11 @@ import About from './About';
 import AdminStats from './AdminStats';
 import Leaderboard from './Leaderboard';
 
-const Tournament = ({ match }) => {
+const Tournament = () => {
+  const { id } = useParams();
   const { t } = useTranslation('tournament');
   const { handleCopy } = useCopyToClipboard();
 
-  const { id } = match.params;
   const { data: tournament, status, error } = useAPI(`/tournaments/${id}`);
 
   // FIXME: Fix fragile statement
