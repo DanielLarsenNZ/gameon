@@ -36,7 +36,7 @@ const Player = ({ name, imageUrl, rank, points }) => {
   }
   return (
     <Media className="mt-1 border-top pt-3">
-      <h3 className="mr-3 v-center float-right">{`#${rank}`}</h3>
+      <h3 className="mr-3 v-center float-right">{rank ? `#${rank}` : '--'}</h3>
       <img src={imageUrl} className={`avatar rounded mr-3`} alt={name} />
       <Media body>
         <h6 className="mt-1 mb-0 font-size-15">

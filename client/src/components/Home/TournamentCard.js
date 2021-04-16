@@ -1,31 +1,49 @@
-import classNames from 'classnames';
+import { add } from 'date-fns';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Card, CardBody, Col, Row, UncontrolledTooltip } from 'reactstrap';
 import { initialsAvatarURL, sanitiseName } from '../../helpers/Helpers';
 
-const TournamentCard = ({ id, title, description, endDate, isOpenToJoin, location, hasReward, players = [] }) => {
+const TournamentCard = ({
+  id,
+  title,
+  description,
+  startDate,
+  endDate,
+  isOpenToJoin,
+  location,
+  hasReward,
+  players = [],
+}) => {
   const { t } = useTranslation('common');
+
+  const getStatusMessage = ({ startDate, endDate }) => {
+    const today = new Date();
+
+    if (startDate > today) {
+      return { color: 'info', text: 'Starting Soon' };
+    }
+    if (endDate && endDate < today) {
+      return { color: 'danger', text: 'Finished' };
+    }
+    if (!endDate || endDate > add(today, { weeks: 2 })) {
+      return { color: 'success', text: 'Ongoing' };
+    } else if (!startDate) {
+      return { color: 'info', text: 'Register Today' };
+    } else {
+      return { color: 'warning', text: 'Ending Soon' };
+    }
+  };
+
+  const { color, text } = getStatusMessage(new Date(startDate), new Date(endDate));
   const descLimit = 250;
 
   return (
     <Card>
       <CardBody>
-        <div
-          className={classNames('badge', 'float-right', {
-            'badge-success': endDate === true || !endDate,
-            'badge-warning': endDate === false,
-          })}>
-          {endDate ? t('tournament.ongoing') : t('tournament.finished')}
-        </div>
-        <p
-          className={classNames('text-uppercase', 'font-size-12', 'mb-2', {
-            'text-success': endDate === true,
-            'text-warning': endDate === false,
-          })}>
-          {location}
-        </p>
+        <div className={`badge float-right badge-${color}`}>{text}</div>
+        <p className={`text-uppercase font-size-12 mb-2 text-${color}`}>{location}</p>
 
         <h5>
           <Link to={`/tournaments/${id}`} className="text-dark">

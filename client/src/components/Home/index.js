@@ -70,6 +70,7 @@ const Home = () => {
               description={t.description}
               location={t.location}
               hasReward={t.playingFor !== null}
+              startDate={t.startDate}
               endDate={t.endDate}
               isOpenToJoin={!t.isOpenToJoin}
               players={t.players}

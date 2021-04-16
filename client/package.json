@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "classnames": "^2.2.6",
+    "date-fns": "^2.21.1",
     "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",
     "metismenujs": "^1.2.1",

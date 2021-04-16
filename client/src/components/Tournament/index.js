@@ -11,16 +11,11 @@ import About from './About';
 import AdminStats from './AdminStats';
 import Leaderboard from './Leaderboard';
 
-const Tournament = ({ match, location }) => {
+const Tournament = ({ match }) => {
   const { t } = useTranslation('tournament');
   const { handleCopy } = useCopyToClipboard();
 
-  // Get search params
   const { id } = match.params;
-  const params = new URLSearchParams(location.search);
-  // eslint-disable-next-line no-unused-vars
-  const action = params.get('action');
-
   const { data: tournament, status, error } = useAPI(`/tournaments/${id}`);
 
   // FIXME: Fix fragile statement
@@ -28,11 +23,6 @@ const Tournament = ({ match, location }) => {
   const hasUserJoined = tournament?.players?.some((player) => player.id === me?.id);
   const userIsOwner = tournament?.owner?.id !== undefined && tournament?.owner?.id === me?.id; // TODO: Without 'undefined' check it be true for a brief second as both are fetching so: null === null
   const isFull = tournament.maxPlayers ? tournament.maxPlayers <= tournament.players.length : false;
-  /* TODO: Implement Joining
-  if (action === 'join') {
-    console.log('User wants to join this tournament.');
-    joinTournament(id, profile?.id, response.accessToken);
-  }*/
 
   return (
     <>
@@ -120,15 +110,15 @@ const Tournament = ({ match, location }) => {
           <Row>
             <Col xl={4}>
               {/* <ChallengeWidget name="Erik Employee" endDate="02 February" /> */}
-              <Leaderboard players={tournament?.player} canSubmitScore={hasUserJoined} />
+              <Leaderboard players={tournament?.players} canSubmitScore={hasUserJoined} />
             </Col>
             <Col xl={8}>
               <About
                 description={tournament.description}
                 reward={tournament.playingFor}
                 rulesURL={tournament.rulesURL}
-                startDate={tournament.startDate}
-                endDate={tournament.endDate}
+                startDate={tournament.startDate && new Date(tournament.startDate)}
+                endDate={tournament.endDate && new Date(tournament.endDate)}
                 location={tournament.location}
                 timeOfPlay={tournament.timeOfPlayDescription}
                 maxPlayers={tournament.maxPlayers}
