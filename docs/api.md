@@ -11,7 +11,7 @@ Production Base URL: https://api.gameon.nz
 ## Table of Contents
 
 - [Obtaining an Access Token](#obtaining-an-access-token)
-- [Auth / Users](#me-users)
+- [Auth / Users](#me--users)
 - [Tournaments](#tournaments)
 - [Players](#players)
 - [Results](#resuls)
