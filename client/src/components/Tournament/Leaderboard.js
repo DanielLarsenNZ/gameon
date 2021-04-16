@@ -79,7 +79,7 @@ const Leaderboard = ({ players = [], canSubmitScore }) => {
             </Button>
           )}
           <h6 className="header-title mb-4">{t('leaderboard.title')}</h6>
-          {!players && players === [] ? (
+          {!players.length ? (
             <p>Unable to load the leaderboard.</p>
           ) : (
             players.map((player) => (
