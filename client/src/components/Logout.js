@@ -8,7 +8,7 @@ const Logout = ({ location }) => {
   // Redirect to previous page or home page
   const { from } = location.state || { from: { pathname: '/' } };
 
-  return isAuthenticated ? instance.logout() : <Redirect to={from} />;
+  return isAuthenticated ? instance.logoutRedirect() : <Redirect to={from} />;
 };
 
 export default Logout;

@@ -46,7 +46,7 @@ const NewScoreModal = ({ players = [], isOpen, toggle }) => {
               <Label for="outcome">Outcome</Label>
               <AvRadioGroup name="outcome" required>
                 <AvRadio label="I won this game" value="win" />
-                <AvRadio label="Thomas won this game" value="lose" />
+                <AvRadio label="I lost this game" value="lose" />
               </AvRadioGroup>
             </Col>
           </Row>

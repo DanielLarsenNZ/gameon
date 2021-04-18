@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Badge, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from 'reactstrap';
 import { useAPI } from '../../helpers/useApi';
 import useCopyToClipboard from '../../helpers/useCopyToClipboard';
+import { Error404 } from '../../routes/Error';
 import { useProfile } from '../App/Profile';
 import Loader from '../Loader';
 import About from './About';
@@ -22,8 +23,10 @@ const Tournament = () => {
   const { me } = useProfile();
   const hasUserJoined = tournament?.players?.some((player) => player.id === me?.id);
   const userIsOwner = tournament?.owner?.id !== undefined && tournament?.owner?.id === me?.id; // TODO: Without 'undefined' check it be true for a brief second as both are fetching so: null === null
-  const isFull = tournament.maxPlayers ? tournament.maxPlayers <= tournament.players.length : false;
+  const isFull = tournament?.maxPlayers ? tournament.maxPlayers <= tournament.players.length : false;
 
+  // FIXME: Endpoint returns data about error that is saved in `data` so never empty.
+  if (!tournament) return <Error404 />;
   return (
     <>
       {status === 'fetching' && <Loader />}

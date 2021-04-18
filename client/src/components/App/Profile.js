@@ -7,7 +7,7 @@ const ProfileContext = createContext();
 
 // Profile Prodiver
 export const ProfileProvider = ({ children }) => {
-  const initState = { name: '', givenName: '', surname: '' };
+  const initState = { name: 'Thomas Tester', givenName: 'Thomas', surname: 'Tester', id: '0123456789' };
   const { data: me = initState } = useAPI('/me');
 
   const profile = useMemo(() => ({ me }), [me]);

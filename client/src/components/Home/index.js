@@ -26,7 +26,7 @@ const Home = () => {
             <button type="button" className="btn btn-danger mr-4 mb-3 mb-sm-0" onClick={() => onToggle()}>
               <i className="uil-plus mr-1"></i> {t('tournament.create')}
             </button>
-            <div className="btn-group mb-3 mb-sm-0">
+            {/* <div className="btn-group mb-3 mb-sm-0">
               <button type="button" className="btn btn-sm btn-primary">
                 {t('landing.filter_all')}
               </button>
@@ -51,7 +51,7 @@ const Home = () => {
               <button type="button" className="btn btn-white btn-sm">
                 <i className="uil uil-align-left-justify"></i>
               </button>
-            </div>
+            </div> */}
           </div>
         </Col>
       </Row>
