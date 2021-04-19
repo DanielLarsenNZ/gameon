@@ -2,14 +2,14 @@
 
 ## Getting started
 
-For local backend dev you will need: 
+For local backend dev you will need:
 
 1. VS Code
-1. Git CLI
-1. .NET Core 3.1
-1. [Docker Desktop](https://www.docker.com/products/docker-desktop)
-1. [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
-1. [DAPR VS Code Extension](https://github.com/microsoft/vscode-dapr)
+2. Git CLI
+3. .NET Core 3.1
+4. [Docker Desktop](https://www.docker.com/products/docker-desktop)
+5. [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
+6. [DAPR VS Code Extension](https://github.com/microsoft/vscode-dapr)
 
 Then run these commands in a terminal:
 
@@ -26,8 +26,10 @@ dapr init
 
 A helper script to run all services locally is provided. Dapr must be initialised and running in Docker (Docker desktop).
 
-    cd /deploy
-    ./run-dapr-local.ps1
+```powershell
+cd /deploy
+./run-dapr-local.ps1
+```
 
 ## Debug local
 
@@ -35,28 +37,30 @@ You can debug the services locally in VS Code by following this article: [Debugg
 
 The VS Code `launch.json` and `tasks.json` files are included in this repo. To open the workspace correctly, cd into the server/GameOn folder before opening VS Code, e.g.
 
-    cd server/GameOn
-    code .
+```powershell
+cd server/GameOn
+code .
+```
 
 ## Creating a new Service
 
-Each service is a new Visual Studio ASP.NET Core project. It is easiest to create new services in Visual Studio (Community, Developer or Enterprise). 
+Each service is a new Visual Studio ASP.NET Core project. It is easiest to create new services in Visual Studio (Community, Developer or Enterprise).
 
 1. Add a new ASP.NET Core API Project, e.g. `GameOn.(NewServiceName)`
-1. Add project references to `GameOn.Common`, `GameOn.CommonCore`
+2. Add project references to `GameOn.Common`, `GameOn.CommonCore`
 
 Use another service project as a template and:
 
 1. Copy nuget references
-1. Clone Startup.cs
-1. Create a new empty API Controller
-1. Create new Models in `GameOn.Common` project, in the Models folder, but change namespace back to `GameOn.Common`
-1. Implement a Service
+2. Clone Startup.cs
+3. Create a new empty API Controller
+4. Create new Models in `GameOn.Common` project, in the Models folder, but change namespace back to `GameOn.Common`
+5. Implement a Service
 
 Before you run locally you will need to:
 
 1. Add new lines to `/deploy/run-dapr-local.ps1` to build and run the Service. Choose a new unused port for the new service.
-1. Update `Properties/launchSettings.json` to only startup on HTTP and to use the port you chose in the previous step. See [How to change the port number for Asp.Net core app?]
+2. Update `Properties/launchSettings.json` to only startup on HTTP and to use the port you chose in the previous step. See [How to change the port number for Asp.Net core app?]
 
 ## Links & references
 
@@ -79,7 +83,6 @@ Before you run locally you will need to:
 [Microsoft identity platform and OAuth 2.0 authorization code flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow#request-an-access-token)
 
 [How to change the port number for Asp.Net core app?]
-
 
 <!-- link refs -->
 [How to change the port number for Asp.Net core app?]:https://stackoverflow.com/a/49795443/610731

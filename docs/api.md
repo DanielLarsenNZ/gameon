@@ -2,7 +2,7 @@
 
 Welcome to the Game On! API documentation. This page lists endpoints (including their request and response schema) available for use by client applications
 
-Production Base URL: https://api.gameon.nz
+Production Base URL: <https://api.gameon.nz>
 
 > ❗ Important
 >
@@ -17,9 +17,12 @@ Production Base URL: https://api.gameon.nz
 - [Results](#resuls)
 
 ## Obtaining an Access Token
+
 Your access token can be retrieved from the Game On! [developer portal](https://gameon.nz/developer) and must be supplied as a Bearer Token with each API call. Please note that requests made against this API are not sandboxed and thus may affect your personal rankings and public Game On! profile.
 
-    Authorization: Bearer {{accessToken}}
+```http
+Authorization: Bearer {{accessToken}}
+```
 
 ## Me / Users
 
@@ -31,6 +34,7 @@ Your access token can be retrieved from the Game On! [developer portal](https://
 | 🔴 | `PUT` |`/me`   | Updates the currently authenticated user's details.  |
 
 ### Me Model
+
 ```javascript
 {
   "id": String
@@ -42,10 +46,12 @@ Your access token can be retrieved from the Game On! [developer portal](https://
 
 Old Docs on `Users`
 
-    GET /users
-    GET /users/{user_id}/photos[?size=120x120]
-    POST /users
-    PUT /users
+```http
+GET /users
+GET /users/{user_id}/photos[?size=120x120]
+POST /users
+PUT /users
+```
 
 ## Tournaments
 
@@ -62,6 +68,7 @@ Old Docs on `Users`
 > `GET /tournaments?playerId={player_id}`
 
 ### Tournament Model
+
 ```javascript
 {
   "id": Id,                     // required
@@ -113,14 +120,16 @@ Endpoint: `POST /tournaments/{tournament_id}/players`
 
 Example:
 
-    POST http://localhost:5000/tournaments/de0bf26e422c4137a537a4794113f3da/players
-    Content-Type: application/json
-    Authorization: Bearer {{accessToken}}
+```http
+POST http://localhost:5000/tournaments/de0bf26e422c4137a537a4794113f3da/players
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
-    {
-        "playerIds": ["E4B9CCAB54357895680E535E7DCB431EE73613FA91A10B5A8D87DE10A2588B86", "6411ACC82C7255873B7E34E0FD08D6B6A4B87C8757F167B8D48824964C686801"],
-        "addMe": true
-    }
+{
+  "playerIds": ["E4B9CCAB54357895680E535E7DCB431EE73613FA91A10B5A8D87DE10A2588B86", "6411ACC82C7255873B7E34E0FD08D6B6A4B87C8757F167B8D48824964C686801"],
+  "addMe": true
+}
+```
 
 ## Results
 
@@ -131,11 +140,13 @@ Example:
 | 🔴 | `GET` | `/results/{tournament_id}[?playerId={playerId}]` | Get all results for a Tournament with optional `playerId` filter |
 | 🔴 | `GET` | `/results/{tournament_id}/results/{result_id}` | Get a result |
 
-    // Model
-    {
-        id: id,
-        player1Id: id,
-        player2Id: id,
-        winnerId: [player1]|[player2],
-        comment: string
-    }
+```javascript
+// Model
+{
+  id: id,
+  player1Id: id,
+  player2Id: id,
+  winnerId: [player1]|[player2],
+  comment: string
+}
+```
