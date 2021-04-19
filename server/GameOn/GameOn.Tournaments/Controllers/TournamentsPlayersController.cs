@@ -73,6 +73,7 @@ namespace GameOn.Tournaments.Controllers
             }
             catch (NotFoundException ex)
             {
+                _log.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
         }

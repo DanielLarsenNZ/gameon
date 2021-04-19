@@ -1,4 +1,5 @@
-﻿using GameOn.Exceptions;
+﻿using GameOn.Common;
+using GameOn.Exceptions;
 using GameOn.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -46,7 +47,7 @@ namespace GameOn.Tournaments.Controllers
                 var tournament = await _tournaments.UpdatePlayerRankScores(tenantId, tournamentId, newScores);
 
                 // 3. Message results topic
-                // TODO
+                await _tournaments.PublishEvent(GameOnTopicNames.NewResult, result);
                 
                 return tournament;
             }
