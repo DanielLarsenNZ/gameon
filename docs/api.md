@@ -70,7 +70,16 @@ Old Docs on `Users`
   "location": String,
   "playingFor": String,
   "playerCount": Integer,       // readonly, derived from players.length
-  "players": Player[],          // ignored in POST model
+  // players is not required in POST model
+  "players": [
+      {
+          "id": Id,
+          "GivenName": String,
+          "Name": String,
+          "Surname": String,
+          "RankingScore": Integer,
+          "Rank": Integer
+      }],
   "startDate": Date (nullable),
   "endDate": Date (nullable),
   "TimeOfPlayDescription": String (default: 'Anytime', eg: 'Mondays 9-10am'),
@@ -117,60 +126,16 @@ Example:
 
 | Status | Method | Endpoint | Description  |
 |:----:|:----:|:-----|:--------|
-| 🔴 |`POST` |`/results/{tournament_id}`   | Submits a new score for a given tournament ID. |
+| ✅ |`POST` |`tournaments/{tournament_id}/results`   | Submits a new score for a given tournament ID. |
 | 🔴 |`GET` |`/results/{tournament_id}`   | Retrieves all scores for a given tournament ID. |
+| 🔴 | `GET` | `/results/{tournament_id}[?playerId={playerId}]` | Get all results for a Tournament with optional `playerId` filter |
+| 🔴 | `GET` | `/results/{tournament_id}/results/{result_id}` | Get a result |
 
-    POST /results/{tournament_id}
-    GET /results/{tournament_id}
-    GET /results/{tournament_id}/results/{result_id}
-    DELETE /results/{tournament_id}/results/{result_id}
-
-
-    // POST model
+    // Model
     {
-        player1: id,
-        player2: id,
-        result: [player1]|[player2],
+        id: id,
+        player1Id: id,
+        player2Id: id,
+        winnerId: [player1]|[player2],
         comment: string
     }
-
-    // GET results model
-    [{
-        player1: {
-            name: string,
-            oldRankScore: 400 
-            newRankScore: 420,
-            rank: 1
-        },
-        player2: {
-            name: string,
-            oldRankScore: 400,
-            newRankScore: 380,
-            rank: 2
-        }
-    }]
-
-## Rankings
-
-    GET /tournaments/{tournament_id}/rankings
-
-    // Response Model
-    [
-        {
-            rank: 1,
-            player: {
-                name: string
-            },
-            score: 1000
-        },
-        {
-            rank: 2,
-            player: {
-                name: string
-            },
-            score: 900
-        },
-        {
-            // etc...
-        }
-    ]
