@@ -3,7 +3,7 @@ using System;
 
 namespace GameOn.Models
 {
-    public class Result : GameOnModel
+    public class MatchResult : GameOnModel
     {
         public string Player1Id { get; set; }
 

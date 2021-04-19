@@ -51,7 +51,7 @@ namespace GameOn.Tournaments
             return tournament;
         }
 
-        internal async Task<ScoreResult[]> CalculatePlayerScores(string tenantId, string tournamentId, Result result)
+        internal async Task<ScoreResult[]> CalculatePlayerScores(string tenantId, string tournamentId, MatchResult result)
         {
             // 1. Get Players from tournament
             // 1.1 Get Tournament Entry

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GameOn.Results
 {
-    public class ResultsService : GameOnService<Result>
+    public class ResultsService : GameOnService<MatchResult>
     {
         public ResultsService(DaprClient daprClient, ILogger<ResultsService> logger, IConfiguration configuration) : base(daprClient, logger, configuration)
         {

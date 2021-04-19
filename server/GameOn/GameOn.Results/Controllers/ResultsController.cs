@@ -1,4 +1,6 @@
-﻿using GameOn.Models;
+﻿using Dapr;
+using GameOn.Common;
+using GameOn.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,7 +23,14 @@ namespace GameOn.Results.Controllers
         }
 
         [HttpGet("{tournament_id}")]
-        public async Task<ActionResult<IEnumerable<Result>>> Get()
+        public async Task<ActionResult<IEnumerable<MatchResult>>> Get(string tournamentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Topic(GameOnNames.PubSubName, GameOnTopicNames.NewMatchResult)]
+        [HttpPost]
+        public async Task<ActionResult> Post(MatchResult result)
         {
             throw new NotImplementedException();
         }

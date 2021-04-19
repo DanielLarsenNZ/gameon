@@ -88,7 +88,7 @@ namespace GameOn.Common
 
         public async Task PublishEvent<TModel>(string topic, TModel data)
         {
-            await _dapr.PublishEventAsync("pubsub", topic, data);
+            await _dapr.PublishEventAsync(GameOnNames.PubSubName, topic, data);
         }
 
         protected List<T> ToList(StateEntry<T[]> entry) => entry.Value is null ? new List<T>() : new List<T>(entry.Value);

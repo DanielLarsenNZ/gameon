@@ -2,6 +2,6 @@
 {
     public static class GameOnTopicNames
     {
-        public const string NewResult = "new-result";
+        public const string NewMatchResult = "new-result";
     }
 }

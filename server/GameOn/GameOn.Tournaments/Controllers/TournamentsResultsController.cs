@@ -29,7 +29,7 @@ namespace GameOn.Tournaments.Controllers
         [HttpPost]
         public async Task<ActionResult<Tournament>> Post(
             [FromRoute] string tournamentId,
-            [FromBody] Result result)
+            [FromBody] MatchResult result)
         {
             string tenantId = User.GetTenantId();
 
@@ -47,7 +47,7 @@ namespace GameOn.Tournaments.Controllers
                 var tournament = await _tournaments.UpdatePlayerRankScores(tenantId, tournamentId, newScores);
 
                 // 3. Message results topic
-                await _tournaments.PublishEvent(GameOnTopicNames.NewResult, result);
+                await _tournaments.PublishEvent(GameOnTopicNames.NewMatchResult, result);
                 
                 return tournament;
             }
