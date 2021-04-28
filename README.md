@@ -24,9 +24,9 @@ GameOn! is a website for organising ladder tournaments, regardless of the sport.
 
 When chalkboards didn't cut it, the word just wasn't getting out, and colleagues walked by a desolate Ping Pong table day after day.. that's when [@DanielLarsenNZ](https://github.com/DanielLarsenNZ) and [@olafwrieden](https://github.com/olafwrieden) conceptualised the ladder tournament tracker GameOn!
 
-It shouldn't be a hassle to organise, manage, compete, and win office tournaments. We exist to simplify your tournament management and discovery so you can (quite literally) GameOn!
+__Our mantra:__ "It shouldn't be a hassle to organise, manage, compete, and win office tournaments." We exist to simplify your tournament management and discovery so you can (quite literally) GameOn!
 
-A side-effect of this project is the incredible continuous learning we undertake as we build out this examplary full-stack architecture using best practices and proven software engineering methodologies.
+A side-effect of this project is the incredible continuous learning we undertake as we build out this examplary full-stack architecture, using best practices and proven software engineering methodologies.
 
 # Contribution
 
