@@ -26,7 +26,7 @@ When chalkboards didn't cut it, the word just wasn't getting out, and colleagues
 
 __Our mantra:__ "It shouldn't be a hassle to organise, manage, compete, and win office tournaments." We exist to simplify your tournament management and discovery so you can (quite literally) GameOn!
 
-A side-effect of this project is the incredible continuous learning we undertake as we build out this examplary full-stack architecture, using best practices and proven software engineering methodologies.
+A side-effect of this project is the incredible continuous learning we undertake as we build out this exemplary full-stack architecture, using best practices and proven software engineering methodologies.
 
 # Contribution
 
