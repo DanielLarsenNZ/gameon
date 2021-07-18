@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Identity.Web;
 
 namespace GameOn.Results.Controllers
 {
@@ -16,24 +18,56 @@ namespace GameOn.Results.Controllers
     public class ResultsController : ControllerBase
     {
         private readonly ILogger<ResultsController> _log;
+        private readonly ResultsService _results;
 
-        public ResultsController(ILogger<ResultsController> log)
+        public ResultsController(ILogger<ResultsController> log, ResultsService service)
         {
             _log = log;
+            _results = service;
         }
 
         [HttpGet("{tournament_id}")]
-        public async Task<ActionResult<IEnumerable<MatchResult>>> Get(string tournamentId)
+        public async Task<ActionResult<IEnumerable<Result>>> Get(string tournamentId)
         {
-            throw new NotImplementedException();
+            var results = await _results.GetResults(User.GetTenantId(), tournamentId);
+
+            if (results is null) return new NotFoundResult();
+
+            return results;
         }
 
         [HttpPost]
-        [Topic(GameOnNames.PubSubName, GameOnTopicNames.NewMatchResult)]
         public async Task<ActionResult> Post(MatchResult result)
+        [Topic(GameOnNames.PubSubName, GameOnTopicNames.NewMatchResult)]
         {
             _log.LogInformation($"Match result received: {result}", result);
             return Ok();
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Result>>> Get(
+            [FromRoute] string tournamentId,
+            [FromQuery] string playerId)
+        {
+            // Get all results in tournament
+            var results = await _results.GetResults(User.GetTenantId(), tournamentId);
+            
+            // Get tournament results with player
+            var playerResults = results.Where(r => 
+                r.Player1Id == playerId || r.Player2Id == playerId).ToArray();
+            
+            if (playerResults.Length == 0) return new NotFoundResult();
+            
+            return playerResults;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Result>> Delete(
+            [FromRoute] string tournamentId,
+            [FromQuery] string resultId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

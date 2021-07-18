@@ -1,4 +1,5 @@
-﻿using Dapr.Client;
+﻿using System;
+using Dapr.Client;
 using GameOn.Common;
 using GameOn.Exceptions;
 using GameOn.Models;
@@ -157,6 +158,24 @@ namespace GameOn.Tournaments
             }
 
             return orderedPlayers;
+        }
+
+        internal async Task UpdateTournament(string tenantId, Tournament tournament)
+        {
+            // Get Tournament Entry
+            var entry = await GetStateEntry(tenantId);
+
+            // Convert into List
+            var tournaments = ToList(entry);
+
+            // Try get Tournament 
+            if (!tournaments.Any(t => t.Id == tournament.Id))
+                throw new NotFoundException($"Tournament Id {tournament.Id} is not found");
+            
+            // TODO: confirm checks of tournament properties before update.
+
+            await AddAndSaveStateEntry(entry, tournament);
+            
         }
     }
 }

@@ -32,6 +32,7 @@ namespace GameOn.Tournaments.Controllers
             [FromBody] MatchResult result)
         {
             string tenantId = User.GetTenantId();
+            result.Id = new Guid().ToString();
 
             // v2
 

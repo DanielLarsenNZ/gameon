@@ -1,4 +1,6 @@
-﻿using Dapr.Client;
+﻿using System;
+using System.Threading.Tasks;
+using Dapr.Client;
 using GameOn.Common;
 using GameOn.Models;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +12,11 @@ namespace GameOn.Results
     {
         public ResultsService(DaprClient daprClient, ILogger<ResultsService> logger, IConfiguration configuration) : base(daprClient, logger, configuration)
         {
+        }
+
+        internal async Task<Result[]> GetResults(string tenantId, string tournamentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

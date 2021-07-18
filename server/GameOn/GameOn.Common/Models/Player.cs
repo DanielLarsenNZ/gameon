@@ -28,6 +28,7 @@ namespace GameOn.Models
             // TODO: Make the starting Elo score configurable by Tournament
             RankingScore = 1500;
         }
+        public bool HasPlayed => Rank.HasValue;
 
         /// <summary>
         /// The ranking score for this player as calculated by the ranking algorithm.
