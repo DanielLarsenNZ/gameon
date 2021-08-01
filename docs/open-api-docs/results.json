@@ -1,0 +1,91 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+	  "title": "GameOn.Results",
+	  "version": "1.0"
+	},
+	"paths": {
+	  "/Results/{tournament_id}": {
+	    "get": {
+	      "tags": [
+		"Results"
+	      ],
+	      "parameters": [
+		{
+		  "name": "tournament_id",
+		  "in": "path",
+		  "required": true,
+		  "schema": {
+		    "type": "string"
+		  }
+		}
+	      ],
+	      "responses": {
+		"200": {
+		  "description": "Success",
+		  "content": {
+		    "text/plain": {
+		      "schema": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/components/schemas/Result"
+			}
+		      }
+		    },
+		    "application/json": {
+		      "schema": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/components/schemas/Result"
+			}
+		      }
+		    },
+		    "text/json": {
+		      "schema": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/components/schemas/Result"
+			}
+		      }
+		    }
+		  }
+		}
+	      }
+	    }
+	  }
+	},
+	"components": {
+	  "schemas": {
+	    "Result": {
+	      "type": "object",
+	      "properties": {
+		"id": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"player1Id": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"player2Id": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"winnerId": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"comment": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"createdAt": {
+		  "type": "string",
+		  "format": "date-time"
+		}
+	      },
+	      "additionalProperties": false
+	    }
+	  }
+	}
+      }
