@@ -1,0 +1,526 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+	  "title": "GameOn.Tournaments",
+	  "version": "1.0"
+	},
+	"paths": {
+	  "/Health": {
+	    "get": {
+	      "tags": [
+		"Health"
+	      ],
+	      "responses": {
+		"200": {
+		  "description": "Success"
+		}
+	      }
+	    }
+	  },
+	  "/Tournaments": {
+	    "get": {
+	      "tags": [
+		"Tournaments"
+	      ],
+	      "responses": {
+		"200": {
+		  "description": "Success",
+		  "content": {
+		    "text/plain": {
+		      "schema": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/components/schemas/Tournament"
+			}
+		      }
+		    },
+		    "application/json": {
+		      "schema": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/components/schemas/Tournament"
+			}
+		      }
+		    },
+		    "text/json": {
+		      "schema": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/components/schemas/Tournament"
+			}
+		      }
+		    }
+		  }
+		}
+	      }
+	    },
+	    "post": {
+	      "tags": [
+		"Tournaments"
+	      ],
+	      "requestBody": {
+		"content": {
+		  "application/json": {
+		    "schema": {
+		      "$ref": "#/components/schemas/Tournament"
+		    }
+		  },
+		  "text/json": {
+		    "schema": {
+		      "$ref": "#/components/schemas/Tournament"
+		    }
+		  },
+		  "application/*+json": {
+		    "schema": {
+		      "$ref": "#/components/schemas/Tournament"
+		    }
+		  }
+		}
+	      },
+	      "responses": {
+		"200": {
+		  "description": "Success",
+		  "content": {
+		    "text/plain": {
+		      "schema": {
+			"$ref": "#/components/schemas/Tournament"
+		      }
+		    },
+		    "application/json": {
+		      "schema": {
+			"$ref": "#/components/schemas/Tournament"
+		      }
+		    },
+		    "text/json": {
+		      "schema": {
+			"$ref": "#/components/schemas/Tournament"
+		      }
+		    }
+		  }
+		}
+	      }
+	    }
+	  },
+	  "/Tournaments/{tournamentId}": {
+	    "get": {
+	      "tags": [
+		"Tournaments"
+	      ],
+	      "parameters": [
+		{
+		  "name": "tournamentId",
+		  "in": "path",
+		  "required": true,
+		  "schema": {
+		    "type": "string"
+		  }
+		}
+	      ],
+	      "responses": {
+		"200": {
+		  "description": "Success",
+		  "content": {
+		    "text/plain": {
+		      "schema": {
+			"$ref": "#/components/schemas/Tournament"
+		      }
+		    },
+		    "application/json": {
+		      "schema": {
+			"$ref": "#/components/schemas/Tournament"
+		      }
+		    },
+		    "text/json": {
+		      "schema": {
+			"$ref": "#/components/schemas/Tournament"
+		      }
+		    }
+		  }
+		}
+	      }
+	    }
+	  },
+	  "/tournaments/{tournamentId}/players": {
+	    "get": {
+	      "tags": [
+		"TournamentsPlayers"
+	      ],
+	      "parameters": [
+		{
+		  "name": "tournamentId",
+		  "in": "path",
+		  "required": true,
+		  "schema": {
+		    "type": "string"
+		  }
+		}
+	      ],
+	      "responses": {
+		"200": {
+		  "description": "Success",
+		  "content": {
+		    "text/plain": {
+		      "schema": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/components/schemas/Player"
+			}
+		      }
+		    },
+		    "application/json": {
+		      "schema": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/components/schemas/Player"
+			}
+		      }
+		    },
+		    "text/json": {
+		      "schema": {
+			"type": "array",
+			"items": {
+			  "$ref": "#/components/schemas/Player"
+			}
+		      }
+		    }
+		  }
+		}
+	      }
+	    },
+	    "post": {
+	      "tags": [
+		"TournamentsPlayers"
+	      ],
+	      "parameters": [
+		{
+		  "name": "tournamentId",
+		  "in": "path",
+		  "required": true,
+		  "schema": {
+		    "type": "string"
+		  }
+		}
+	      ],
+	      "requestBody": {
+		"content": {
+		  "application/json": {
+		    "schema": {
+		      "$ref": "#/components/schemas/AddPlayersModel"
+		    }
+		  },
+		  "text/json": {
+		    "schema": {
+		      "$ref": "#/components/schemas/AddPlayersModel"
+		    }
+		  },
+		  "application/*+json": {
+		    "schema": {
+		      "$ref": "#/components/schemas/AddPlayersModel"
+		    }
+		  }
+		}
+	      },
+	      "responses": {
+		"200": {
+		  "description": "Success",
+		  "content": {
+		    "text/plain": {
+		      "schema": {
+			"$ref": "#/components/schemas/Tournament"
+		      }
+		    },
+		    "application/json": {
+		      "schema": {
+			"$ref": "#/components/schemas/Tournament"
+		      }
+		    },
+		    "text/json": {
+		      "schema": {
+			"$ref": "#/components/schemas/Tournament"
+		      }
+		    }
+		  }
+		}
+	      }
+	    }
+	  },
+	  "/tournaments/{tournamentId}/players/{userId}": {
+	    "get": {
+	      "tags": [
+		"TournamentsPlayers"
+	      ],
+	      "parameters": [
+		{
+		  "name": "tournamentId",
+		  "in": "path",
+		  "required": true,
+		  "schema": {
+		    "type": "string"
+		  }
+		},
+		{
+		  "name": "userId",
+		  "in": "path",
+		  "required": true,
+		  "schema": {
+		    "type": "string"
+		  }
+		}
+	      ],
+	      "responses": {
+		"200": {
+		  "description": "Success",
+		  "content": {
+		    "text/plain": {
+		      "schema": {
+			"$ref": "#/components/schemas/Player"
+		      }
+		    },
+		    "application/json": {
+		      "schema": {
+			"$ref": "#/components/schemas/Player"
+		      }
+		    },
+		    "text/json": {
+		      "schema": {
+			"$ref": "#/components/schemas/Player"
+		      }
+		    }
+		  }
+		}
+	      }
+	    }
+	  },
+	  "/tournaments/{tournamentId}/results": {
+	    "post": {
+	      "tags": [
+		"TournamentsResults"
+	      ],
+	      "parameters": [
+		{
+		  "name": "tournamentId",
+		  "in": "path",
+		  "required": true,
+		  "schema": {
+		    "type": "string"
+		  }
+		}
+	      ],
+	      "requestBody": {
+		"content": {
+		  "application/json": {
+		    "schema": {
+		      "$ref": "#/components/schemas/Result"
+		    }
+		  },
+		  "text/json": {
+		    "schema": {
+		      "$ref": "#/components/schemas/Result"
+		    }
+		  },
+		  "application/*+json": {
+		    "schema": {
+		      "$ref": "#/components/schemas/Result"
+		    }
+		  }
+		}
+	      },
+	      "responses": {
+		"200": {
+		  "description": "Success",
+		  "content": {
+		    "text/plain": {
+		      "schema": {
+			"$ref": "#/components/schemas/Tournament"
+		      }
+		    },
+		    "application/json": {
+		      "schema": {
+			"$ref": "#/components/schemas/Tournament"
+		      }
+		    },
+		    "text/json": {
+		      "schema": {
+			"$ref": "#/components/schemas/Tournament"
+		      }
+		    }
+		  }
+		}
+	      }
+	    }
+	  }
+	},
+	"components": {
+	  "schemas": {
+	    "AddPlayersModel": {
+	      "type": "object",
+	      "properties": {
+		"playerIds": {
+		  "type": "array",
+		  "items": {
+		    "type": "string"
+		  },
+		  "nullable": true
+		},
+		"playerId": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"addMe": {
+		  "type": "boolean"
+		}
+	      },
+	      "additionalProperties": false
+	    },
+	    "Player": {
+	      "type": "object",
+	      "properties": {
+		"id": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"givenName": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"name": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"surname": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"rankingScore": {
+		  "type": "integer",
+		  "format": "int32"
+		},
+		"rank": {
+		  "type": "integer",
+		  "format": "int32",
+		  "nullable": true
+		}
+	      },
+	      "additionalProperties": false
+	    },
+	    "Result": {
+	      "type": "object",
+	      "properties": {
+		"id": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"player1Id": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"player2Id": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"winnerId": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"comment": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"createdAt": {
+		  "type": "string",
+		  "format": "date-time"
+		}
+	      },
+	      "additionalProperties": false
+	    },
+	    "Tournament": {
+	      "required": [
+		"name"
+	      ],
+	      "type": "object",
+	      "properties": {
+		"id": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"description": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"endDate": {
+		  "type": "string",
+		  "format": "date-time",
+		  "nullable": true
+		},
+		"location": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"maxPlayers": {
+		  "type": "integer",
+		  "format": "int32",
+		  "nullable": true
+		},
+		"name": {
+		  "type": "string"
+		},
+		"owner": {
+		  "$ref": "#/components/schemas/User"
+		},
+		"playerCount": {
+		  "type": "integer",
+		  "format": "int32",
+		  "readOnly": true
+		},
+		"playingFor": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"players": {
+		  "type": "array",
+		  "items": {
+		    "$ref": "#/components/schemas/Player"
+		  },
+		  "nullable": true
+		},
+		"rulesLink": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"startDate": {
+		  "type": "string",
+		  "format": "date-time",
+		  "nullable": true
+		},
+		"timeOfPlayDescription": {
+		  "type": "string",
+		  "nullable": true
+		}
+	      },
+	      "additionalProperties": false
+	    },
+	    "User": {
+	      "type": "object",
+	      "properties": {
+		"id": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"givenName": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"name": {
+		  "type": "string",
+		  "nullable": true
+		},
+		"surname": {
+		  "type": "string",
+		  "nullable": true
+		}
+	      },
+	      "additionalProperties": false
+	    }
+	  }
+	}
+      }
