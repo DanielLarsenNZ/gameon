@@ -34,6 +34,9 @@ namespace GameOn.Tournaments
             services.AddTransient<TournamentsService>();
             services.AddTransient<IScoreCalculator, EloScoreCalculator>();
 
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen();
+
             services
                 .AddControllers()
                 .AddDapr()
@@ -48,6 +51,16 @@ namespace GameOn.Tournaments
                 app.UseDeveloperExceptionPage();
                 Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger(); // TODO: check order with @Dan
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "GameOn API V1");
+            });
 
             // Middleware order is crucial! https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-3.1
             app.UseRouting();
