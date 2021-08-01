@@ -11,6 +11,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Google.Api.CommonProtos" Version="2.2.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,4 +20,7 @@
   </ItemGroup>
 
 
+  <ItemGroup>
+    <None Remove="Swashbuckle.AspNetCore" />
+  </ItemGroup>
 </Project>
