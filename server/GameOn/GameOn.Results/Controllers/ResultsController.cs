@@ -28,10 +28,11 @@ namespace GameOn.Results.Controllers
             throw new NotImplementedException();
         }
 
-        [Topic(GameOnNames.PubSubName, GameOnTopicNames.NewMatchResult)]
         [HttpPost]
+        [Topic(GameOnNames.PubSubName, GameOnTopicNames.NewMatchResult)]
         public async Task<ActionResult> Post(MatchResult result)
         {
+            _log.LogTrace("Match result received", result);
             throw new NotImplementedException();
         }
     }

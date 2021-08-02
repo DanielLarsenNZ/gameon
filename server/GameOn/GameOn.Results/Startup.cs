@@ -52,8 +52,8 @@ namespace GameOn.Results
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
                 endpoints.MapSubscribeHandler();
+                endpoints.MapControllers();
             });
         }
     }
