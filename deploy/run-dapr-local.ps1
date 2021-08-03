@@ -1,5 +1,6 @@
-dotnet build ../server/GameOn/GameOn.Tournaments
-dotnet build ../server/GameOn/GameOn.Users
+dotnet build ../server/GameOn
+#dotnet build ../server/GameOn/GameOn.Tournaments
+#dotnet build ../server/GameOn/GameOn.Users
 #dotnet build ../server/GameOn/GameOn.Results
 
 start pwsh { -c cd ../server/GameOn/GameOn.Tournaments && dapr run --app-id gameon-test-tournaments -p 5000 -d ../components dotnet run }
