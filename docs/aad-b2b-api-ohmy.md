@@ -2,7 +2,7 @@
 
 I found this really hard to get working. The key lesson is:
 
-## Make sure you are actually sending a Bearer token!
+## Make sure you are actually sending a Bearer token
 
 * Header is named "Authorization"
 * The word "Bearer " is concatenated with the id token
@@ -10,40 +10,40 @@ I found this really hard to get working. The key lesson is:
 
 ```csharp
 services.AddCors(options =>
-    {
-        options.AddDefaultPolicy(
-            builder =>
-            {
-                builder
-                    .WithOrigins("http://localhost:3000", "https://gameon.nz", "https://localhost:44357")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-            });
-    });
+  {
+    options.AddDefaultPolicy(
+      builder =>
+        {
+          builder
+            .WithOrigins("http://localhost:3000", "https://gameon.nz", "https://localhost:44357")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+        });
+  });
 ```
 
 * CORS, Authn and Authz middleware is invoked in the correct order!
 
 ```csharp
-    app.UseRouting();
-    app.UseAuthentication();
-    app.UseCors();
-    app.UseAuthorization();
+app.UseRouting();
+app.UseAuthentication();
+app.UseCors();
+app.UseAuthorization();
 ```
 
 * And on the client side, make sure you include credentials:
 
 ```javascript
 fetch('https://localhost:44318/tournaments/abcd1234', 
-    { 
-        credentials: 'include', 
-        headers: { 
-            'Authorization': 'Bearer ' + resp.accessToken 
-        }
-    })
-    .then(response => response.json())
-    .then(data => console.log(data));
+  { 
+    credentials: 'include', 
+    headers: { 
+      'Authorization': 'Bearer ' + resp.accessToken 
+    }
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
 ```
 
 * Check the Network tab in F12 Developer Tools (in Edge) to ensure that Authorization header is being sent and CORS is not failing
@@ -52,7 +52,7 @@ fetch('https://localhost:44318/tournaments/abcd1234',
 
 ## Multi-tenant
 
-### In the services:
+### In the services
 
 * Set the `Authority` to `https://login.microsoftonline.com/common/`
 * Turn off Issuer validation. The app is now responsible for validating Issuers.
@@ -63,9 +63,9 @@ options.TokenValidationParameters = new TokenValidationParameters { ValidateIssu
 
 Good overview here: [Authenticate using Azure AD and OpenID Connect - Configure the auth middleware](https://docs.microsoft.com/en-us/azure/architecture/multitenant-identity/authenticate#configure-the-auth-middleware)
 
-### In the client:
+### In the client
 
-* Change the `authority` to: 
+* Change the `authority` to:
   * `https://login.microsoftonline.com/organizations/` - to accept  work/school accounts only
   * `https://login.microsoftonline.com/consumers/` - to accept personal accounts only
   * `https://login.microsoftonline.com/common/` - to accept either
@@ -78,23 +78,23 @@ Copy the Application ID URL into the Client Id: <https://stackoverflow.com/a/634
 
 You also need an "Audience" setting on the server side: <https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-protected-web-api-app-configuration#case-where-you-used-a-custom-app-id-uri-for-your-web-api>
 
-On the client: 
+On the client:
 
 ```javascript
 const msalConfig = {
-auth: {
-        clientId: "api://GameOn.Api",
+  auth: {
+    clientId: "api://GameOn.Api",
     authority: "https://login.microsoftonline.com/organizations/",
     redirectUri: "https://localhost:44357"
-}
+  }
 };
 
 //...
 
-var loginRequest = {
-    scopes: [
-        "api://GameOn.Api/Users"
-] 
+const loginRequest = {
+  scopes: [
+    "api://GameOn.Api/Users"
+  ] 
 };
 
 ```
@@ -103,12 +103,12 @@ On the server:
 
 ```json
 "AzureAd": {
-    "Instance": "https://login.microsoftonline.com/",
-    "ClientId": "api://GameOn.Api",
-    "TenantId": "72f988bf-...",
-    "ClientSecret": "h10_TtBdU...",
-    "Audience": "api://GameOn.Api"
-  }
+  "Instance": "https://login.microsoftonline.com/",
+  "ClientId": "api://GameOn.Api",
+  "TenantId": "72f988bf-...",
+  "ClientSecret": "h10_TtBdU...",
+  "Audience": "api://GameOn.Api"
+}
 ```
 
 ## Gotchas
