@@ -28,5 +28,10 @@ namespace GameOn.Models
 
             if (Player1Id == Player2Id) throw new InvariantException("Player1Id and Player2Id cannot be the same Player");
         }
+
+        public override string ToString()
+        {
+            return $"Player1Id = {Player1Id}, Player2Id = {Player2Id}, Winner = {(WinnerId == Player1Id ? "Player 1" : "Player 2")}, CreatedAt = {CreatedAt}, Comment = {Comment}";
+        }
     }
 }

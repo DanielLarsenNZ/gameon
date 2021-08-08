@@ -12,7 +12,7 @@ namespace GameOn.Results.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize] TODO
     public class ResultsController : ControllerBase
     {
         private readonly ILogger<ResultsController> _log;
@@ -32,8 +32,8 @@ namespace GameOn.Results.Controllers
         [Topic(GameOnNames.PubSubName, GameOnTopicNames.NewMatchResult)]
         public async Task<ActionResult> Post(MatchResult result)
         {
-            _log.LogTrace("Match result received", result);
-            throw new NotImplementedException();
+            _log.LogInformation($"Match result received: {result}", result);
+            return Ok();
         }
     }
 }
