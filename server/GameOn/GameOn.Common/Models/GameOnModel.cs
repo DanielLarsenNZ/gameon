@@ -1,4 +1,5 @@
 ﻿using GameOn.Exceptions;
+using System;
 
 namespace GameOn.Models
 {
@@ -14,6 +15,11 @@ namespace GameOn.Models
         protected void EnforcePropertyNotSetInvariant(string property, string nameofProperty)
         {
             if (string.IsNullOrEmpty(property)) throw new PropertyNotSetInvariantException(nameofProperty);
+        }
+
+        protected void EnforcePropertyNotSetInvariant(DateTimeOffset? property, string nameofProperty)
+        {
+            if (!property.HasValue) throw new PropertyNotSetInvariantException(nameofProperty);
         }
     }
 }

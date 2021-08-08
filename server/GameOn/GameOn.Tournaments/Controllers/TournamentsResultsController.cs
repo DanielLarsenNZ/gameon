@@ -37,6 +37,9 @@ namespace GameOn.Tournaments.Controllers
 
             try
             {
+                // CreatedAt default to Utc Now
+                if (!result.CreatedAt.HasValue) result.CreatedAt = DateTimeOffset.UtcNow;
+
                 // Check that the results model is valid
                 result.EnforceInvariants();
 
