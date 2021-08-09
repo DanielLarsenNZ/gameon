@@ -14,7 +14,7 @@ Production Base URL: <https://api.gameon.nz>
 - [Auth / Users](#me--users)
 - [Tournaments](#tournaments)
 - [Players](#players)
-- [Results](#resuls)
+- [Results](#results)
 
 ## Obtaining an Access Token
 
@@ -26,12 +26,17 @@ Authorization: Bearer {{accessToken}}
 
 ## Me / Users
 
-| Status | Method | Endpoint | Description  |
+| Status | Method | Endpoint | Description |
 |:----:|:----:|:-----|:--------|
-| ✅ | `POST` | `/me`   | Registers a new user. |
-| ✅ | `GET` |`/me`   | Returns the currently authenticated user.  |
-| 🔴 | `GET` |`/me/photos[?size=120x120]`   | Returns the avatar of the current user.  |
-| 🔴 | `PUT` |`/me`   | Updates the currently authenticated user's details.  |
+| ✅ | `POST` | `/me` | Registers a new user. |
+| ✅ | `GET` | `/me` | Returns the currently authenticated user. |
+| ✅ | `GET` | `/me/photos[?size=120x120]` | Returns the avatar of the current user. |
+| 🔴 | `PUT` | `/me` | Updates the currently authenticated user's details. |
+| ✅ | `POST` | `/users` | Creates a new user (Admin only). |
+| ✅ | `GET` | `/users` | Returns all users (Admin only). |
+| ✅ | `GET` | `/users/{userId}` | Returns a user (Admin only). |
+| ✅ | `GET` | `/users/{userId}/photos[?size=120x120]` | Returns the avatar of a user (Admin only). |
+| 🔴 | `PUT` | `/users/{userId}` | Updates a user's details. (Admin only). |
 
 ### Me Model
 
