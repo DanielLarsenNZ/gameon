@@ -22,8 +22,8 @@ namespace GameOn.Users
 
         public override async Task<User> Create(string tenantId, User entity)
         {
+            await PublishEvent(GameOnTopicNames.NewUser, entity);
             return await base.Create(tenantId, entity);
-            // TODO: Pub User Create
         }
 
         public async Task GetUsers(HttpContext context)
@@ -49,5 +49,10 @@ namespace GameOn.Users
             string tenantId,
             string aadUserObjectId,
             string size) => await _graph.GetUserPhoto(tenantId, aadUserObjectId, size);
+        
+        public async Task PublishEvent<TModel>(string topic, TModel data)
+        {
+            await _dapr.PublishEventAsync(GameOnNames.PubSubName, topic, data);
+        }
     }
 }
