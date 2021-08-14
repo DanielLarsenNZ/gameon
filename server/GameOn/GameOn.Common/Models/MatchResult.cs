@@ -17,6 +17,8 @@ namespace GameOn.Models
 
         public DateTimeOffset? CreatedAt { get; set; }
 
+        public string TournamentId { get; set; }
+
         public override void EnforceInvariants()
         {
             base.EnforceInvariants();

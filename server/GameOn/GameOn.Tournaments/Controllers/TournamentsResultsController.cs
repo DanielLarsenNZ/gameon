@@ -49,7 +49,10 @@ namespace GameOn.Tournaments.Controllers
 
                 // 2. Recalulate Rankings for all players in the Tournament
                 var tournament = await _tournaments.UpdatePlayerRankScores(tenantId, tournamentId, newScores);
-
+                
+                // 3. Add tournaments reference to MatchResult object
+                result.TournamentId = tournamentId;
+                
                 // 3. Message results topic
                 await _tournaments.PublishEvent(GameOnTopicNames.NewMatchResult, result);
                 

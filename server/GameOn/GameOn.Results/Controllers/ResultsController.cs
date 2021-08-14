@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using GameOn.Exceptions;
 using Microsoft.Identity.Web;
 
 namespace GameOn.Results.Controllers
@@ -40,12 +42,25 @@ namespace GameOn.Results.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(MatchResult result)
         {
+            // assume auth'd to get to endpoint
+            string tenantId = User.GetTenantId();
+            
+            try
+            {
+                await _results.Create(tenantId, result);
+                return Ok();
+            }
+            catch (ConflictException ex)
+            {
+                _log.LogInformation($"Post: {ex.Message}. Result was not registered.");
+            }
+
             _log.LogInformation($"Match result received: {result}", result);
             return Ok();
         }
 
 
-        [HttpGet]
+        [HttpGet("{tournamentId}")]
         public async Task<ActionResult<IEnumerable<MatchResult>>> Get(
             [FromRoute] string tournamentId,
             [FromQuery] string playerId)
@@ -62,10 +77,10 @@ namespace GameOn.Results.Controllers
             return playerResults;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<MatchResult>> Delete(
+        [HttpGet("{tournamentId}/results/{resultId}")]
+        public async Task<ActionResult<MatchResult>> Get(
             [FromRoute] string tournamentId,
-            [FromQuery] string resultId)
+            [FromRoute] string resultId)
         {
             throw new NotImplementedException();
         }
