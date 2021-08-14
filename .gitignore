@@ -10,3 +10,5 @@ appsettings.Development.json
 prod.http
 local.http
 _work
+.idea/
+*.DS_Store
