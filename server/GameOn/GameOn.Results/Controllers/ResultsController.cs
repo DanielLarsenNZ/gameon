@@ -35,10 +35,10 @@ namespace GameOn.Results.Controllers
 
             return results;
         }
-
+        
+        [Topic(GameOnNames.PubSubName, GameOnTopicNames.NewMatchResult)]
         [HttpPost]
         public async Task<ActionResult> Post(MatchResult result)
-        [Topic(GameOnNames.PubSubName, GameOnTopicNames.NewMatchResult)]
         {
             _log.LogInformation($"Match result received: {result}", result);
             return Ok();
