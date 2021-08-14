@@ -27,7 +27,7 @@ namespace GameOn.Results.Controllers
         }
 
         [HttpGet("{tournament_id}")]
-        public async Task<ActionResult<IEnumerable<Result>>> Get(string tournamentId)
+        public async Task<ActionResult<IEnumerable<MatchResult>>> Get(string tournamentId)
         {
             var results = await _results.GetResults(User.GetTenantId(), tournamentId);
 
@@ -46,7 +46,7 @@ namespace GameOn.Results.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Result>>> Get(
+        public async Task<ActionResult<IEnumerable<MatchResult>>> Get(
             [FromRoute] string tournamentId,
             [FromQuery] string playerId)
         {
@@ -63,7 +63,7 @@ namespace GameOn.Results.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Result>> Delete(
+        public async Task<ActionResult<MatchResult>> Delete(
             [FromRoute] string tournamentId,
             [FromQuery] string resultId)
         {

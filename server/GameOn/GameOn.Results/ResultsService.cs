@@ -14,7 +14,7 @@ namespace GameOn.Results
         {
         }
 
-        internal async Task<Result[]> GetResults(string tenantId, string tournamentId)
+        internal async Task<MatchResult[]> GetResults(string tenantId, string tournamentId)
         {
             throw new NotImplementedException();
         }

@@ -15,7 +15,7 @@ namespace GameOn.Models
 
         public string Id { get; set; }
 
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTimeOffset? CreatedAt { get; set; }
 
         public override void EnforceInvariants()
         {
