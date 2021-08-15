@@ -10,6 +10,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using GameOn.Exceptions;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Identity.Web;
 
 namespace GameOn.Results.Controllers
@@ -47,16 +48,16 @@ namespace GameOn.Results.Controllers
             
             try
             {
-                await _results.Create(tenantId, result);
-                return Ok();
+                return new CreatedResult(
+                    $"{Request.GetEncodedUrl()}",
+                    await _results.Create(User.GetTenantId(), result));
             }
             catch (ConflictException ex)
             {
                 _log.LogInformation($"Post: {ex.Message}. Result was not registered.");
+                return Conflict(ex.Message);
             }
-
-            _log.LogInformation($"Match result received: {result}", result);
-            return Ok();
+            
         }
 
 
