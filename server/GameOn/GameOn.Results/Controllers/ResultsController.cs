@@ -62,7 +62,7 @@ namespace GameOn.Results.Controllers
 
 
         [HttpGet("{tournamentId}")]
-        public async Task<ActionResult<IEnumerable<MatchResult>>> Get(
+        public async Task<ActionResult<IEnumerable<MatchResult>>> GetTournamentResults(
             [FromRoute] string tournamentId,
             [FromQuery] string playerId)
         {
@@ -79,11 +79,13 @@ namespace GameOn.Results.Controllers
         }
 
         [HttpGet("{tournamentId}/results/{resultId}")]
-        public async Task<ActionResult<MatchResult>> Get(
+        public async Task<ActionResult<MatchResult>> GetResult(
             [FromRoute] string tournamentId,
             [FromRoute] string resultId)
         {
-            throw new NotImplementedException();
+            var result = await _results.GetResult(User.GetTenantId(),resultId);
+
+            return result;
         }
     }
 }

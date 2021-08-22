@@ -56,19 +56,20 @@ namespace GameOn.Common
         {
             // Get Tournament Entry
             var entry = await GetStateEntry(tenantId);
+            
+            // ensure entity is valid
+            entity.EnforceInvariants();
 
             // Convert into List
-            var tournaments = ToList(entry);
+            var entities = ToList(entry);
 
             // Try get Tournament 
-            if (!tournaments.Any(t => t.Id == entity.Id))
+            if (!entities.Any(t => t.Id == entity.Id))
                 throw new NotFoundException($"{nameof(T)} Id {entity.Id} is not found");
             
-            var tournament = tournaments.First(t => t.Id == entity.Id);
-            
-            await DeleteAndSaveEntry(entry, tournament);
+            await DeleteAndSaveEntry(entry, entity);
 
-            return tournament;
+            return entity;
         }
 
         public async Task<T> Get(string tenantId, string id)

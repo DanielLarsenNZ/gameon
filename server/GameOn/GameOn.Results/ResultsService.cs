@@ -27,7 +27,6 @@ namespace GameOn.Results
             var result = results.Where(r => r.TournamentId == tournamentId);
 
             return result.ToArray();
-            //await _dapr.InvokeMethodAsync<GetResultsParams, MatchResult[]>()
         }
 
         internal async Task<MatchResult> GetResult(string tenantId, string resultId)
@@ -37,8 +36,10 @@ namespace GameOn.Results
             var results = ToList(entry);
 
             var result = results.First(r => r.Id == resultId);
-
-            return result;
+            
+            if (result != null)
+                return result;
+            throw new NotFoundException("Result null"); //todo
         }
 
         internal async Task<ActionResult> Delete(string tenantId, string resultId)
