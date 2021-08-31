@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: gameon-ingress
@@ -14,11 +14,17 @@ spec:
   - host: api.gameon.nz
     http:
       paths:
-      - backend:
-          serviceName: tournaments
-          servicePort: 80
-        path: /tournaments
-      - backend:
-          serviceName: users
-          servicePort: 80
-        path: /me
+      - path: /tournaments
+        pathType: Prefix
+        backend:
+          service: 
+            name: tournaments
+            port:
+              number: 80
+      - path: /me
+        pathType: Prefix
+        backend:
+          service: 
+            name: users
+            port: 
+              number: 80

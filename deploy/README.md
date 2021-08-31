@@ -10,8 +10,14 @@ Windows
 
 ## Local environment
 
-    cd server/GameOn/GameOn.Tournaments
-    dotnet build && dapr run --app-id gameon dotnet run
+    ./run-dapr-local.ps1
+
+## Azure Kubernetes Services (AKS)
+
+```powershell
+# Change ./vars.ps1 to suit
+./deploy.ps1
+```
 
 ## K8s cheatsheet
 

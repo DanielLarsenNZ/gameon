@@ -44,4 +44,4 @@ az aks enable-addons -g $rg -n $aks -a monitoring
 
 # GITHUB CREDS
 $rgId = ( az group show -n $rg | ConvertFrom-Json ).id
-az ad sp create-for-rbac --name "gameon" --role contributor --scopes $rgId --sdk-auth
+az ad sp create-for-rbac --name $gameOnADSP --role contributor --scopes $rgId --sdk-auth
