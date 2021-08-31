@@ -5,6 +5,7 @@ metadata:
   namespace: default
 spec:
   type: secretstores.azure.keyvault
+  version: v1
   metadata:
   - name: vaultName
     value: $(KeyVaultName)

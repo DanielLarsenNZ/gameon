@@ -4,13 +4,13 @@ metadata:
   name: $(IdentityName)
 spec:
   type: 0
-  ResourceID: $(IdentityResourceId)
-  ClientID: $(IdentityClientId)
+  resourceID: $(IdentityResourceId)
+  clientID: $(IdentityClientId)
 ---
 apiVersion: "aadpodidentity.k8s.io/v1"
 kind: AzureIdentityBinding
 metadata:
   name: $(IdentityName)-binding
 spec:
-  AzureIdentity: $(IdentityName)
-  Selector: $(IdentityName)-selector
+  azureIdentity: $(IdentityName)
+  selector: $(IdentityName)-selector

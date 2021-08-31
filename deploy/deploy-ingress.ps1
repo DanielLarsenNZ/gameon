@@ -12,6 +12,8 @@ Write-Host "Set the nameservers on your custom domain 👆🏻" -ForegroundColor
 # Add the ingress-nginx repository
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 
+helm repo update
+
 # Use Helm to deploy an NGINX ingress controller
 helm install nginx-ingress ingress-nginx/ingress-nginx `
     --set controller.replicaCount=2 `
@@ -40,7 +42,7 @@ helm repo update
 # Install the cert-manager Helm chart
 helm install `
   cert-manager `
-  --version v0.16.1 `
+  --version v1.5.3 `
   --set installCRDs=true `
   --set nodeSelector."beta\.kubernetes\.io/os"=linux `
   jetstack/cert-manager
@@ -49,4 +51,4 @@ kubectl apply -f ./k8s/cluster-issuer.yaml
 
 kubectl apply -f ./k8s/ingress.yaml 
 
-kubectl get certificate 
+kubectl get certificate
