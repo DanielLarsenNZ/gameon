@@ -4,8 +4,8 @@
   "private": true,
   "homepage": "https://gameon.nz/",
   "dependencies": {
-    "@azure/msal-browser": "^2.12.0",
-    "@azure/msal-react": "^1.0.0-beta.1",
+    "@azure/msal-browser": "^2.18.0",
+    "@azure/msal-react": "^1.1.0",
     "@hookform/resolvers": "^1.3.5",
     "apexcharts": "^3.23.0",
     "availity-reactstrap-validation": "^2.7.0",
