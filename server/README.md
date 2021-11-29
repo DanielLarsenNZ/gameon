@@ -39,14 +39,14 @@ Once you have run `run-dapr-local.ps1`, and each service is running in its own c
 2. Choose **.NET Core Attach** from the dropdown
 3. Click the play button
 
-![Run and debug buttons](../docs/images/run-debug.png)
+![Run and debug buttons](../docs/Images/run-debug.png)
 
 VS Code will prompt to select the process to attach to. 
 
 4. Type "GameOn" into the search box
 5. Choose the `GameOn.*.exe` process that you wish to debug
 
-![Select the process to attach to](../docs/images/select-process.png)
+![Select the process to attach to](../docs/Images/select-process.png)
 
 You can debug mutiple processes at one. Repeat these steps for each process.
 
