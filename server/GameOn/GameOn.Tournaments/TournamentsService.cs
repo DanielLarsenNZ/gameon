@@ -5,6 +5,7 @@ using GameOn.Models;
 using GameOn.Tournaments.Calculators;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -94,17 +95,28 @@ namespace GameOn.Tournaments
         internal async Task<User> GetUser(string tenantId, string userId)
             => (await GetUsers(tenantId, new[] { userId })).FirstOrDefault();
 
-        internal async Task<User[]> GetUsers(string tenantId, string[] userIds) =>
-            // Get Player from Player Service
-            await _dapr.InvokeMethodAsync<GetUsersParams, User[]>(
-                HttpMethod.Get,
-                _config.UsersAppName(),
-                GameOnUsersMethodNames.GetUsers,
-                new GetUsersParams
-                {
-                    TenantId = tenantId,
-                    UserIds = userIds
-                });
+        internal async Task<User[]> GetUsers(string tenantId, string[] userIds)
+        {
+            try
+            {
+                // Get Player from Player Service
+                return await _dapr.InvokeMethodAsync<GetUsersParams, User[]>(
+                    HttpMethod.Get,
+                    _config.UsersAppName(),
+                    GameOnUsersMethodNames.GetUsers,
+                    new GetUsersParams
+                    {
+                        TenantId = tenantId,
+                        UserIds = userIds
+                    });
+
+            }
+            catch (Exception ex)
+            {
+                _log.LogError(new Exception(ex.Message, ex), ex.Message);
+                throw;
+            }
+        }
 
         internal async Task<Tournament> UpdatePlayerRankScores(string tenantId, string tournamentId, ScoreResult[] scores)
         {

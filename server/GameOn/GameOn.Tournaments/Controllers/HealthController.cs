@@ -10,12 +10,11 @@ namespace GameOn.Tournaments.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            if (User.Claims.Any(c => c.Type == "name"))
-            {
-                return Ok(User.Claims.FirstOrDefault(c => c.Type == "name").Value);
-            }
-
-            return Ok();
+            return new JsonResult(new 
+            { 
+                UserClaimsName = User.Claims.FirstOrDefault(c => c.Type == "name")?.Value, 
+                ProcessId = System.Diagnostics.Process.GetCurrentProcess().Id 
+            });
         }
     }
 }
