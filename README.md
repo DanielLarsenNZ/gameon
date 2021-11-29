@@ -43,7 +43,7 @@ We recognise that the best projects aren't built alone. If you would like to con
 * There are no draws
 * New players start with a ranking score of 400
 * Doubles teams are separate to singles. Doubles can only challenge doubles, and individuals on a winning doubles team cannot claim a doubles match win as a singles match win
-* Top of the ladder buys first round at the after Christmas party
+* Top of the ladder buys first round at the after Christmas party (maybe ;))
 
 # Useful Resources
 
