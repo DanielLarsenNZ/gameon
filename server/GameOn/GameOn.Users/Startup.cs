@@ -27,6 +27,7 @@ namespace GameOn.Users
         {
             services.AddGameOnAuthentication(Configuration);
             services.AddGameOnCors(Configuration);
+            services.AddApplicationInsightsTelemetry();
 
             // Add Services
             services.AddHttpClient();

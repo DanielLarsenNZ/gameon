@@ -1,0 +1,12 @@
+- name: statestore
+  type: state.azure.cosmosdb
+  version: v1
+  metadata:
+    - name: url
+      value: https://gameon-cosmos.documents.azure.com:443/
+    - name: masterkey
+      value: (Primary key Here)
+    - name: database
+      value: gameon
+    - name: collection
+      value: tournaments

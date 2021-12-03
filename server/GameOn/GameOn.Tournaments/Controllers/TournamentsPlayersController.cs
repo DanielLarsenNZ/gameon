@@ -31,6 +31,7 @@ namespace GameOn.Tournaments.Controllers
         {
             // Get Tournament
             var tournament = await _tournaments.Get(User.GetTenantId(), tournamentId);
+            if (tournament is null) return new NotFoundObjectResult($"Tournament Id {tournamentId} not found.");
             return tournament.Players;
         }
 
@@ -42,11 +43,12 @@ namespace GameOn.Tournaments.Controllers
         {
             // Get Tournament
             var tournament = await _tournaments.Get(User.GetTenantId(), tournamentId);
+            if (tournament is null) return new NotFoundObjectResult($"Tournament Id {tournamentId} not found.");
 
             // Get Player
             var player = tournament.Players.FirstOrDefault(p => p.Id == userId);
 
-            if (player is null) return new NotFoundResult();
+            if (player is null) return new NotFoundObjectResult($"Player Id {userId} not found.");
             return player;
         }
 

@@ -29,6 +29,7 @@ namespace GameOn.Tournaments
         {
             services.AddGameOnAuthentication(Configuration);
             services.AddGameOnCors(Configuration);
+            services.AddApplicationInsightsTelemetry();
 
             // Services
             services.AddTransient<TournamentsService>();

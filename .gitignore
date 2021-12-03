@@ -9,6 +9,7 @@ PublishProfiles
 server/GameOn/GameOn.Users/appsettings.Development.json
 prod.http
 local.http
+capp.http
 _work
 components.yaml
 secrets.ps1
