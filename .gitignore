@@ -13,3 +13,5 @@ _work
 components.yaml
 secrets.ps1
 _output
+.vscode/*
+deploy\global.json

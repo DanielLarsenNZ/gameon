@@ -66,7 +66,7 @@ PUT /users
 | ✅ | `GET` |`/tournaments`   | Retrieves all tournaments in the user's tenant. |
 | ✅ | `GET` |`/tournaments/{id}`   | Retrieves a specific tournament in the user's tenant by ID. |
 | 🔴 | `PUT` |`/tournaments/{id}`   | Updates a specific tournament in the user's tenant by ID. |
-| 🔴 | `DELETE` |`/tournaments/{id}`   | Ends or deletes a specific tournament in the user's tenant by ID. |
+| ✅ | `DELETE` |`/tournaments/{id}`   | Ends or deletes a specific tournament in the user's tenant by ID. |
 
 > ⚠️ Query Parameters Are Not Yet Implemented
 > `GET /tournaments?skip=0&limit=20`

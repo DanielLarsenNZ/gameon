@@ -47,6 +47,7 @@ namespace GameOn.Tournaments.Controllers
         }
 
         // Get tournaments with skip and limit
+        /*
         [HttpGet("{tournamentId}")]
         public async Task<ActionResult<Tournament[]>> Get(
             [FromQuery] int skip,
@@ -59,9 +60,10 @@ namespace GameOn.Tournaments.Controllers
             if (tournament is null) return new NotFoundResult();
             return tournament;
         }
+        */
 
         // Get all tournaments with {playerId} in them
-        // TODO: Fix signature clash
+        /*
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tournament>>> GetPlayerTournaments(
             [FromQuery] string playerId)
@@ -78,6 +80,7 @@ namespace GameOn.Tournaments.Controllers
 
             return playerTournaments;
         }
+        */
 
         // Create Tournament
         [HttpPost]
@@ -124,7 +127,8 @@ namespace GameOn.Tournaments.Controllers
             return new CreatedResult($"{Request.GetEncodedUrl()}/{tournament.Id}", tournament);
         }
 
-        [HttpPut]
+        /*
+        [HttpPut("{tournamentId}")]
         public async Task<ActionResult<Tournament>> Put(Tournament tournament)
         {
             string tenantId = User.GetTenantId();
@@ -140,7 +144,7 @@ namespace GameOn.Tournaments.Controllers
 
             return new OkResult();
 
-        }
+        } */
 
         [HttpDelete("{tournamentId}")]
         public async Task<ActionResult<Tournament>> Delete(string tournamentId)

@@ -28,7 +28,7 @@ namespace GameOn.Results.Controllers
             _log = log;
             _results = service;
         }
-
+        /*
         [HttpGet("{tournament_id}")]
         public async Task<ActionResult<IEnumerable<MatchResult>>> Get(string tournamentId)
         {
@@ -37,7 +37,7 @@ namespace GameOn.Results.Controllers
             if (results is null) return new NotFoundResult();
 
             return results;
-        }
+        }*/
         
         [Topic(GameOnNames.PubSubName, GameOnTopicNames.NewMatchResult)]
         [HttpPost]

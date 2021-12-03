@@ -59,10 +59,6 @@ namespace GameOn.Users
             string tenantId,
             string aadUserObjectId,
             string size) => await _graph.GetUserPhoto(tenantId, aadUserObjectId, size);
-        
-        public async Task PublishEvent<TModel>(string topic, TModel data)
-        {
-            await _dapr.PublishEventAsync(GameOnNames.PubSubName, topic, data);
-        }
+
     }
 }
