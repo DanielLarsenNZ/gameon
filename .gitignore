@@ -6,9 +6,10 @@ obj
 _work
 _k8s
 PublishProfiles
-appsettings.Development.json
+server/GameOn/GameOn.Users/appsettings.Development.json
 prod.http
 local.http
 _work
-.idea/
-*.DS_Store
+components.yaml
+secrets.ps1
+_output

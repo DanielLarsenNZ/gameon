@@ -5,6 +5,7 @@ using GameOn.Users.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -28,21 +29,30 @@ namespace GameOn.Users
 
         public async Task GetUsers(HttpContext context)
         {
-            var @params = await JsonSerializer.DeserializeAsync<GetUsersParams>(
-                context.Request.Body,
-                _jsonOptions);
-
-            User[] users = await GetBatch(@params.TenantId, @params.UserIds);
-
-            if (users == null)
+            try
             {
-                _log.LogWarning($"User Ids {@params.UserIds} not found in Tenant {@params.TenantId}");
-                context.Response.StatusCode = 404;
-                return;
-            }
+                var @params = await JsonSerializer.DeserializeAsync<GetUsersParams>(
+                    context.Request.Body,
+                    _jsonOptions);
 
-            context.Response.ContentType = "application/json";
-            await JsonSerializer.SerializeAsync(context.Response.Body, users, _jsonOptions);
+                User[] users = await GetBatch(@params.TenantId, @params.UserIds);
+
+                if (users == null)
+                {
+                    _log.LogWarning($"User Ids {@params.UserIds} not found in Tenant {@params.TenantId}");
+                    context.Response.StatusCode = 404;
+                    return;
+                }
+
+                context.Response.ContentType = "application/json";
+                await JsonSerializer.SerializeAsync(context.Response.Body, users, _jsonOptions);
+
+            }
+            catch (Exception ex)
+            {
+                _log.LogError(new Exception(ex.Message, ex), ex.Message);
+                throw;
+            }
         }
 
         public async Task<PhotoResult> GetUserPhoto(

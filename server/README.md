@@ -33,14 +33,22 @@ cd /deploy
 
 ## Debug local
 
-You can debug the services locally in VS Code by following this article: [Debugging Dapr applications with Visual Studio Code](https://blog.ehn.nu/2020/03/debugging-dapr-applications-with-visual-studio-code/)
+Once you have run `run-dapr-local.ps1`, and each service is running in its own console, you can easily debug attaching the VS Code debugger.
 
-The VS Code `launch.json` and `tasks.json` files are included in this repo. To open the workspace correctly, cd into the server/GameOn folder before opening VS Code, e.g.
+1. In VS Code, click the **Run and Debug** button
+2. Choose **.NET Core Attach** from the dropdown
+3. Click the play button
 
-```powershell
-cd server/GameOn
-code .
-```
+![Run and debug buttons](../docs/Images/run-debug.png)
+
+VS Code will prompt to select the process to attach to. 
+
+4. Type "GameOn" into the search box
+5. Choose the `GameOn.*.exe` process that you wish to debug
+
+![Select the process to attach to](../docs/Images/select-process.png)
+
+You can debug mutiple processes at one. Repeat these steps for each process.
 
 ## Creating a new Service
 

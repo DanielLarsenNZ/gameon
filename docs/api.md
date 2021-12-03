@@ -152,6 +152,8 @@ Authorization: Bearer {{accessToken}}
   player1Id: id,
   player2Id: id,
   winnerId: [player1]|[player2],
-  comment: string
+  comment: string,
+  createdAt: dateTime,
+  tournamentId: id
 }
 ```
