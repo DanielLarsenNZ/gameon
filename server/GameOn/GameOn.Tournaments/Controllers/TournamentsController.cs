@@ -27,16 +27,6 @@ namespace GameOn.Tournaments.Controllers
             _tournaments = service;
         }
 
-        // GET all tournaments
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tournament>>> Get()
-        {
-            var tournaments = await _tournaments.GetAll(User.GetTenantId());
-            // if no tournaments, return empty array
-            if (tournaments is null || !tournaments.Any()) return new Tournament[] { };
-            return tournaments;
-        }
-
         // Get tournament
         [HttpGet("{tournamentId}")]
         public async Task<ActionResult<Tournament>> Get(string tournamentId)
@@ -46,41 +36,27 @@ namespace GameOn.Tournaments.Controllers
             return tournament;
         }
 
-        // Get tournaments with skip and limit
-        /*
-        [HttpGet("{tournamentId}")]
-        public async Task<ActionResult<Tournament[]>> Get(
-            [FromQuery] int skip,
-            [FromQuery] int limit
-            )
-        {
-            throw new NotImplementedException();
-            // TODO: filter on query params (skip + limit)
-            var tournament = await _tournaments.GetAll(User.GetTenantId());
-            if (tournament is null) return new NotFoundResult();
-            return tournament;
-        }
-        */
-
-        // Get all tournaments with {playerId} in them
-        /*
+        // GET all tournaments with queries
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tournament>>> GetPlayerTournaments(
-            [FromQuery] string playerId)
+        public async Task<ActionResult<IEnumerable<Tournament>>> Get(
+            [FromQuery] int skip = 0,
+            [FromQuery] int limit = 0,
+            [FromQuery] string playerId = null)
         {
-            var tournament = await _tournaments.GetAll(User.GetTenantId());
-
-            var tournaments = tournament.ToArray();
+            var tournaments = await _tournaments.GetAll(User.GetTenantId());
             
-            // Get tournaments where playerId is a player
-            var playerTournaments = tournaments.Where(t =>
-                t.Players.Any(p => p.Id == playerId)).ToArray();
+            // filter by playerId if present
+            if (playerId != null) tournaments =  tournaments.Where(t => t.Players.Any(p => p.Id == playerId)).ToArray();
 
-            if (tournament.Length == 0) return new NotFoundResult();
+            if (skip > 0) tournaments = tournaments.Skip(skip).ToArray();
 
-            return playerTournaments;
+            if (limit > 0) tournaments = tournaments.Take(limit).ToArray();
+
+            // if no tournaments, return empty array
+            if (tournaments is null || !tournaments.Any()) return new Tournament[] { };
+
+            return tournaments;
         }
-        */
 
         // Create Tournament
         [HttpPost]
