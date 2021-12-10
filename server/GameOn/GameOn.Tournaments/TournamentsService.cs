@@ -6,7 +6,6 @@ using GameOn.Models;
 using GameOn.Tournaments.Calculators;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;

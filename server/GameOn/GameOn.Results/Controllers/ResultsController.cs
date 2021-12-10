@@ -28,16 +28,6 @@ namespace GameOn.Results.Controllers
             _log = log;
             _results = service;
         }
-        /*
-        [HttpGet("{tournament_id}")]
-        public async Task<ActionResult<IEnumerable<MatchResult>>> Get(string tournamentId,)
-        {
-            var results = await _results.GetResults(User.GetTenantId(), tournamentId);
-
-            if (results is null) return new NotFoundResult();
-
-            return results;
-        }*/
         
         [Topic(GameOnNames.PubSubName, GameOnTopicNames.NewMatchResult)]
         [HttpPost]
@@ -56,7 +46,7 @@ namespace GameOn.Results.Controllers
             {
                 return new CreatedResult(
                     $"{Request.GetEncodedUrl()}",
-                    await _results.Create(User.GetTenantId(), result));
+                    await _results.Create(tenantId, result));
             }
             catch (ConflictException ex)
             {
@@ -66,22 +56,33 @@ namespace GameOn.Results.Controllers
             
         }
 
-
+        [Authorize] //TODO check if valid
         [HttpGet("{tournamentId}")]
         public async Task<ActionResult<IEnumerable<MatchResult>>> GetTournamentResults(
             [FromRoute] string tournamentId,
+            [FromQuery] int skip = 0,
+            [FromQuery] int limit = 20,
             [FromQuery] string playerId = null)
         {
+            // validate queries
+            if (limit <= 0 || limit > 50) limit = 20;
+            if (skip <= 0) skip = 0;
+
             // Get all results in tournament
             var results = await _results.GetResults(User.GetTenantId(), tournamentId);
             
             // Get tournament results with player
-            var playerResults = results.Where(r => 
+
+            if (playerId != null) results = results.Where(r =>
                 r.Player1Id == playerId || r.Player2Id == playerId).ToArray();
-            
-            if (playerResults.Length == 0) return new NotFoundResult();
-            
-            return playerResults;
+
+            if (skip > 0) results = results.Skip(skip).ToArray();
+
+            if (limit > 0) results = results.Take(limit).ToArray();
+
+            if (results is null || !results.Any()) return new MatchResult[] { };
+
+            return results;
         }
 
         [HttpGet("{tournamentId}/results/{resultId}")]

@@ -68,9 +68,8 @@ PUT /users
 | 🔴 | `PUT` |`/tournaments/{id}`   | Updates a specific tournament in the user's tenant by ID. |
 | ✅ | `DELETE` |`/tournaments/{id}`   | Ends or deletes a specific tournament in the user's tenant by ID. |
 
-> ⚠️ Query Parameters Are Not Yet Implemented
-> `GET /tournaments?skip=0&limit=20`
-> `GET /tournaments?playerId={player_id}`
+> ⚠️ Query Parameters available
+> `GET /tournaments?skip=0&limit=20&playerId={player_id}`
 
 ### Tournament Model
 
@@ -141,9 +140,9 @@ Authorization: Bearer {{accessToken}}
 | Status | Method | Endpoint | Description  |
 |:----:|:----:|:-----|:--------|
 | ✅ |`POST` |`tournaments/{tournament_id}/results`   | Submits a new score for a given tournament ID. |
-| 🔴 |`GET` |`/results/{tournament_id}`   | Retrieves all scores for a given tournament ID. |
-| 🔴 | `GET` | `/results/{tournament_id}[?playerId={playerId}]` | Get all results for a Tournament with optional `playerId` filter |
-| 🔴 | `GET` | `/results/{tournament_id}/results/{result_id}` | Get a result |
+| ✅ |`GET` |`/results/{tournament_id}`   | Retrieves all scores for a given tournament ID. |
+| ✅ | `GET` | `/results/{tournament_id}[?playerId={playerId}]` | Get all results for a Tournament with optional `playerId` filter |
+| ✅ | `GET` | `/results/{tournament_id}/results/{result_id}` | Get a result |
 
 ```javascript
 // Model

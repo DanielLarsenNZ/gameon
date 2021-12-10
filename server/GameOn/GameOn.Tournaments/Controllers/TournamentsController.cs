@@ -40,13 +40,18 @@ namespace GameOn.Tournaments.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tournament>>> Get(
             [FromQuery] int skip = 0,
-            [FromQuery] int limit = 0,
+            [FromQuery] int limit = 20,
             [FromQuery] string playerId = null)
         {
+            // validate queries
+            if (limit <= 0 || limit > 50) limit = 20;
+            if (skip <= 0) skip = 0;
+
             var tournaments = await _tournaments.GetAll(User.GetTenantId());
             
             // filter by playerId if present
-            if (playerId != null) tournaments =  tournaments.Where(t => t.Players.Any(p => p.Id == playerId)).ToArray();
+            if (playerId != null) tournaments =  tournaments.Where(t => 
+                t.Players.Any(p => p.Id == playerId)).ToArray();
 
             if (skip > 0) tournaments = tournaments.Skip(skip).ToArray();
 
