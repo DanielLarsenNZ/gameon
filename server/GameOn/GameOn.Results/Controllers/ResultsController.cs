@@ -30,7 +30,7 @@ namespace GameOn.Results.Controllers
         }
         /*
         [HttpGet("{tournament_id}")]
-        public async Task<ActionResult<IEnumerable<MatchResult>>> Get(string tournamentId)
+        public async Task<ActionResult<IEnumerable<MatchResult>>> Get(string tournamentId,)
         {
             var results = await _results.GetResults(User.GetTenantId(), tournamentId);
 
@@ -43,9 +43,15 @@ namespace GameOn.Results.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(MatchResult result)
         {
+            // Generate Id if not provided
+            if (string.IsNullOrEmpty(result.Id)) result.Id = Guid.NewGuid().ToString("N");
+
             // assume auth'd to get to endpoint
             string tenantId = User.GetTenantId();
-            
+
+            if (tenantId == null) tenantId = result.tenantId;
+
+            Console.WriteLine($">> Result: {result}");
             try
             {
                 return new CreatedResult(
@@ -64,7 +70,7 @@ namespace GameOn.Results.Controllers
         [HttpGet("{tournamentId}")]
         public async Task<ActionResult<IEnumerable<MatchResult>>> GetTournamentResults(
             [FromRoute] string tournamentId,
-            [FromQuery] string playerId)
+            [FromQuery] string playerId = null)
         {
             // Get all results in tournament
             var results = await _results.GetResults(User.GetTenantId(), tournamentId);

@@ -13,6 +13,8 @@ namespace GameOn.Models
 
         public string Comment { get; set; }
 
+        public string tenantId { get; set; }
+
         public DateTimeOffset? CreatedAt { get; set; }
 
         public string TournamentId { get; set; }
