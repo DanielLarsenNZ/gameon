@@ -50,6 +50,29 @@ VS Code will prompt to select the process to attach to.
 
 You can debug mutiple processes at one. Repeat these steps for each process.
 
+## Clearing local storage and messages
+
+By default the local dev environment uses a local Redis instance for storage and messaging. You can purge the entire Redis DB using `redis-cli`.
+
+First install `redis-cli` on Ubuntu in WSL2:
+
+    sudo apt-get update
+    sudo apt-get install redis-tools
+
+Next list and then purge the keys
+
+    # Start redis-cli
+    $ redis-cli
+    
+    # List all of the keys in the DB
+    127.0.0.1:6379> KEYS *
+
+    # Delete all of the keys and values in the current DB
+    127.0.0.1:6379> FLUSHDB
+
+    # Verify that the keys have been deleted
+    127.0.0.1:6379> KEYS *
+
 ## Creating a new Service
 
 Each service is a new Visual Studio ASP.NET Core project. It is easiest to create new services in Visual Studio (Community, Developer or Enterprise).
