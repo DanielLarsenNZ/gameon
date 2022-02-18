@@ -41,7 +41,10 @@ namespace GameOn.Results.Controllers
 
             if (tenantId == null) tenantId = result.tenantId;
 
+            result.EnforceInvariants();
+
             Console.WriteLine($">> Result: {result}");
+
             try
             {
                 return new CreatedResult(
@@ -90,9 +93,17 @@ namespace GameOn.Results.Controllers
             [FromRoute] string tournamentId,
             [FromRoute] string resultId)
         {
-            var result = await _results.GetResult(User.GetTenantId(),resultId);
-
-            return result;
+            try
+            {
+                var result = await _results.GetResult(User.GetTenantId(), resultId);
+                return result;
+            }
+            catch (NotFoundException ex)
+            {
+                // log Not Found Exception and return 404
+                _log.LogError(ex, ex.Message);
+                return NotFound(ex.Message);
+            }
         }
     }
 }

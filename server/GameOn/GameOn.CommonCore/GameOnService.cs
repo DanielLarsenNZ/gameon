@@ -52,7 +52,7 @@ namespace GameOn.Common
             return entity;
         }
 
-        public async Task<T> Delete(string tenantId, T entity)
+        public async Task Delete(string tenantId, T entity)
         {
             // Get Tournament Entry
             var entry = await GetStateEntry(tenantId);
@@ -68,8 +68,6 @@ namespace GameOn.Common
                 throw new NotFoundException($"{nameof(T)} Id {entity.Id} is not found");
             
             await DeleteAndSaveEntry(entry, entity);
-
-            return entity;
         }
 
         public async Task<T> Get(string tenantId, string id)

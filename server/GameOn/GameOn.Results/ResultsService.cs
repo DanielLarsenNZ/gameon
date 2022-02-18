@@ -39,7 +39,7 @@ namespace GameOn.Results
             
             if (result != null)
                 return result;
-            throw new NotFoundException("Result null"); //todo
+            throw new NotFoundException("Match Result not found"); 
         }
 
         internal async Task<ActionResult> Delete(string tenantId, string resultId)
