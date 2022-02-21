@@ -1,7 +1,7 @@
 // Get an access token from: https://gameon.nz/developer
 
-@accessToken=eyJ0eX...
-@tournamentId=f0f77...
+@accessToken=eyJ0eXA...
+@tournamentId=eb7ff3...
 
 ### GET User
 GET http://localhost:5001/me
@@ -30,10 +30,26 @@ Authorization: Bearer {{accessToken}}
     "playingFor": "PlayingFor1"    
 } 
 
+### PUT Tournaments
+PUT http://localhost:5000/tournaments/{{tournamentId}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "name": "Name2",
+    "description": "Description2",
+    "location": "Location2",
+    "playingFor": "PlayingFor2"    
+} 
+
 ### GET Tournaments LOCAL
 GET http://localhost:5000/tournaments
 Authorization: Bearer {{accessToken}}
 
+### DELETE Tournamnents LOCAL
+
+DELETE http://localhost:5000/tournaments/{{tournamentId}}
+Authorization: Bearer {{accessToken}}
 
 ### GET Tournament LOCAL
 GET http://localhost:5000/tournaments/{{tournamentId}}
@@ -69,3 +85,7 @@ Authorization: Bearer {{accessToken}}
     "player2Id": "6411AC...",
     "winnerId": "6411AC..."
 }
+
+### GET Results for tournament 
+GET http://localhost:5002/results/{{tournamentId}}?playerId=123
+Authorization: Bearer {{accessToken}}

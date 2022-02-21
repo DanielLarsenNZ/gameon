@@ -32,6 +32,8 @@ namespace GameOn.Tournaments.Controllers
             [FromBody] MatchResult result)
         {
             string tenantId = User.GetTenantId();
+            result.Id = Guid.NewGuid().ToString("N");
+            result.TenantId = tenantId;
 
             // v2
 
@@ -48,7 +50,10 @@ namespace GameOn.Tournaments.Controllers
 
                 // 2. Recalulate Rankings for all players in the Tournament
                 var tournament = await _tournaments.UpdatePlayerRankScores(tenantId, tournamentId, newScores);
-
+                
+                // 3. Add tournaments reference to MatchResult object
+                result.TournamentId = tournamentId;
+                
                 // 3. Message results topic
                 await _tournaments.PublishEvent(GameOnTopicNames.NewMatchResult, result);
                 

@@ -26,6 +26,9 @@ namespace GameOn.Results
             services.AddGameOnCors(Configuration);
             services.AddApplicationInsightsTelemetry();
 
+            // add service
+            services.AddTransient<ResultsService>();
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
             
