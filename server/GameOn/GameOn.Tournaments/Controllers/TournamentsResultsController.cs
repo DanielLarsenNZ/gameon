@@ -33,7 +33,7 @@ namespace GameOn.Tournaments.Controllers
         {
             string tenantId = User.GetTenantId();
             result.Id = Guid.NewGuid().ToString("N");
-            result.tenantId = tenantId;
+            result.TenantId = tenantId;
 
             // v2
 

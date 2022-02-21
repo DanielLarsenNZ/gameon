@@ -39,7 +39,7 @@ namespace GameOn.Results.Controllers
             // assume auth'd to get to endpoint
             string tenantId = User.GetTenantId();
 
-            if (tenantId == null) tenantId = result.tenantId;
+            if (tenantId == null) tenantId = result.TenantId;
 
             result.EnforceInvariants();
 
