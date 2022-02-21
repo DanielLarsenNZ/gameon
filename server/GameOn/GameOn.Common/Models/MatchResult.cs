@@ -13,7 +13,7 @@ namespace GameOn.Models
 
         public string Comment { get; set; }
 
-        public string tenantId { get; set; }
+        public string TenantId { get; set; }
 
         public DateTimeOffset? CreatedAt { get; set; }
 
