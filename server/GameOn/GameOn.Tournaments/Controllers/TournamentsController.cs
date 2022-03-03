@@ -27,16 +27,6 @@ namespace GameOn.Tournaments.Controllers
             _tournaments = service;
         }
 
-        // GET all tournaments
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tournament>>> Get()
-        {
-            var tournaments = await _tournaments.GetAll(User.GetTenantId());
-            // if no tournaments, return empty array
-            if (tournaments is null || !tournaments.Any()) return new Tournament[] { };
-            return tournaments;
-        }
-
         // Get tournament
         [HttpGet("{tournamentId}")]
         public async Task<ActionResult<Tournament>> Get(string tournamentId)
@@ -44,6 +34,33 @@ namespace GameOn.Tournaments.Controllers
             var tournament = await _tournaments.Get(User.GetTenantId(), tournamentId);
             if (tournament is null) return new NotFoundResult();
             return tournament;
+        }
+
+        // GET all tournaments with queries
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Tournament>>> Get(
+            [FromQuery] int skip = 0,
+            [FromQuery] int limit = 20,
+            [FromQuery] string playerId = null)
+        {
+            // validate queries
+            if (limit <= 0 || limit > 50) limit = 20;
+            if (skip <= 0) skip = 0;
+
+            var tournaments = await _tournaments.GetAll(User.GetTenantId());
+            
+            // filter by playerId if present
+            if (playerId != null) tournaments =  tournaments.Where(t => 
+                t.Players.Any(p => p.Id == playerId)).ToArray();
+
+            if (skip > 0) tournaments = tournaments.Skip(skip).ToArray();
+
+            if (limit > 0) tournaments = tournaments.Take(limit).ToArray();
+
+            // if no tournaments, return empty array
+            if (tournaments is null || !tournaments.Any()) return new Tournament[] { };
+
+            return tournaments;
         }
 
         // Create Tournament
@@ -90,5 +107,43 @@ namespace GameOn.Tournaments.Controllers
 
             return new CreatedResult($"{Request.GetEncodedUrl()}/{tournament.Id}", tournament);
         }
+
+        /*
+        [HttpPut("{tournamentId}")]
+        public async Task<ActionResult<Tournament>> Put(Tournament tournament)
+        {
+            string tenantId = User.GetTenantId();
+
+            try
+            {
+                await _tournaments.UpdateTournament(tenantId, tournament);
+            }
+            catch (NotFoundException)
+            {
+                return new NotFoundResult();
+            }
+
+            return new OkResult();
+
+        } */
+
+        [HttpDelete("{tournamentId}")]
+        public async Task<ActionResult<Tournament>> Delete(string tournamentId)
+        {
+            string tenantId = User.GetTenantId();
+
+            try
+            {
+                var tournament = await _tournaments.Get(tenantId, tournamentId);
+                await _tournaments.Delete(tenantId, tournament);
+            }
+            catch (NotFoundException)
+            {
+                return new NotFoundResult();
+            }
+            
+            return new OkResult();
+        }
+
     }
 }

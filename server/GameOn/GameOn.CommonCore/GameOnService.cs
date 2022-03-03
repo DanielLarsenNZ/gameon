@@ -52,6 +52,24 @@ namespace GameOn.Common
             return entity;
         }
 
+        public async Task Delete(string tenantId, T entity)
+        {
+            // Get Tournament Entry
+            var entry = await GetStateEntry(tenantId);
+            
+            // ensure entity is valid
+            entity.EnforceInvariants();
+
+            // Convert into List
+            var entities = ToList(entry);
+
+            // Try get Tournament 
+            if (!entities.Any(t => t.Id == entity.Id))
+                throw new NotFoundException($"{nameof(T)} Id {entity.Id} is not found");
+            
+            await DeleteAndSaveEntry(entry, entity);
+        }
+
         public async Task<T> Get(string tenantId, string id)
         {
             var entities = await GetAll(tenantId);
@@ -83,6 +101,22 @@ namespace GameOn.Common
 
             // Convert back to Array save Entry
             entry.Value = entities.ToArray();
+            await entry.SaveAsync();
+        }
+
+        public async Task DeleteAndSaveEntry(StateEntry<T[]> entry, T entity)
+        {
+            // Enforce Invariants
+            entity.EnforceInvariants();
+
+            var entities = ToList(entry);
+            
+            // TODO: Confirm not found handled external to service method
+            
+            // Remove the entity from entites
+            entities.RemoveAll(e => e.Id == entity.Id);
+            entry.Value = entities.ToArray();
+            
             await entry.SaveAsync();
         }
 
